@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Phone, Bot } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import insightCard1 from "@/assets/insight-card-1.jpg";
 import insightCard2 from "@/assets/insight-card-2.jpg";
@@ -47,13 +47,21 @@ const HeroSection = () => {
             Professional mental health services to help you manage stress, anxiety, and emotional challenges.
           </p>
 
-          <div className="animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
             <Button
               size="lg"
               className="bg-dove-teal text-primary-foreground hover:bg-dove-teal-light font-semibold text-base px-8 py-6 rounded-full"
             >
-              Consultation Now
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <Phone className="mr-2 h-5 w-5" />
+              Talk with a Consultant
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-accent text-accent hover:bg-accent/10 font-semibold text-base px-8 py-6 rounded-full"
+            >
+              <Bot className="mr-2 h-5 w-5" />
+              Chat with Dove AI
             </Button>
           </div>
         </div>

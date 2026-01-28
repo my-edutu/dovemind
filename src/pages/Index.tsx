@@ -11,6 +11,7 @@ import DovesMindAI from "@/components/landing/DovesMindAI";
 import TrustSection from "@/components/landing/TrustSection";
 import ContactForm from "@/components/landing/ContactForm";
 import Footer from "@/components/landing/Footer";
+import ChatbotWidget from "@/components/landing/ChatbotWidget";
 
 const Index = () => {
   return (
@@ -30,6 +31,7 @@ const Index = () => {
         <ContactForm />
       </main>
       <Footer />
+      <ChatbotWidget />
     </div>
   );
 };
