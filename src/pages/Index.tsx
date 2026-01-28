@@ -12,27 +12,30 @@ import TrustSection from "@/components/landing/TrustSection";
 import ContactForm from "@/components/landing/ContactForm";
 import Footer from "@/components/landing/Footer";
 import ChatbotWidget from "@/components/landing/ChatbotWidget";
+import { ChatbotProvider } from "@/contexts/ChatbotContext";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
-        <HeroSection />
-        <WhyMatters />
-        <VideoSection />
-        <PersonalizedServices />
-        <Statistics />
-        <ServicesOverview />
-        <TrainingPrograms />
-        <DovesMindAI />
-        <TeamSection />
-        <TrustSection />
-        <ContactForm />
-      </main>
-      <Footer />
-      <ChatbotWidget />
-    </div>
+    <ChatbotProvider>
+      <div className="min-h-screen">
+        <Header />
+        <main>
+          <HeroSection />
+          <WhyMatters />
+          <VideoSection />
+          <PersonalizedServices />
+          <Statistics />
+          <ServicesOverview />
+          <TrainingPrograms />
+          <DovesMindAI />
+          <TeamSection />
+          <TrustSection />
+          <ContactForm />
+        </main>
+        <Footer />
+        <ChatbotWidget />
+      </div>
+    </ChatbotProvider>
   );
 };
 

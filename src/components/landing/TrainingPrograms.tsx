@@ -29,6 +29,13 @@ const programs = [
   },
 ];
 
+const scrollToContact = () => {
+  const contactSection = document.getElementById("contact");
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
 const TrainingPrograms = () => {
   return (
     <section id="training" className="section-padding bg-dove-teal text-primary-foreground relative overflow-hidden">
@@ -111,6 +118,7 @@ const TrainingPrograms = () => {
             <Button
               size="lg"
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 py-6 rounded-xl"
+              onClick={scrollToContact}
             >
               Request Training Program
               <ArrowRight className="ml-2 h-5 w-5" />

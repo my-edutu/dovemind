@@ -7,6 +7,13 @@ import consultationImg from "@/assets/service-consultation.jpg";
 import rehabilitationImg from "@/assets/service-rehabilitation.jpg";
 import trainingImg from "@/assets/service-training.jpg";
 
+const scrollToContact = () => {
+  const contactSection = document.getElementById("contact");
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
 const ServicesOverview = () => {
   const isMobile = useIsMobile();
   
@@ -219,6 +226,7 @@ const ServicesOverview = () => {
             <Button
               size="lg"
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 py-6 rounded-xl shadow-lg"
+              onClick={scrollToContact}
             >
               <MessageCircle className="mr-2 h-5 w-5" />
               Talk to a Psychologist
