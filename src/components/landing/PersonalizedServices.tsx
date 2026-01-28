@@ -28,19 +28,8 @@ const PersonalizedServices = () => {
           Services for a Better You
         </h2>
         
-        <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 text-primary-foreground/80 text-sm mb-3">
-          <p className="flex items-center justify-center gap-2">
-            <span className="text-accent">✦</span>
-            Struggling with stress, anxiety, or emotional challenges?
-          </p>
-          <p className="flex items-center justify-center gap-2">
-            <span className="text-accent">✦</span>
-            Our certified professionals are here to help!
-          </p>
-        </div>
-        
-        <p className="text-primary-foreground/60 text-sm mb-8">
-          Schedule your consultation now and take the first step towards a healthier mind.
+        <p className="text-primary-foreground/80 text-sm max-w-2xl mx-auto mb-8">
+          <span className="text-accent">✦</span> Struggling with stress, anxiety, or emotional challenges? Our certified professionals are here to help! Schedule your consultation now and take the first step towards a healthier mind.
         </p>
 
         <Button

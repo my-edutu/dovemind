@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import insightCard1 from "@/assets/insight-card-1.jpg";
 import insightCard2 from "@/assets/insight-card-2.jpg";
 import insightCard3 from "@/assets/insight-card-3.jpg";
@@ -15,6 +16,11 @@ const cards = [
 ];
 
 const HeroSection = () => {
+  const isMobile = useIsMobile();
+  
+  // Duplicate cards for infinite loop on mobile
+  const loopCards = isMobile ? [...cards, ...cards] : cards;
+  
   return (
     <section className="relative min-h-screen bg-background overflow-hidden pt-20">
       {/* Decorative background elements */}
@@ -46,19 +52,20 @@ const HeroSection = () => {
         </div>
 
         {/* Tilted Cards Section */}
-        <div className="relative mt-8 mb-16 animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
-          <div className="flex justify-center items-end gap-4 md:gap-6 px-4">
-            {cards.map((card, index) => {
+        <div className="relative mt-8 mb-16 animate-fade-in-up overflow-hidden" style={{ animationDelay: "0.6s" }}>
+          <div className={`flex items-end gap-4 md:gap-6 px-4 ${isMobile ? 'animate-marquee w-max' : 'justify-center'}`}>
+            {loopCards.map((card, index) => {
               // Create varying rotations and vertical offsets for organic look
               const rotations = [-12, -6, 0, 6, 12];
               const offsets = [20, 10, 0, 10, 20];
+              const cardIndex = index % 5;
               
               return (
                 <div
                   key={index}
                   className="relative flex-shrink-0 group cursor-pointer transition-all duration-300 hover:z-10"
                   style={{
-                    transform: `rotate(${rotations[index]}deg) translateY(${offsets[index]}px)`,
+                    transform: `rotate(${rotations[cardIndex]}deg) translateY(${offsets[cardIndex]}px)`,
                   }}
                 >
                   <div className="relative w-32 sm:w-40 md:w-48 rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300">
@@ -79,17 +86,6 @@ const HeroSection = () => {
                 </div>
               );
             })}
-          </div>
-
-          {/* Watch The Video Button */}
-          <div className="flex justify-center mt-8">
-            <Button
-              variant="outline"
-              className="bg-dove-teal text-primary-foreground hover:bg-dove-teal-light border-none font-semibold rounded-full px-6 py-5"
-            >
-              <Play className="mr-2 h-4 w-4 fill-current" />
-              Watch The Video
-            </Button>
           </div>
         </div>
       </div>

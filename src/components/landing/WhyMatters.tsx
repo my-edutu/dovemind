@@ -79,13 +79,6 @@ const WhyMatters = () => {
           })}
         </div>
 
-        {/* Center visual element */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-dove-teal text-primary-foreground">
-            <div className="h-3 w-3 rounded-full bg-accent animate-pulse" />
-            <span className="font-medium">DovesMind Synergy — Professional Care You Can Trust</span>
-          </div>
-        </div>
       </div>
     </section>
   );
