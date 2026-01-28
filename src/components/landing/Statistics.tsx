@@ -1,12 +1,24 @@
 const stats = [
-  { label: "of Individuals" },
-  { label: "1 in 3 Individuals" },
   { 
-    label: "Increase", 
-    description: "in productivity is commonly observed among individuals who actively participate in mental health programs, demonstrating the positive effects on work performance."
+    label: "1 in 4 Adults", 
+    description: "globally will be affected by mental or neurological disorders at some point in their lives."
   },
-  { label: "In 10 Adults" },
-  { label: "of People" },
+  { 
+    label: "275 Million People", 
+    description: "worldwide suffer from drug use disorders, with numbers rising annually."
+  },
+  { 
+    label: "Early Intervention", 
+    description: "can reduce substance abuse relapse rates by up to 50%, highlighting the importance of timely support."
+  },
+  { 
+    label: "14.5% of Nigerians", 
+    description: "between ages 15-64 have used drugs in the past year according to UNODC reports."
+  },
+  { 
+    label: "Only 10%", 
+    description: "of people with substance use disorders receive any form of treatment globally."
+  },
 ];
 
 const Statistics = () => {
@@ -17,8 +29,8 @@ const Statistics = () => {
           {/* Left side - Title and stats list */}
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-10 leading-tight">
-              The Impact of Mental<br />
-              Health for People
+              The Reality of Drug<br />
+              Abuse & Mental Health
             </h2>
             
             <div className="space-y-0">
@@ -44,40 +56,40 @@ const Statistics = () => {
           {/* Right side - Description and stat cards */}
           <div>
             <p className="text-muted-foreground mb-10 leading-relaxed">
-              This section presents key statistics illustrating how mental health 
-              profoundly influences individuals' quality of life, productivity, and 
-              relationships, emphasizing the critical need for professional support.
+              These statistics reveal the urgent need for substance abuse prevention 
+              and mental health support. When communities come together, we can identify 
+              those at risk and provide life-changing intervention.
             </p>
 
             {/* Stats grid */}
             <div className="grid grid-cols-3 gap-3">
               {/* First row */}
               <div className="bg-secondary rounded-2xl p-5 text-center">
-                <p className="text-2xl md:text-3xl font-bold text-accent">75%</p>
-                <p className="text-xs text-muted-foreground mt-1">of Individuals</p>
+                <p className="text-2xl md:text-3xl font-bold text-accent">1 in 4</p>
+                <p className="text-xs text-muted-foreground mt-1">Adults Affected</p>
               </div>
               <div className="bg-secondary rounded-2xl p-5 text-center col-span-2">
                 <p className="text-xl md:text-2xl font-bold text-foreground">
-                  1 <span className="text-base font-normal text-muted-foreground">in 3</span> Individuals
+                  275M <span className="text-base font-normal text-muted-foreground">Suffer Drug Disorders</span>
                 </p>
               </div>
 
               {/* Second row - highlight card */}
               <div className="bg-accent rounded-2xl p-5 text-center col-span-3">
                 <p className="text-2xl md:text-3xl font-bold text-accent-foreground">
-                  20% <span className="text-base font-normal">Increase</span>
+                  50% <span className="text-base font-normal">Relapse Reduction with Early Help</span>
                 </p>
               </div>
 
               {/* Third row */}
               <div className="bg-secondary rounded-2xl p-5 text-center col-span-2">
                 <p className="text-xl md:text-2xl font-bold text-foreground">
-                  4 <span className="text-base font-normal text-muted-foreground">in 10 Adults</span>
+                  14.5% <span className="text-base font-normal text-muted-foreground">of Nigerians Use Drugs</span>
                 </p>
               </div>
               <div className="bg-secondary rounded-2xl p-5 text-center">
-                <p className="text-2xl md:text-3xl font-bold text-accent">60%</p>
-                <p className="text-xs text-muted-foreground mt-1">of People</p>
+                <p className="text-2xl md:text-3xl font-bold text-accent">90%</p>
+                <p className="text-xs text-muted-foreground mt-1">Untreated</p>
               </div>
             </div>
           </div>
