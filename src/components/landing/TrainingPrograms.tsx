@@ -53,9 +53,6 @@ const TrainingPrograms = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <span className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-3">
-            Prevention & Education
-          </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Training Programs
           </h2>
