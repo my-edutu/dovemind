@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Linkedin, Mail } from "lucide-react";
 
 const team = [
@@ -32,7 +33,13 @@ const TeamSection = () => {
     <section id="team" className="section-padding bg-background">
       <div className="container-narrow">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+        >
           <span className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-3">
             Meet Our Experts
           </span>
@@ -43,31 +50,51 @@ const TeamSection = () => {
             Certified professionals dedicated to providing compassionate, ethical, 
             and confidential psychological support to individuals and communities.
           </p>
-        </div>
+        </motion.div>
 
         {/* Team grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((member, index) => (
-            <div
+            <motion.div
               key={index}
-              className="bg-card rounded-2xl border border-border overflow-hidden group hover:shadow-lg transition-shadow"
+              className="bg-card rounded-2xl border border-border overflow-hidden group"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
             >
               {/* Image placeholder */}
               <div className="aspect-square bg-secondary relative overflow-hidden">
-                <img 
+                <motion.img 
                   src={member.image} 
                   alt={member.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.4 }}
                 />
                 {/* Overlay with social links */}
-                <div className="absolute inset-0 bg-dove-teal/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                  <button className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                <motion.div 
+                  className="absolute inset-0 bg-dove-teal/80 flex items-center justify-center gap-4"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.button 
+                    className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
                     <Linkedin className="h-5 w-5 text-white" />
-                  </button>
-                  <button className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                  </motion.button>
+                  <motion.button 
+                    className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
                     <Mail className="h-5 w-5 text-white" />
-                  </button>
-                </div>
+                  </motion.button>
+                </motion.div>
               </div>
               
               {/* Info */}
@@ -80,7 +107,7 @@ const TeamSection = () => {
                   {member.bio}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
