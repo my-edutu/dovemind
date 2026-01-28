@@ -1,23 +1,35 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 const stats = [
   { 
     label: "1 in 4 Adults", 
-    description: "globally will be affected by mental or neurological disorders at some point in their lives."
+    description: "Globally will be affected by mental or neurological disorders at some point in their lives. This statistic from the World Health Organization highlights the universal nature of mental health challenges—no family, community, or nation is immune.",
+    source: "World Health Organization (WHO)"
   },
   { 
     label: "275 Million People", 
-    description: "worldwide suffer from drug use disorders, with numbers rising annually."
+    description: "Worldwide suffer from drug use disorders, with numbers rising annually. Substance abuse doesn't discriminate—it affects people of all ages, backgrounds, and socioeconomic status. Early intervention and community support are critical to reversing this trend.",
+    source: "United Nations Office on Drugs and Crime (UNODC)"
   },
   { 
     label: "Early Intervention", 
-    description: "can reduce substance abuse relapse rates by up to 50%, highlighting the importance of timely support."
+    description: "Can reduce substance abuse relapse rates by up to 50%. Studies consistently show that individuals who receive timely psychological support and professional guidance have significantly better long-term recovery outcomes.",
+    source: "National Institute on Drug Abuse"
   },
   { 
     label: "14.5% of Nigerians", 
-    description: "between ages 15-64 have used drugs in the past year according to UNODC reports."
+    description: "Between ages 15-64 have used drugs in the past year according to UNODC reports. This means approximately 1 in 7 Nigerian adults has been exposed to substance use, making prevention programs crucial for our communities.",
+    source: "UNODC Nigeria Drug Use Survey"
   },
   { 
     label: "Only 10%", 
-    description: "of people with substance use disorders receive any form of treatment globally."
+    description: "Of people with substance use disorders receive any form of treatment globally. This treatment gap represents millions of individuals and families who need support but cannot access it. DovesMind Synergy is working to close this gap in Nigeria.",
+    source: "World Drug Report 2023"
   },
 ];
 
@@ -26,31 +38,28 @@ const Statistics = () => {
     <section className="section-padding bg-background">
       <div className="container-narrow">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left side - Title and stats list */}
+          {/* Left side - Title and FAQ stats */}
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-10 leading-tight">
               The Reality of Drug<br />
               Abuse & Mental Health
             </h2>
             
-            <div className="space-y-0">
+            <Accordion type="single" collapsible className="w-full">
               {stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className="flex items-start justify-between py-4 border-b border-border group cursor-pointer hover:border-accent transition-colors"
-                >
-                  <div className="flex-1">
-                    <p className="font-medium text-foreground">{stat.label}</p>
-                    {stat.description && (
-                      <p className="text-sm text-muted-foreground mt-1 max-w-sm leading-relaxed">
-                        {stat.description}
-                      </p>
-                    )}
-                  </div>
-                  <span className="text-muted-foreground group-hover:text-accent transition-colors ml-4 mt-1">›</span>
-                </div>
+                <AccordionItem key={index} value={`item-${index}`} className="border-border">
+                  <AccordionTrigger className="text-left hover:no-underline py-4 group">
+                    <span className="font-medium text-foreground group-hover:text-accent transition-colors">
+                      {stat.label}
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-4">
+                    <p className="leading-relaxed mb-2">{stat.description}</p>
+                    <p className="text-xs text-accent">Source: {stat.source}</p>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
 
           {/* Right side - Description and stat cards */}
@@ -92,21 +101,6 @@ const Statistics = () => {
                 <p className="text-xs text-muted-foreground mt-1">Untreated</p>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Brand logos */}
-        <div className="mt-16 pt-8 border-t border-border">
-          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-muted-foreground/50">
-            <span className="font-medium text-sm">◆ Dmarket</span>
-            <span className="font-medium text-sm">M MasterControl</span>
-            <span className="font-medium text-sm">Wimo</span>
-            <span className="font-medium text-sm">ESCROW.COM</span>
-            <span className="font-medium text-sm">TOSHIBA</span>
-            <span className="font-medium text-sm">✦ doroki</span>
-            <span className="font-medium text-sm">solarEDGE</span>
-            <span className="font-medium text-sm">○ Pebble</span>
-            <span className="font-medium text-sm">Komputronik</span>
           </div>
         </div>
       </div>

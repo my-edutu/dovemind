@@ -1,6 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Check, MessageCircle, Clock, Shield, Building, Users, GraduationCap } from "lucide-react";
+import { Check, MessageCircle } from "lucide-react";
+import consultationImg from "@/assets/service-consultation.jpg";
+import rehabilitationImg from "@/assets/service-rehabilitation.jpg";
+import trainingImg from "@/assets/service-training.jpg";
 
 const ServicesOverview = () => {
   return (
@@ -55,9 +58,9 @@ const ServicesOverview = () => {
                   </p>
                   <ul className="space-y-3">
                     {[
-                      "30-minute and 1-hour session options",
-                      "Confidential, paid online consultations",
+                      "Confidential online consultations",
                       "Certified and experienced psychologists",
+                      "Personalized coping strategies",
                       "Secure booking and payment",
                     ].map((item, i) => (
                       <li key={i} className="flex items-center gap-3 text-card-foreground">
@@ -67,12 +70,12 @@ const ServicesOverview = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="flex flex-col gap-4 items-center justify-center p-8 bg-secondary/50 rounded-xl">
-                  <Clock className="h-16 w-16 text-accent" />
-                  <div className="text-center">
-                    <p className="text-sm text-muted-foreground">Sessions starting from</p>
-                    <p className="text-2xl font-bold text-card-foreground">30 minutes</p>
-                  </div>
+                <div className="rounded-xl overflow-hidden">
+                  <img 
+                    src={consultationImg} 
+                    alt="Professional psychological consultation session" 
+                    className="w-full h-64 md:h-80 object-cover"
+                  />
                 </div>
               </div>
             </div>
@@ -103,12 +106,12 @@ const ServicesOverview = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="flex flex-col gap-4 items-center justify-center p-8 bg-secondary/50 rounded-xl">
-                  <Building className="h-16 w-16 text-accent" />
-                  <div className="text-center">
-                    <p className="text-sm text-muted-foreground">Network of</p>
-                    <p className="text-2xl font-bold text-card-foreground">Trusted Centers</p>
-                  </div>
+                <div className="rounded-xl overflow-hidden">
+                  <img 
+                    src={rehabilitationImg} 
+                    alt="Trusted rehabilitation center facility" 
+                    className="w-full h-64 md:h-80 object-cover"
+                  />
                 </div>
               </div>
             </div>
@@ -139,12 +142,12 @@ const ServicesOverview = () => {
                     ))}
                   </ul>
                 </div>
-                <div className="flex flex-col gap-4 items-center justify-center p-8 bg-secondary/50 rounded-xl">
-                  <GraduationCap className="h-16 w-16 text-accent" />
-                  <div className="text-center">
-                    <p className="text-sm text-muted-foreground">For</p>
-                    <p className="text-2xl font-bold text-card-foreground">All Institutions</p>
-                  </div>
+                <div className="rounded-xl overflow-hidden">
+                  <img 
+                    src={trainingImg} 
+                    alt="Drug abuse prevention training workshop" 
+                    className="w-full h-64 md:h-80 object-cover"
+                  />
                 </div>
               </div>
             </div>
