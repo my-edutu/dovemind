@@ -3,31 +3,32 @@ import { Phone, Bot } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useChatbot } from "@/contexts/ChatbotContext";
 import { motion } from "framer-motion";
-import insightCard1 from "@/assets/insight-card-1.jpg";
-import insightCard2 from "@/assets/insight-card-2.jpg";
-import insightCard3 from "@/assets/insight-card-3.jpg";
-import insightCard4 from "@/assets/insight-card-4.jpg";
-import insightCard5 from "@/assets/insight-card-5.jpg";
+import heroYouthSupport from "@/assets/hero-youth-support.jpg";
+import heroRecoveryHope from "@/assets/hero-recovery-hope.jpg";
+import heroQuitDrugs from "@/assets/hero-quit-drugs.jpg";
+import heroReachHelp from "@/assets/hero-reach-help.jpg";
+import heroCounseling from "@/assets/hero-counseling.jpg";
+import heroAwareness from "@/assets/hero-awareness.jpg";
 
 const cards = [
-  { image: insightCard1, title: "Physical Activity Boosts Mental Health" },
-  { image: insightCard2, title: "Did You Know That Sleep Can Affect Mental Health?" },
-  { image: insightCard3, title: "How Common are Mental Health Issues?" },
-  { image: insightCard4, title: "Early Intervention Matters" },
-  { image: insightCard5, title: "Connection is Crucial" },
+  { image: heroYouthSupport, title: "Youth Support Groups Save Lives" },
+  { image: heroRecoveryHope, title: "Recovery is Possible" },
+  { image: heroQuitDrugs, title: "Break Free from Addiction" },
+  { image: heroReachHelp, title: "Reach Out for Help Today" },
+  { image: heroCounseling, title: "Professional Counseling Works" },
+  { image: heroAwareness, title: "Join the Awareness Movement" },
 ];
 
 const HeroSection = () => {
   const isMobile = useIsMobile();
   const { openChat } = useChatbot();
   
-  // Desktop: arc pattern, Mobile: straight line
-  const arcRotations = [-12, -8, -4, 0, 4, 8, 12, 8, 4, 0, -4, -8];
-  const arcOffsets = [24, 16, 8, 0, 8, 16, 24, 16, 8, 0, 8, 16];
+  // Desktop: arc pattern with rotation, Mobile: straight line
+  const arcRotations = [-10, -5, 0, 5, 10, 5, 0, -5, -10, -5, 0, 5];
+  const arcOffsets = [20, 10, 0, 10, 20, 10, 0, 10, 20, 10, 0, 10];
   
-  const loopCards = isMobile 
-    ? [...cards, ...cards, ...cards, ...cards] 
-    : cards;
+  // Duplicate cards for infinite loop effect on all devices
+  const loopCards = [...cards, ...cards, ...cards, ...cards];
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contact");
@@ -118,16 +119,15 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Tilted Cards Section */}
+      {/* Tilted Cards Section - Infinite Loop */}
       <motion.div 
-        className="relative z-20"
+        className="relative z-20 overflow-hidden"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7, duration: 0.8 }}
       >
-        <div className={`flex items-end ${isMobile ? 'animate-marquee w-max' : 'justify-center gap-4 md:gap-6 px-4'}`}>
+        <div className="flex items-end animate-marquee w-max">
           {loopCards.map((card, index) => {
-            // Mobile: straight line (no rotation/offset), Desktop: arc pattern
             const arcIndex = index % arcRotations.length;
             const rotation = isMobile ? 0 : arcRotations[arcIndex];
             const offset = isMobile ? 0 : arcOffsets[arcIndex];
@@ -135,7 +135,7 @@ const HeroSection = () => {
             return (
               <motion.div
                 key={index}
-                className={`relative flex-shrink-0 group cursor-pointer ${isMobile ? 'mx-2' : ''}`}
+                className="relative flex-shrink-0 mx-2 md:mx-3 group cursor-pointer"
                 style={{
                   transform: `rotate(${rotation}deg) translateY(${offset}px)`,
                 }}
