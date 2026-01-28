@@ -18,9 +18,6 @@ const ServicesOverview = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <span className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-3">
-            What We Offer
-          </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Our Services
           </h2>

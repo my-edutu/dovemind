@@ -46,15 +46,6 @@ const WhyMatters = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <motion.span 
-            className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-3"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Our Impact
-          </motion.span>
           <motion.h2 
             className="text-3xl md:text-4xl font-bold text-foreground mb-6"
             initial={{ opacity: 0, y: 20 }}
