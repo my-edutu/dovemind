@@ -16,7 +16,7 @@ const VideoSection = () => {
           <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/IDYLKGTVa4g?si=EW5laufLdSKrRgbz&start=75"
+              src="https://www.youtube.com/embed/IDYLKGTVa4g?start=74"
               title="The Dangers and Regrets of Drug Addicts"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
