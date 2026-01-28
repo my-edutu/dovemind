@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Bot, MessageSquare, Shield, Clock, Sparkles, ArrowRight } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const features = [
   {
@@ -25,6 +26,8 @@ const features = [
 ];
 
 const DovesMindAI = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <section className="section-padding bg-gradient-to-br from-secondary via-secondary to-accent/10 relative overflow-hidden">
       {/* Decorative blobs */}
@@ -32,10 +35,10 @@ const DovesMindAI = () => {
       <div className="absolute bottom-10 left-10 w-48 h-48 bg-dove-teal/10 rounded-full blur-3xl" />
       
       <div className="container-narrow relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
-          <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-medium mb-6">
+        <div className={`${isMobile ? '' : 'grid lg:grid-cols-2 gap-12'} items-center`}>
+          {/* Content */}
+          <div className={isMobile ? 'text-center' : ''}>
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/20 text-accent text-sm font-medium mb-6 ${isMobile ? 'mx-auto' : ''}`}>
               <Bot className="h-4 w-4" />
               Coming Soon
             </div>
@@ -51,7 +54,7 @@ const DovesMindAI = () => {
               inform, and connect you with professional help when needed.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className={`grid grid-cols-2 gap-4 mb-8 ${isMobile ? 'text-left' : ''}`}>
               {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
@@ -70,66 +73,68 @@ const DovesMindAI = () => {
 
             <Button
               size="lg"
-              className="bg-dove-teal text-primary-foreground hover:bg-dove-teal/90 font-semibold text-base px-8 py-6 rounded-xl"
+              className={`bg-dove-teal text-primary-foreground hover:bg-dove-teal/90 font-semibold text-base px-8 py-6 rounded-xl ${isMobile ? 'w-full' : ''}`}
             >
               Get Early Access
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
 
-          {/* Right - Chat preview mockup */}
-          <div className="relative">
-            <div className="bg-card rounded-3xl border border-border shadow-2xl p-6 max-w-md mx-auto">
-              {/* Chat header */}
-              <div className="flex items-center gap-3 pb-4 border-b border-border mb-4">
-                <div className="w-12 h-12 rounded-full bg-dove-teal flex items-center justify-center">
-                  <Bot className="h-6 w-6 text-white" />
+          {/* Right - Chat preview mockup (hidden on mobile) */}
+          {!isMobile && (
+            <div className="relative">
+              <div className="bg-card rounded-3xl border border-border shadow-2xl p-6 max-w-md mx-auto">
+                {/* Chat header */}
+                <div className="flex items-center gap-3 pb-4 border-b border-border mb-4">
+                  <div className="w-12 h-12 rounded-full bg-dove-teal flex items-center justify-center">
+                    <Bot className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-card-foreground">DovesMind AI</p>
+                    <p className="text-xs text-accent flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                      Online
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-card-foreground">DovesMind AI</p>
-                  <p className="text-xs text-accent flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                    Online
-                  </p>
+
+                {/* Chat messages */}
+                <div className="space-y-4">
+                  <div className="bg-secondary rounded-2xl rounded-tl-sm p-4 max-w-[85%]">
+                    <p className="text-sm text-foreground">
+                      Hello! I'm here to help. You can ask me anything about substance abuse, 
+                      mental health resources, or coping strategies. How can I support you today?
+                    </p>
+                  </div>
+                  
+                  <div className="bg-dove-teal rounded-2xl rounded-tr-sm p-4 max-w-[85%] ml-auto">
+                    <p className="text-sm text-white">
+                      I'm worried about a family member's drinking habits...
+                    </p>
+                  </div>
+
+                  <div className="bg-secondary rounded-2xl rounded-tl-sm p-4 max-w-[85%]">
+                    <p className="text-sm text-foreground">
+                      I understand this is a difficult situation. It's great that you want to help. 
+                      Here are some resources for supporting a loved one, and I can connect you with 
+                      a professional counselor if you'd like to discuss this further...
+                    </p>
+                  </div>
+                </div>
+
+                {/* Input field mockup */}
+                <div className="mt-4 pt-4 border-t border-border">
+                  <div className="flex items-center gap-3 bg-secondary rounded-xl px-4 py-3">
+                    <MessageSquare className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">Type your message...</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Chat messages */}
-              <div className="space-y-4">
-                <div className="bg-secondary rounded-2xl rounded-tl-sm p-4 max-w-[85%]">
-                  <p className="text-sm text-foreground">
-                    Hello! I'm here to help. You can ask me anything about substance abuse, 
-                    mental health resources, or coping strategies. How can I support you today?
-                  </p>
-                </div>
-                
-                <div className="bg-dove-teal rounded-2xl rounded-tr-sm p-4 max-w-[85%] ml-auto">
-                  <p className="text-sm text-white">
-                    I'm worried about a family member's drinking habits...
-                  </p>
-                </div>
-
-                <div className="bg-secondary rounded-2xl rounded-tl-sm p-4 max-w-[85%]">
-                  <p className="text-sm text-foreground">
-                    I understand this is a difficult situation. It's great that you want to help. 
-                    Here are some resources for supporting a loved one, and I can connect you with 
-                    a professional counselor if you'd like to discuss this further...
-                  </p>
-                </div>
-              </div>
-
-              {/* Input field mockup */}
-              <div className="mt-4 pt-4 border-t border-border">
-                <div className="flex items-center gap-3 bg-secondary rounded-xl px-4 py-3">
-                  <MessageSquare className="h-5 w-5 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">Type your message...</span>
-                </div>
-              </div>
+              {/* Decorative elements */}
+              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/30 rounded-full blur-xl" />
             </div>
-
-            {/* Decorative elements */}
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/30 rounded-full blur-xl" />
-          </div>
+          )}
         </div>
       </div>
     </section>
