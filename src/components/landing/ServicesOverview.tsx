@@ -2,11 +2,14 @@ import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Check, MessageCircle } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import consultationImg from "@/assets/service-consultation.jpg";
 import rehabilitationImg from "@/assets/service-rehabilitation.jpg";
 import trainingImg from "@/assets/service-training.jpg";
 
 const ServicesOverview = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <section id="services" className="section-padding bg-secondary/50">
       <div className="container-narrow">
@@ -79,7 +82,7 @@ const ServicesOverview = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: i * 0.1 }}
                         >
-                          <Check className="h-5 w-5 text-accent flex-shrink-0" />
+                          {!isMobile && <Check className="h-5 w-5 text-accent flex-shrink-0" />}
                           <span>{item}</span>
                         </motion.li>
                       ))}
@@ -130,7 +133,7 @@ const ServicesOverview = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: i * 0.1 }}
                         >
-                          <Check className="h-5 w-5 text-accent flex-shrink-0" />
+                          {!isMobile && <Check className="h-5 w-5 text-accent flex-shrink-0" />}
                           <span>{item}</span>
                         </motion.li>
                       ))}
@@ -181,7 +184,7 @@ const ServicesOverview = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: i * 0.1 }}
                         >
-                          <Check className="h-5 w-5 text-accent flex-shrink-0" />
+                          {!isMobile && <Check className="h-5 w-5 text-accent flex-shrink-0" />}
                           <span>{item}</span>
                         </motion.li>
                       ))}
