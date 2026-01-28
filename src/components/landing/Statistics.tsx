@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Accordion,
@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Typewriter } from "@/components/ui/typewriter";
 
 const stats = [
   { 
@@ -129,7 +130,6 @@ const NumberRoller = ({ target, duration }: { target: number; duration: number }
   );
 };
 
-import { useState, useEffect } from "react";
 
 const InlineCounter = ({ target, duration }: { target: number; duration: number }) => {
   const [count, setCount] = useState(0);
@@ -172,8 +172,11 @@ const Statistics = () => {
             transition={{ duration: 0.7 }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-10 leading-tight">
-              The Reality of Drug<br />
-              Abuse & Mental Health
+              <Typewriter 
+                text="The Reality of Drug Abuse & Mental Health" 
+                speed={40}
+                className="inline"
+              />
             </h2>
             
             <Accordion type="single" collapsible className="w-full">
@@ -257,29 +260,32 @@ const Statistics = () => {
                 </p>
               </motion.div>
 
-              {/* Third row */}
+              {/* Third row - Nigerian Youth highlight */}
               <motion.div 
-                className="bg-secondary rounded-2xl p-5 text-center col-span-2"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                className="bg-dove-teal rounded-2xl p-6 text-center col-span-3"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.6 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
                 whileHover={{ scale: 1.02 }}
               >
-                <p className="text-xl md:text-2xl font-bold text-foreground">
-                  <InlineCounter target={14} duration={2} />.5% <span className="text-base font-normal text-muted-foreground">of Nigerian Youth</span>
+                <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+                  <InlineCounter target={14} duration={2} />.5% <span className="text-lg md:text-xl font-normal opacity-90">of Nigerian Youth Use Drugs</span>
                 </p>
+                <p className="text-sm text-white/70 mt-2">Ages 15-35 • UNODC Report</p>
               </motion.div>
+
+              {/* Fourth row */}
               <motion.div 
-                className="bg-secondary rounded-2xl p-5 text-center"
+                className="bg-secondary rounded-2xl p-5 text-center col-span-3"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.7 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
               >
                 <p className="text-2xl md:text-3xl font-bold text-accent"><InlineCounter target={90} duration={2.5} />%</p>
-                <p className="text-xs text-muted-foreground mt-1">Untreated</p>
+                <p className="text-sm text-muted-foreground mt-1">Go Untreated Globally</p>
               </motion.div>
             </div>
           </motion.div>
