@@ -18,11 +18,18 @@ const cards = [
 const HeroSection = () => {
   const isMobile = useIsMobile();
   
-  // Duplicate cards for infinite loop on mobile
-  const loopCards = isMobile ? [...cards, ...cards] : cards;
+  // Create a continuous arc pattern for smooth looping
+  // 8-step cycle: down -> up -> down for seamless repeat
+  const arcRotations = [-12, -8, -4, 0, 4, 8, 12, 8, 4, 0, -4, -8];
+  const arcOffsets = [24, 16, 8, 0, 8, 16, 24, 16, 8, 0, 8, 16];
+  
+  // Duplicate cards multiple times for infinite loop
+  const loopCards = isMobile 
+    ? [...cards, ...cards, ...cards, ...cards] 
+    : cards;
   
   return (
-    <section className="relative min-h-screen bg-background overflow-hidden pt-20">
+    <section className="relative bg-background pt-20 pb-0">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-1/3 left-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl -translate-x-1/2" />
@@ -50,51 +57,44 @@ const HeroSection = () => {
             </Button>
           </div>
         </div>
-
-        {/* Tilted Cards Section */}
-        <div className="relative mt-8 mb-16 animate-fade-in-up overflow-hidden" style={{ animationDelay: "0.6s" }}>
-          <div className={`flex items-end gap-4 md:gap-6 px-4 ${isMobile ? 'animate-marquee w-max' : 'justify-center'}`}>
-            {loopCards.map((card, index) => {
-              // Create varying rotations and vertical offsets for organic look
-              const rotations = [-12, -6, 0, 6, 12];
-              const offsets = [20, 10, 0, 10, 20];
-              const cardIndex = index % 5;
-              
-              return (
-                <div
-                  key={index}
-                  className="relative flex-shrink-0 group cursor-pointer transition-all duration-300 hover:z-10"
-                  style={{
-                    transform: `rotate(${rotations[cardIndex]}deg) translateY(${offsets[cardIndex]}px)`,
-                  }}
-                >
-                  <div className="relative w-32 sm:w-40 md:w-48 rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300">
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="w-full h-44 sm:h-52 md:h-64 object-cover"
-                    />
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    {/* Text overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
-                      <p className="text-white text-xs md:text-sm font-semibold leading-tight">
-                        {card.title}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </div>
 
-      {/* Wave divider at bottom */}
-      <div className="wave-divider wave-divider-bottom">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="fill-secondary">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" />
-        </svg>
+      {/* Tilted Cards Section - Full width, overlapping next section */}
+      <div className="relative z-20 animate-fade-in-up" style={{ animationDelay: "0.6s" }}>
+        <div className={`flex items-end ${isMobile ? 'animate-marquee w-max' : 'justify-center gap-4 md:gap-6 px-4'}`}>
+          {loopCards.map((card, index) => {
+            // Use continuous arc pattern
+            const arcIndex = index % arcRotations.length;
+            const rotation = arcRotations[arcIndex];
+            const offset = arcOffsets[arcIndex];
+            
+            return (
+              <div
+                key={index}
+                className={`relative flex-shrink-0 group cursor-pointer transition-all duration-300 hover:z-30 ${isMobile ? 'mx-2' : ''}`}
+                style={{
+                  transform: `rotate(${rotation}deg) translateY(${offset}px)`,
+                }}
+              >
+                <div className="relative w-32 sm:w-40 md:w-48 rounded-2xl overflow-hidden shadow-xl group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300">
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="w-full h-44 sm:h-52 md:h-64 object-cover"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  {/* Text overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                    <p className="text-white text-xs md:text-sm font-semibold leading-tight">
+                      {card.title}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

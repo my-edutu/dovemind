@@ -35,7 +35,7 @@ const benefits = [
 
 const WhyMatters = () => {
   return (
-    <section id="about" className="section-padding bg-secondary/50">
+    <section id="about" className="section-padding bg-secondary/50 pt-32 md:pt-40">
       <div className="container-narrow">
         {/* Section header */}
         <div className="text-center mb-16">
