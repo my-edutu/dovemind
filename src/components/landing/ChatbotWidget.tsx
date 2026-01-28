@@ -2,15 +2,46 @@ import { Button } from "@/components/ui/button";
 import { Bot, X, Send } from "lucide-react";
 import { useChatbot } from "@/contexts/ChatbotContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const ChatbotWidget = () => {
-  const { isOpen, toggleChat, closeChat } = useChatbot();
+  const { isOpen, openChat, closeChat } = useChatbot();
+  const [showButton, setShowButton] = useState(false);
 
-  // Always show the button (visible immediately or after scroll based on preference)
-  // For now, always visible since it can be opened from hero
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button after scrolling past ~400px (hero section height)
+      setShowButton(window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Check initial position
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
+      {/* Floating Chat Button */}
+      <AnimatePresence>
+        {showButton && !isOpen && (
+          <motion.div
+            className="fixed bottom-6 right-6 z-40"
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Button
+              onClick={openChat}
+              className="h-14 w-14 rounded-full bg-dove-teal hover:bg-dove-teal/90 shadow-lg"
+            >
+              <Bot className="h-6 w-6" />
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Full Screen Chat Modal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div 
@@ -79,7 +110,6 @@ const ChatbotWidget = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
     </>
   );
 };
