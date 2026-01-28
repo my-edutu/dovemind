@@ -2,6 +2,13 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
+const scrollToContact = () => {
+  const contactSection = document.getElementById("contact");
+  if (contactSection) {
+    contactSection.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
 const PersonalizedServices = () => {
   return (
     <section className="relative bg-dove-teal py-16 md:py-24 overflow-hidden">
@@ -67,6 +74,7 @@ const PersonalizedServices = () => {
             <Button
               size="lg"
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold rounded-full px-8"
+              onClick={scrollToContact}
             >
               Get Started
               <ArrowRight className="ml-2 h-4 w-4" />

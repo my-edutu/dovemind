@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Bot, MessageSquare, Shield, Clock, Sparkles, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useChatbot } from "@/contexts/ChatbotContext";
 
 const features = [
   {
@@ -28,6 +29,7 @@ const features = [
 
 const DovesMindAI = () => {
   const isMobile = useIsMobile();
+  const { openChat } = useChatbot();
   
   return (
     <section className="section-padding bg-gradient-to-br from-secondary via-secondary to-accent/10 relative overflow-hidden">
@@ -134,6 +136,7 @@ const DovesMindAI = () => {
                 <Button
                   size="lg"
                   className={`bg-dove-teal text-primary-foreground hover:bg-dove-teal/90 font-semibold text-base px-8 py-6 rounded-xl ${isMobile ? 'w-full' : ''}`}
+                  onClick={openChat}
                 >
                   Get Early Access
                   <ArrowRight className="ml-2 h-5 w-5" />

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Phone, Bot } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useChatbot } from "@/contexts/ChatbotContext";
 import { motion } from "framer-motion";
 import insightCard1 from "@/assets/insight-card-1.jpg";
 import insightCard2 from "@/assets/insight-card-2.jpg";
@@ -18,6 +19,7 @@ const cards = [
 
 const HeroSection = () => {
   const isMobile = useIsMobile();
+  const { openChat } = useChatbot();
   
   // Desktop: arc pattern, Mobile: straight line
   const arcRotations = [-12, -8, -4, 0, 4, 8, 12, 8, 4, 0, -4, -8];
@@ -26,6 +28,13 @@ const HeroSection = () => {
   const loopCards = isMobile 
     ? [...cards, ...cards, ...cards, ...cards] 
     : cards;
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   
   return (
     <section className="relative bg-background pt-20 pb-0">
@@ -88,6 +97,7 @@ const HeroSection = () => {
               <Button
                 size="lg"
                 className="bg-dove-teal text-primary-foreground hover:bg-dove-teal-light font-semibold text-base px-8 py-6 rounded-full"
+                onClick={scrollToContact}
               >
                 <Phone className="mr-2 h-5 w-5" />
                 Talk with a Consultant
@@ -98,6 +108,7 @@ const HeroSection = () => {
                 size="lg"
                 variant="outline"
                 className="border-accent text-accent hover:bg-accent/10 font-semibold text-base px-8 py-6 rounded-full"
+                onClick={openChat}
               >
                 <Bot className="mr-2 h-5 w-5" />
                 Chat with Dove AI
