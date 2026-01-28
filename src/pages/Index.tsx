@@ -5,6 +5,9 @@ import WhyMatters from "@/components/landing/WhyMatters";
 import PersonalizedServices from "@/components/landing/PersonalizedServices";
 import Statistics from "@/components/landing/Statistics";
 import ServicesOverview from "@/components/landing/ServicesOverview";
+import TrainingPrograms from "@/components/landing/TrainingPrograms";
+import TeamSection from "@/components/landing/TeamSection";
+import DovesMindAI from "@/components/landing/DovesMindAI";
 import TrustSection from "@/components/landing/TrustSection";
 import ContactForm from "@/components/landing/ContactForm";
 import Footer from "@/components/landing/Footer";
@@ -20,6 +23,9 @@ const Index = () => {
         <PersonalizedServices />
         <Statistics />
         <ServicesOverview />
+        <TrainingPrograms />
+        <DovesMindAI />
+        <TeamSection />
         <TrustSection />
         <ContactForm />
       </main>
