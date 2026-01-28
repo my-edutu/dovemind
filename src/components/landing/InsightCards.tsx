@@ -1,103 +1,104 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Brain, Heart, Users, AlertTriangle, Shield } from "lucide-react";
-
-const insights = [
-  {
-    icon: Brain,
-    title: "Understanding Substance Abuse & Mental Health",
-    description: "Learn about the connection between mental health and substance use disorders.",
-    featured: false,
-  },
-  {
-    icon: AlertTriangle,
-    title: "Why Early Psychological Intervention Matters",
-    description: "Early support can prevent escalation and improve long-term outcomes.",
-    featured: false,
-  },
-  {
-    icon: Heart,
-    title: "Supporting a Loved One Through Recovery",
-    description: "Practical guidance for families and caregivers during the recovery journey.",
-    featured: false,
-  },
-  {
-    icon: Users,
-    title: "Mental Health & Stigma Awareness",
-    description: "Breaking down barriers and misconceptions about seeking help.",
-    featured: false,
-  },
-  {
-    icon: Shield,
-    title: "Prevention Saves Lives",
-    description: "Proactive prevention programs create lasting change in communities.",
-    featured: true,
-  },
-];
+import { Play } from "lucide-react";
+import insightCard1 from "@/assets/insight-card-1.jpg";
+import insightCard2 from "@/assets/insight-card-2.jpg";
+import insightCard3 from "@/assets/insight-card-3.jpg";
+import insightCard4 from "@/assets/insight-card-4.jpg";
+import insightCard5 from "@/assets/insight-card-5.jpg";
 
 const InsightCards = () => {
   return (
-    <section className="section-padding bg-background">
+    <section className="section-padding bg-dove-teal overflow-hidden">
       <div className="container-narrow">
-        {/* Section header */}
-        <div className="text-center mb-12">
-          <span className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-3">
-            Awareness & Education
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Mental Health Insights
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore key topics in psychological wellness and substance abuse prevention
-          </p>
-        </div>
+        {/* Cards layout - scattered design */}
+        <div className="relative min-h-[500px] md:min-h-[600px] flex items-center justify-center">
+          {/* Left side cards */}
+          <div className="absolute left-0 top-0 md:top-8 z-10">
+            <div className="relative w-40 md:w-52 rounded-2xl overflow-hidden shadow-2xl transform -rotate-6 hover:rotate-0 transition-transform duration-300">
+              <img
+                src={insightCard1}
+                alt="Mental wellness"
+                className="w-full h-48 md:h-64 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                <p className="text-white text-xs md:text-sm font-semibold leading-tight">
+                  Healthy Habits Boost Mental Health
+                </p>
+              </div>
+            </div>
+          </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {insights.map((insight, index) => {
-            const Icon = insight.icon;
-            return (
-              <Card
-                key={index}
-                className={`card-hover cursor-pointer overflow-hidden ${
-                  insight.featured
-                    ? "bg-accent text-accent-foreground border-accent lg:col-span-1"
-                    : "bg-card hover:border-accent/50"
-                }`}
-              >
-                <CardContent className="p-6">
-                  <div
-                    className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${
-                      insight.featured
-                        ? "bg-accent-foreground/10"
-                        : "bg-accent/10"
-                    }`}
-                  >
-                    <Icon
-                      className={`h-6 w-6 ${
-                        insight.featured ? "text-accent-foreground" : "text-accent"
-                      }`}
-                    />
-                  </div>
-                  <h3
-                    className={`text-lg font-semibold mb-2 ${
-                      insight.featured ? "text-accent-foreground" : "text-card-foreground"
-                    }`}
-                  >
-                    {insight.title}
-                  </h3>
-                  <p
-                    className={`text-sm ${
-                      insight.featured
-                        ? "text-accent-foreground/80"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    {insight.description}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
+          {/* Second left card - Did you know */}
+          <div className="absolute left-8 md:left-20 top-48 md:top-56 z-20">
+            <div className="relative w-36 md:w-48 rounded-2xl overflow-hidden shadow-2xl bg-dove-lime transform rotate-3 hover:rotate-0 transition-transform duration-300">
+              <img
+                src={insightCard2}
+                alt="Thoughtful awareness"
+                className="w-full h-44 md:h-56 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dove-lime/90 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                <p className="text-dove-teal text-xs md:text-sm font-bold leading-tight">
+                  Did You Know Substance Abuse Affects Mental Health?
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Center main card - with video button */}
+          <div className="relative z-30 mx-auto">
+            <div className="relative w-44 md:w-64 rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src={insightCard3}
+                alt="Connection and support"
+                className="w-full h-52 md:h-72 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-5">
+                <p className="text-white text-sm md:text-base font-semibold mb-3 leading-tight">
+                  How Common are Substance Use Challenges?
+                </p>
+                <button className="flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-xs font-medium px-3 py-2 rounded-full hover:bg-white/30 transition-colors">
+                  <Play className="h-3 w-3 fill-current" />
+                  Watch The Video
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right side cards */}
+          <div className="absolute right-8 md:right-20 top-0 md:top-4 z-20">
+            <div className="relative w-36 md:w-48 rounded-2xl overflow-hidden shadow-2xl transform rotate-6 hover:rotate-0 transition-transform duration-300">
+              <img
+                src={insightCard4}
+                alt="Recovery and freedom"
+                className="w-full h-44 md:h-56 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                <p className="text-white text-xs md:text-sm font-semibold leading-tight">
+                  Early Intervention Matters
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Far right card - Connection */}
+          <div className="absolute right-0 top-48 md:top-52 z-10">
+            <div className="relative w-40 md:w-52 rounded-2xl overflow-hidden shadow-2xl bg-dove-lime transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+              <img
+                src={insightCard5}
+                alt="Family support"
+                className="w-full h-48 md:h-64 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dove-teal/80 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                <p className="text-white text-xs md:text-sm font-bold leading-tight">
+                  Connection is Crucial
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
