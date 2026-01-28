@@ -218,38 +218,36 @@ const Statistics = () => {
             </p>
 
             {/* Stats grid */}
-            <div className="grid grid-cols-3 gap-3">
-              {/* First row */}
+            <div className="grid grid-cols-2 gap-3">
+              {/* First row - 1 in 4 (smaller) + 275M */}
               <motion.div 
-                className="bg-secondary rounded-2xl p-5 text-center"
+                className="bg-secondary rounded-2xl p-4 flex items-center justify-between"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.03 }}
               >
-                <p className="text-3xl md:text-4xl font-bold text-accent">
-                  1 in <InlineCounter target={4} duration={2} />
-                </p>
-                <p className="text-xs text-muted-foreground mt-2">Adults Affected</p>
+                <p className="text-2xl font-bold text-accent">1 in 4</p>
+                <p className="text-xs text-muted-foreground text-right">Adults<br/>Affected</p>
               </motion.div>
               <motion.div 
-                className="bg-secondary rounded-2xl p-5 text-center col-span-2"
+                className="bg-secondary rounded-2xl p-4 flex items-center justify-between"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.03 }}
               >
-                <p className="text-3xl md:text-4xl font-bold text-foreground">
+                <p className="text-2xl md:text-3xl font-bold text-foreground">
                   <InlineCounter target={275} duration={2.5} />M
                 </p>
-                <p className="text-xs text-muted-foreground mt-2">Suffer Drug Disorders</p>
+                <p className="text-xs text-muted-foreground text-right">Drug<br/>Disorders</p>
               </motion.div>
 
-              {/* Second row - highlight card */}
+              {/* Second row - 50% highlight card spanning full width */}
               <motion.div 
-                className="bg-accent rounded-2xl p-5 text-center col-span-3"
+                className="bg-accent rounded-2xl p-5 flex items-center justify-between col-span-2"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -259,36 +257,34 @@ const Statistics = () => {
                 <p className="text-3xl md:text-4xl font-bold text-accent-foreground">
                   <InlineCounter target={50} duration={2} />%
                 </p>
-                <p className="text-sm text-accent-foreground/80 mt-2">Relapse Reduction with Early Help</p>
+                <p className="text-sm text-accent-foreground/80 text-right">Relapse Reduction<br/>with Early Help</p>
               </motion.div>
 
-              {/* Third row - Nigerian Youth highlight */}
+              {/* Third row - 14.5% (featured) + 90% side by side */}
               <motion.div 
-                className="bg-dove-teal rounded-2xl p-5 text-center col-span-3"
+                className="bg-dove-teal rounded-2xl p-5 flex flex-col justify-center"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.03 }}
               >
                 <p className="text-3xl md:text-4xl font-bold text-white">
                   <InlineCounter target={14} duration={2} />.5%
                 </p>
-                <p className="text-sm text-white/80 mt-2">of Nigerian Youth Use Drugs</p>
-                <p className="text-xs text-white/60 mt-1">Ages 15-35 • UNODC Report</p>
+                <p className="text-xs text-white/80 mt-1">Nigerian Youth</p>
+                <p className="text-[10px] text-white/60">Ages 15-35 • UNODC</p>
               </motion.div>
-
-              {/* Fourth row */}
               <motion.div 
-                className="bg-secondary rounded-2xl p-5 text-center col-span-3"
+                className="bg-secondary rounded-2xl p-5 flex items-center justify-between"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.7 }}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.03 }}
               >
                 <p className="text-3xl md:text-4xl font-bold text-accent"><InlineCounter target={90} duration={2.5} />%</p>
-                <p className="text-sm text-muted-foreground mt-2">Go Untreated Globally</p>
+                <p className="text-xs text-muted-foreground text-right">Go Untreated<br/>Globally</p>
               </motion.div>
             </div>
           </motion.div>
