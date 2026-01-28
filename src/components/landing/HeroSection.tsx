@@ -8,7 +8,6 @@ import heroRecoveryHope from "@/assets/hero-recovery-hope.jpg";
 import heroQuitDrugs from "@/assets/hero-quit-drugs.jpg";
 import heroReachHelp from "@/assets/hero-reach-help.jpg";
 import heroCounseling from "@/assets/hero-counseling.jpg";
-import heroAwareness from "@/assets/hero-awareness.jpg";
 
 const cards = [
   { image: heroYouthSupport, title: "Youth Support Groups Save Lives" },
@@ -16,16 +15,11 @@ const cards = [
   { image: heroQuitDrugs, title: "Break Free from Addiction" },
   { image: heroReachHelp, title: "Reach Out for Help Today" },
   { image: heroCounseling, title: "Professional Counseling Works" },
-  { image: heroAwareness, title: "Join the Awareness Movement" },
 ];
 
 const HeroSection = () => {
   const isMobile = useIsMobile();
   const { openChat } = useChatbot();
-  
-  // Desktop: arc pattern with rotation, Mobile: straight line
-  const arcRotations = [-10, -5, 0, 5, 10, 5, 0, -5, -10, -5, 0, 5];
-  const arcOffsets = [20, 10, 0, 10, 20, 10, 0, 10, 20, 10, 0, 10];
   
   // Duplicate cards for infinite loop effect on all devices
   const loopCards = [...cards, ...cards, ...cards, ...cards];
@@ -127,21 +121,13 @@ const HeroSection = () => {
         transition={{ delay: 0.7, duration: 0.8 }}
       >
         <div className="flex items-end animate-marquee w-max">
-          {loopCards.map((card, index) => {
-            const arcIndex = index % arcRotations.length;
-            const rotation = isMobile ? 0 : arcRotations[arcIndex];
-            const offset = isMobile ? 0 : arcOffsets[arcIndex];
-            
-            return (
-              <motion.div
-                key={index}
-                className="relative flex-shrink-0 mx-2 md:mx-3 group cursor-pointer"
-                style={{
-                  transform: `rotate(${rotation}deg) translateY(${offset}px)`,
-                }}
-                whileHover={{ scale: 1.08, zIndex: 30 }}
-                transition={{ duration: 0.3 }}
-              >
+          {loopCards.map((card, index) => (
+            <motion.div
+              key={index}
+              className="relative flex-shrink-0 mx-2 md:mx-3 group cursor-pointer"
+              whileHover={{ scale: 1.08, zIndex: 30 }}
+              transition={{ duration: 0.3 }}
+            >
                 <div className="relative w-32 sm:w-40 md:w-48 rounded-2xl overflow-hidden shadow-xl">
                   <img
                     src={card.image}
@@ -156,8 +142,7 @@ const HeroSection = () => {
                   </div>
                 </div>
               </motion.div>
-            );
-          })}
+          ))}
         </div>
       </motion.div>
     </section>
