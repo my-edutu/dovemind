@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Bot, X, Send, MessageSquare } from "lucide-react";
+import { Bot, X, Send } from "lucide-react";
 import { useChatbot } from "@/contexts/ChatbotContext";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,25 +10,25 @@ const ChatbotWidget = () => {
   // For now, always visible since it can be opened from hero
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <>
       <AnimatePresence>
         {isOpen && (
           <motion.div 
-            className="absolute bottom-20 right-0 w-80 sm:w-96 bg-card rounded-2xl shadow-2xl border border-border overflow-hidden"
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-background z-50 flex flex-col"
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             {/* Header */}
-            <div className="bg-dove-teal p-4 flex items-center justify-between">
+            <div className="bg-dove-teal p-4 md:p-6 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                  <Bot className="h-5 w-5 text-white" />
+                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                  <Bot className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold text-white">DovesMind AI</p>
-                  <p className="text-xs text-white/80 flex items-center gap-1">
+                  <p className="font-semibold text-white text-lg">DovesMind AI</p>
+                  <p className="text-sm text-white/80 flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
                     Online
                   </p>
@@ -38,23 +37,23 @@ const ChatbotWidget = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-white hover:bg-white/20"
+                className="text-white hover:bg-white/20 h-10 w-10"
                 onClick={closeChat}
               >
-                <X className="h-5 w-5" />
+                <X className="h-6 w-6" />
               </Button>
             </div>
 
             {/* Messages */}
-            <div className="p-4 h-72 overflow-y-auto bg-secondary/30">
-              <div className="space-y-4">
-                <div className="bg-card rounded-2xl rounded-tl-sm p-4 max-w-[85%] shadow-sm">
-                  <p className="text-sm text-foreground">
+            <div className="flex-1 overflow-y-auto p-4 md:p-8 bg-secondary/30">
+              <div className="max-w-2xl mx-auto space-y-6">
+                <div className="bg-card rounded-2xl rounded-tl-sm p-5 max-w-[85%] shadow-sm">
+                  <p className="text-base text-foreground">
                     Hello! I'm DovesMind AI, your mental health assistant. How can I support you today?
                   </p>
                 </div>
-                <div className="bg-muted/50 rounded-2xl rounded-tl-sm p-4 max-w-[85%] shadow-sm">
-                  <p className="text-sm text-muted-foreground">
+                <div className="bg-muted/50 rounded-2xl rounded-tl-sm p-5 max-w-[85%] shadow-sm">
+                  <p className="text-base text-muted-foreground">
                     You can ask me about coping strategies, mental health resources, or connect with a professional.
                   </p>
                 </div>
@@ -62,18 +61,18 @@ const ChatbotWidget = () => {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-border bg-card">
-              <div className="flex items-center gap-2">
+            <div className="p-4 md:p-6 border-t border-border bg-card">
+              <div className="max-w-2xl mx-auto flex items-center gap-3">
                 <input
                   type="text"
                   placeholder="Type your message..."
-                  className="flex-1 bg-secondary rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50"
+                  className="flex-1 bg-secondary rounded-xl px-5 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50"
                 />
                 <Button
                   size="icon"
-                  className="bg-dove-teal hover:bg-dove-teal/90 rounded-xl h-11 w-11"
+                  className="bg-dove-teal hover:bg-dove-teal/90 rounded-xl h-14 w-14"
                 >
-                  <Send className="h-5 w-5" />
+                  <Send className="h-6 w-6" />
                 </Button>
               </div>
             </div>
@@ -81,28 +80,7 @@ const ChatbotWidget = () => {
         )}
       </AnimatePresence>
 
-      {/* Toggle Button */}
-      <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.5, type: "spring" }}
-      >
-        <Button
-          onClick={toggleChat}
-          className={`w-14 h-14 rounded-full shadow-lg transition-all duration-300 ${
-            isOpen
-              ? "bg-muted hover:bg-muted/80 text-foreground"
-              : "bg-dove-teal hover:bg-dove-teal/90 text-white"
-          }`}
-        >
-          {isOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <MessageSquare className="h-6 w-6" />
-          )}
-        </Button>
-      </motion.div>
-    </div>
+    </>
   );
 };
 
