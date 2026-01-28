@@ -24,8 +24,8 @@ const stats = [
     source: "National Institute on Drug Abuse"
   },
   { 
-    label: "14.5% of Nigerians", 
-    description: "Between ages 15-64 have used drugs in the past year according to UNODC reports. This means approximately 1 in 7 Nigerian adults has been exposed to substance use, making prevention programs crucial for our communities.",
+    label: "14.5% of Nigerian Youth", 
+    description: "Between ages 15-35 have used drugs in the past year according to UNODC reports. This alarming rate among young people highlights the urgent need for youth-focused prevention programs in our communities.",
     source: "UNODC Nigeria Drug Use Survey"
   },
   { 
@@ -267,7 +267,7 @@ const Statistics = () => {
                 whileHover={{ scale: 1.02 }}
               >
                 <p className="text-xl md:text-2xl font-bold text-foreground">
-                  <InlineCounter target={14} duration={2} />.5% <span className="text-base font-normal text-muted-foreground">of Nigerians Use Drugs</span>
+                  <InlineCounter target={14} duration={2} />.5% <span className="text-base font-normal text-muted-foreground">of Nigerian Youth</span>
                 </p>
               </motion.div>
               <motion.div 
