@@ -1,58 +1,101 @@
-import { Activity, Clock, TrendingUp } from "lucide-react";
-
 const stats = [
-  {
-    icon: Activity,
-    stat: "1 in 3",
-    description: "individuals may experience mental health or substance-related challenges",
+  { label: "of Individuals" },
+  { label: "1 in 3 Individuals" },
+  { 
+    label: "Increase", 
+    description: "in productivity is commonly observed among individuals who actively participate in mental health programs, demonstrating the positive effects on work performance."
   },
-  {
-    icon: Clock,
-    stat: "Early Intervention",
-    description: "significantly improves recovery outcomes and long-term well-being",
-  },
-  {
-    icon: TrendingUp,
-    stat: "Prevention Programs",
-    description: "reduce long-term social and health costs for communities",
-  },
+  { label: "In 10 Adults" },
+  { label: "of People" },
 ];
 
 const Statistics = () => {
   return (
     <section className="section-padding bg-background">
       <div className="container-narrow">
-        {/* Section header */}
-        <div className="text-center mb-12">
-          <span className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-3">
-            The Reality
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Impact & Awareness
-          </h2>
-        </div>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+          {/* Left side - Title and stats list */}
+          <div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-10 leading-tight">
+              The Impact of Mental<br />
+              Health for People
+            </h2>
+            
+            <div className="space-y-0">
+              {stats.map((stat, index) => (
+                <div
+                  key={index}
+                  className="flex items-start justify-between py-4 border-b border-border group cursor-pointer hover:border-accent transition-colors"
+                >
+                  <div className="flex-1">
+                    <p className="font-medium text-foreground">{stat.label}</p>
+                    {stat.description && (
+                      <p className="text-sm text-muted-foreground mt-1 max-w-sm leading-relaxed">
+                        {stat.description}
+                      </p>
+                    )}
+                  </div>
+                  <span className="text-muted-foreground group-hover:text-accent transition-colors ml-4 mt-1">›</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-        {/* Stats grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stats.map((item, index) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={index}
-                className="text-center p-8 rounded-2xl bg-card border border-border hover:border-accent/30 transition-colors card-hover"
-              >
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-accent/10 mb-6">
-                  <Icon className="h-7 w-7 text-accent" />
-                </div>
-                <div className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-                  {item.stat}
-                </div>
-                <p className="text-muted-foreground">
-                  {item.description}
+          {/* Right side - Description and stat cards */}
+          <div>
+            <p className="text-muted-foreground mb-10 leading-relaxed">
+              This section presents key statistics illustrating how mental health 
+              profoundly influences individuals' quality of life, productivity, and 
+              relationships, emphasizing the critical need for professional support.
+            </p>
+
+            {/* Stats grid */}
+            <div className="grid grid-cols-3 gap-3">
+              {/* First row */}
+              <div className="bg-secondary rounded-2xl p-5 text-center">
+                <p className="text-2xl md:text-3xl font-bold text-accent">75%</p>
+                <p className="text-xs text-muted-foreground mt-1">of Individuals</p>
+              </div>
+              <div className="bg-secondary rounded-2xl p-5 text-center col-span-2">
+                <p className="text-xl md:text-2xl font-bold text-foreground">
+                  1 <span className="text-base font-normal text-muted-foreground">in 3</span> Individuals
                 </p>
               </div>
-            );
-          })}
+
+              {/* Second row - highlight card */}
+              <div className="bg-accent rounded-2xl p-5 text-center col-span-3">
+                <p className="text-2xl md:text-3xl font-bold text-accent-foreground">
+                  20% <span className="text-base font-normal">Increase</span>
+                </p>
+              </div>
+
+              {/* Third row */}
+              <div className="bg-secondary rounded-2xl p-5 text-center col-span-2">
+                <p className="text-xl md:text-2xl font-bold text-foreground">
+                  4 <span className="text-base font-normal text-muted-foreground">in 10 Adults</span>
+                </p>
+              </div>
+              <div className="bg-secondary rounded-2xl p-5 text-center">
+                <p className="text-2xl md:text-3xl font-bold text-accent">60%</p>
+                <p className="text-xs text-muted-foreground mt-1">of People</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Brand logos */}
+        <div className="mt-16 pt-8 border-t border-border">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-muted-foreground/50">
+            <span className="font-medium text-sm">◆ Dmarket</span>
+            <span className="font-medium text-sm">M MasterControl</span>
+            <span className="font-medium text-sm">Wimo</span>
+            <span className="font-medium text-sm">ESCROW.COM</span>
+            <span className="font-medium text-sm">TOSHIBA</span>
+            <span className="font-medium text-sm">✦ doroki</span>
+            <span className="font-medium text-sm">solarEDGE</span>
+            <span className="font-medium text-sm">○ Pebble</span>
+            <span className="font-medium text-sm">Komputronik</span>
+          </div>
         </div>
       </div>
     </section>
