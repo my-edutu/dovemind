@@ -1,6 +1,7 @@
 import Header from "@/components/landing/Header";
 import HeroSection from "@/components/landing/HeroSection";
 import InsightCards from "@/components/landing/InsightCards";
+import VideoSection from "@/components/landing/VideoSection";
 import WhyMatters from "@/components/landing/WhyMatters";
 import PersonalizedServices from "@/components/landing/PersonalizedServices";
 import Statistics from "@/components/landing/Statistics";
@@ -16,6 +17,7 @@ const Index = () => {
       <main>
         <HeroSection />
         <InsightCards />
+        <VideoSection />
         <WhyMatters />
         <PersonalizedServices />
         <Statistics />
