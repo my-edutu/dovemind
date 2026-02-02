@@ -1,35 +1,50 @@
-import { motion } from "framer-motion";
-import { GraduationCap, Building2, Users, Landmark, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+import serviceTraining from "@/assets/service-training.jpg";
+import serviceConsultation from "@/assets/service-consultation.jpg";
+import serviceRehabilitation from "@/assets/service-rehabilitation.jpg";
+import heroAwareness from "@/assets/hero-awareness.jpg";
 
 const programs = [
   {
-    icon: GraduationCap,
     title: "Schools & Universities",
-    description: "Drug awareness curriculum and mental health training for educators and students.",
+    description: "Age-appropriate drug awareness curriculum and mental health first aid training for educators and students.",
+    image: serviceTraining,
+    bgColor: "bg-[#e8f4e8]",
   },
   {
-    icon: Building2,
     title: "Corporate Organizations",
-    description: "Workplace wellness programs focusing on stress management and employee mental health.",
+    description: "Workplace wellness programs focusing on stress management, substance abuse prevention, and employee mental health.",
+    image: serviceConsultation,
+    bgColor: "bg-[#fff9e6]",
   },
   {
-    icon: Users,
     title: "NGOs & Community",
-    description: "Community-based prevention programs to build local capacity and support networks.",
+    description: "Community-based prevention programs designed to build local capacity and support networks.",
+    image: serviceRehabilitation,
+    bgColor: "bg-[#e6f3ff]",
   },
   {
-    icon: Landmark,
     title: "Government & Institutions",
-    description: "Policy-aligned training programs for government agencies across Nigeria.",
+    description: "Policy-aligned training programs for government agencies and public institutions across Nigeria.",
+    image: heroAwareness,
+    bgColor: "bg-[#fce8ec]",
   },
 ];
 
 const TrainingPrograms = () => {
+  const [expandedIndex, setExpandedIndex] = useState<number>(1);
+  const isMobile = useIsMobile();
+
   return (
     <section id="training" className="section-padding bg-background">
       <div className="container-narrow">
+        {/* Header */}
         <motion.div 
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -43,32 +58,95 @@ const TrainingPrograms = () => {
           </h2>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Cards */}
+        <div className={`${isMobile ? 'flex flex-col gap-4' : 'flex gap-4'}`}>
           {programs.map((program, index) => {
-            const Icon = program.icon;
+            const isExpanded = expandedIndex === index;
+            
             return (
               <motion.div
                 key={index}
-                className="p-6 rounded-2xl bg-card border border-border"
-                initial={{ opacity: 0, y: 20 }}
+                className={`${program.bgColor} rounded-3xl cursor-pointer overflow-hidden`}
+                onClick={() => setExpandedIndex(index)}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                animate={{
+                  flex: isMobile ? "none" : isExpanded ? 2.5 : 1,
+                }}
+                transition={{ 
+                  duration: 0.5, 
+                  ease: [0.4, 0, 0.2, 1],
+                }}
+                layout
               >
-                <div className="w-12 h-12 rounded-xl bg-dove-teal/10 flex items-center justify-center mb-4">
-                  <Icon className="h-6 w-6 text-dove-teal" />
+                <div className="p-6 h-full flex flex-col min-h-[280px]">
+                  {/* Title */}
+                  <motion.h3 
+                    className="font-bold text-lg text-foreground mb-3"
+                    layout="position"
+                  >
+                    {program.title}
+                  </motion.h3>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <AnimatePresence mode="wait">
+                      {isExpanded || isMobile ? (
+                        <motion.div
+                          key="expanded"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex gap-4 h-full"
+                        >
+                          <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                            {program.description}
+                          </p>
+                          <motion.div 
+                            className="w-32 h-36 rounded-2xl overflow-hidden flex-shrink-0"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.1 }}
+                          >
+                            <img 
+                              src={program.image} 
+                              alt={program.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </motion.div>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="collapsed"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        />
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Footer */}
+                  <motion.div 
+                    className="flex items-center justify-between mt-4 pt-3"
+                    layout="position"
+                  >
+                    <span className="text-sm text-muted-foreground">Read More</span>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                      isExpanded ? "bg-dove-teal text-white" : "bg-white/70 text-muted-foreground"
+                    }`}>
+                      <ArrowUpRight className="h-4 w-4" />
+                    </div>
+                  </motion.div>
                 </div>
-                <h3 className="font-semibold text-lg text-foreground mb-2">
-                  {program.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {program.description}
-                </p>
               </motion.div>
             );
           })}
         </div>
 
+        {/* CTA */}
         <motion.div 
           className="text-center mt-10"
           initial={{ opacity: 0 }}
