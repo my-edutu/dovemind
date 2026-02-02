@@ -8,25 +8,29 @@ const trustCards = [
     icon: Award,
     title: "Certified Professionals",
     description: "All our psychologists are certified and adhere to professional standards.",
-    gradient: "from-accent/20 to-accent/5",
+    bgColor: "bg-accent",
+    textColor: "text-accent-foreground",
   },
   {
     icon: Lock,
-    title: "Confidential & Secure Sessions",
-    description: "Your information and sessions are protected with strict privacy protocols.",
-    gradient: "from-primary/20 to-primary/5",
+    title: "Confidential & Secure",
+    description: "Your sessions are protected with strict privacy protocols.",
+    bgColor: "bg-primary",
+    textColor: "text-primary-foreground",
   },
   {
     icon: Scale,
-    title: "Ethical Standards & Compliance",
-    description: "We operate with the highest ethical standards in mental health care.",
-    gradient: "from-accent/15 to-primary/10",
+    title: "Ethical Standards",
+    description: "We operate with the highest ethical standards in care.",
+    bgColor: "bg-secondary",
+    textColor: "text-secondary-foreground",
   },
   {
     icon: ClipboardList,
-    title: "Tailored Support Plans",
-    description: "Personalized care plans designed for your unique situation and goals.",
-    gradient: "from-primary/15 to-accent/10",
+    title: "Tailored Support",
+    description: "Personalized care plans for your unique situation.",
+    bgColor: "bg-muted",
+    textColor: "text-foreground",
   },
 ];
 
@@ -34,10 +38,9 @@ const TrustSection = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="section-padding bg-background overflow-hidden">
+    <section className="py-12 md:py-16 bg-background overflow-hidden">
       <div className="container-narrow">
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left side - Text content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
@@ -45,16 +48,15 @@ const TrustSection = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4">
               Compassionate & Ethical Support
             </h2>
-            <p className="text-muted-foreground text-lg mb-8">
+            <p className="text-muted-foreground mb-4">
               We are committed to providing care that respects your dignity, privacy, and individual needs.
             </p>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               At DovesMind Synergy, we understand that seeking help takes courage. 
-              That's why we've built our practice on a foundation of trust, confidentiality, 
-              and unwavering ethical responsibility. Your journey to wellness is safe with us.
+              Your journey to wellness is safe with us.
             </p>
           </motion.div>
 
@@ -66,15 +68,15 @@ const TrustSection = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="relative" style={{ height: isMobile ? 320 : 400 }}>
+            <div className="relative" style={{ height: isMobile ? 220 : 260 }}>
               <CardSwap
-                width={isMobile ? 280 : 360}
-                height={isMobile ? 240 : 300}
-                cardDistance={isMobile ? 40 : 50}
-                verticalDistance={isMobile ? 50 : 60}
+                width={isMobile ? 220 : 280}
+                height={isMobile ? 160 : 180}
+                cardDistance={isMobile ? 30 : 35}
+                verticalDistance={isMobile ? 35 : 40}
                 delay={4000}
                 pauseOnHover={true}
-                skewAmount={4}
+                skewAmount={3}
                 easing="smooth"
               >
                 {trustCards.map((card, index) => {
@@ -82,24 +84,20 @@ const TrustSection = () => {
                   return (
                     <Card
                       key={index}
-                      customClass={`bg-gradient-to-br ${card.gradient} border border-border/50 backdrop-blur-sm shadow-xl`}
+                      customClass={`${card.bgColor} shadow-lg`}
                     >
-                      <div className="p-6 h-full flex flex-col justify-between">
-                        <div>
-                          <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center mb-4">
-                            <Icon className="h-7 w-7 text-accent" />
+                      <div className={`p-4 h-full flex flex-col ${card.textColor}`}>
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                            <Icon className="h-5 w-5" />
                           </div>
-                          <h3 className="font-bold text-foreground text-xl mb-3">
+                          <h3 className="font-bold text-base">
                             {card.title}
                           </h3>
-                          <p className="text-muted-foreground text-sm leading-relaxed">
-                            {card.description}
-                          </p>
                         </div>
-                        <div className="mt-4 flex items-center gap-2 text-accent text-sm font-medium">
-                          <span>Learn more</span>
-                          <span>→</span>
-                        </div>
+                        <p className="text-sm opacity-90 leading-relaxed">
+                          {card.description}
+                        </p>
                       </div>
                     </Card>
                   );
