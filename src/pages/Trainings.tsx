@@ -14,8 +14,6 @@ import {
   Users, 
   Landmark, 
   CheckCircle, 
-  Star,
-  Quote,
   ArrowLeft,
   Send,
   MessageCircle,
@@ -123,32 +121,6 @@ const programs = [
   },
 ];
 
-const reviews = [
-  {
-    name: "Dr. Amina Bello",
-    role: "Principal, Federal Government College Abuja",
-    content: "The training program transformed our approach to student mental health. Our teachers are now equipped to identify and support students struggling with substance abuse.",
-    rating: 5
-  },
-  {
-    name: "Chinedu Okafor",
-    role: "HR Director, Sterling Bank",
-    content: "DovesMind's corporate wellness program has significantly improved employee wellbeing and reduced absenteeism. A worthwhile investment for any organization.",
-    rating: 5
-  },
-  {
-    name: "Hajiya Fatima Yusuf",
-    role: "Executive Director, Youth Empowerment Foundation",
-    content: "Their community-focused approach helped us establish sustainable support networks in three local government areas. Highly recommended for NGOs.",
-    rating: 5
-  },
-  {
-    name: "Barr. Emeka Nwankwo",
-    role: "Ministry of Health, Enugu State",
-    content: "Professional, thorough, and culturally sensitive. The policy workshop helped us develop a comprehensive state-level drug prevention strategy.",
-    rating: 5
-  },
-];
 
 const TrainingsPage = () => {
   const { toast } = useToast();
@@ -335,51 +307,6 @@ const TrainingsPage = () => {
                 </motion.div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Reviews Section */}
-      <section id="reviews" className="section-padding bg-secondary/30">
-        <div className="container-narrow">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              What Our Partners Say
-            </h2>
-            <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-              Hear from institutions and individuals who have benefited from our programs and services.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {reviews.map((review, index) => (
-              <motion.div
-                key={index}
-                className="bg-card rounded-2xl p-8 border border-border relative"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Quote className="h-10 w-10 text-dove-teal/20 absolute top-6 right-6" />
-                <div className="flex gap-1 mb-4">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-dove-gold text-dove-gold" />
-                  ))}
-                </div>
-                <p className="text-card-foreground mb-6 italic">"{review.content}"</p>
-                <div>
-                  <p className="font-semibold text-card-foreground">{review.name}</p>
-                  <p className="text-sm text-muted-foreground">{review.role}</p>
-                </div>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
