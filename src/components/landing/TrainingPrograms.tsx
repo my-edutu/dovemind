@@ -63,7 +63,7 @@ const TrainingPrograms = () => {
         </motion.div>
 
         {/* Cards */}
-        <div className={`${isMobile ? 'flex flex-col gap-4' : 'flex gap-4 justify-center'}`}>
+        <div className={`${isMobile ? 'flex flex-col gap-4' : 'flex gap-4 justify-start overflow-x-auto pb-4'}`}>
           {programs.map((program, index) => {
             const isExpanded = expandedIndex === index;
             
