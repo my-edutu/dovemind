@@ -6,6 +6,7 @@ import PersonalizedServices from "@/components/landing/PersonalizedServices";
 import Statistics from "@/components/landing/Statistics";
 import ServicesOverview from "@/components/landing/ServicesOverview";
 import TrainingPrograms from "@/components/landing/TrainingPrograms";
+import RecoveryTestimonials from "@/components/landing/RecoveryTestimonials";
 import TeamSection from "@/components/landing/TeamSection";
 import DovesMindAI from "@/components/landing/DovesMindAI";
 import TrustSection from "@/components/landing/TrustSection";
@@ -27,6 +28,7 @@ const Index = () => {
           <Statistics />
           <ServicesOverview />
           <TrainingPrograms />
+          <RecoveryTestimonials />
           <DovesMindAI />
           <TeamSection />
           <TrustSection />
