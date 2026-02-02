@@ -1,20 +1,34 @@
 import { useState, useCallback } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 type Message = {
   role: "user" | "assistant";
   content: string;
 };
 
+interface UserContext {
+  name: string;
+  email: string;
+}
+
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/dovesmind-chat`;
 
 export const useDovesMindChat = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content: "Hello! I'm DovesMind AI, your mental health support companion. I'm here to listen, provide guidance, and connect you with professional help when needed. How are you feeling today?",
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [userContext, setUserContextState] = useState<UserContext | null>(null);
+  const { toast } = useToast();
+
+  const setUserContext = useCallback((context: UserContext) => {
+    setUserContextState(context);
+    // Set personalized welcome message
+    setMessages([
+      {
+        role: "assistant",
+        content: `Hello ${context.name}! I'm DovesMind AI, your mental health support companion. I'm here to listen, provide guidance, and connect you with professional help when needed. How are you feeling today?`,
+      },
+    ]);
+  }, []);
 
   const sendMessage = useCallback(async (input: string) => {
     if (!input.trim() || isLoading) return;
@@ -37,18 +51,45 @@ export const useDovesMindChat = () => {
     };
 
     try {
+      console.log("Sending message to:", CHAT_URL);
+      
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: [...messages, userMsg].map(m => ({ role: m.role, content: m.content })) }),
+        body: JSON.stringify({ 
+          messages: [...messages, userMsg].map(m => ({ role: m.role, content: m.content })),
+          userContext: userContext ? { name: userContext.name, email: userContext.email } : null
+        }),
       });
 
-      if (!resp.ok || !resp.body) {
-        const errorData = await resp.json().catch(() => ({}));
+      console.log("Response status:", resp.status);
+
+      if (!resp.ok) {
+        const errorData = await resp.json().catch(() => ({ error: "Unknown error" }));
+        console.error("API Error:", errorData);
+        
+        if (resp.status === 429) {
+          toast({
+            variant: "destructive",
+            title: "Too many requests",
+            description: "Please wait a moment and try again.",
+          });
+        } else if (resp.status === 402) {
+          toast({
+            variant: "destructive",
+            title: "Service unavailable",
+            description: "Please try again later.",
+          });
+        }
+        
         throw new Error(errorData.error || "Failed to connect");
+      }
+
+      if (!resp.body) {
+        throw new Error("No response body");
       }
 
       const reader = resp.body.getReader();
@@ -112,16 +153,12 @@ export const useDovesMindChat = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [messages, isLoading]);
+  }, [messages, isLoading, userContext, toast]);
 
   const clearChat = useCallback(() => {
-    setMessages([
-      {
-        role: "assistant",
-        content: "Hello! I'm DovesMind AI, your mental health support companion. I'm here to listen, provide guidance, and connect you with professional help when needed. How are you feeling today?",
-      },
-    ]);
+    setMessages([]);
+    setUserContextState(null);
   }, []);
 
-  return { messages, isLoading, sendMessage, clearChat };
+  return { messages, isLoading, sendMessage, clearChat, setUserContext };
 };
