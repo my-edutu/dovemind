@@ -76,11 +76,13 @@ const TrainingPrograms = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 style={{
-                  width: isMobile ? "100%" : isExpanded ? "400px" : "200px",
-                  minWidth: isMobile ? "100%" : isExpanded ? "400px" : "200px",
+                  width: isMobile ? "100%" : isExpanded ? "350px" : "250px",
+                  minWidth: isMobile ? "100%" : isExpanded ? "350px" : "250px",
+                  height: isMobile ? "auto" : isExpanded ? "350px" : "250px",
                 }}
                 animate={{
-                  width: isMobile ? "100%" : isExpanded ? 400 : 200,
+                  width: isMobile ? "100%" : isExpanded ? 350 : 250,
+                  height: isMobile ? "auto" : isExpanded ? 350 : 250,
                 }}
                 transition={{ 
                   duration: 0.5, 
@@ -88,7 +90,7 @@ const TrainingPrograms = () => {
                 }}
                 layout
               >
-                <div className="p-6 h-full flex flex-col min-h-[280px]">
+                <div className="p-6 h-full flex flex-col">
                   <AnimatePresence mode="wait">
                     {!isExpanded ? (
                       /* Collapsed state - show text */
