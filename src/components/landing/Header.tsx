@@ -8,6 +8,7 @@ const navLinks = [
   { name: "About", href: "/about", isExternal: false },
   { name: "Trainings", href: "/trainings", isExternal: false },
   { name: "Team", href: "/team", isExternal: false },
+  { name: "Blog", href: "/blog", isExternal: false },
   { name: "Contact", href: "#contact", isExternal: true },
 ];
 
