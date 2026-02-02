@@ -1,5 +1,12 @@
 import { motion } from "framer-motion";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import avatarAdaora from "@/assets/avatar-adaora.jpg";
+import avatarTunde from "@/assets/avatar-tunde.jpg";
+import avatarChisom from "@/assets/avatar-chisom.jpg";
+import avatarIbrahim from "@/assets/avatar-ibrahim.jpg";
+import avatarNgozi from "@/assets/avatar-ngozi.jpg";
+import avatarEmeka from "@/assets/avatar-emeka.jpg";
 
 const testimonials = [
   {
@@ -8,7 +15,7 @@ const testimonials = [
     content: "DovesMind gave me hope when I thought there was none. The counselors understood my struggle without judgment. Two years clean now and I'm rebuilding my life with my family.",
     initials: "AM",
     bgColor: "bg-emerald-100",
-    avatarBg: "bg-emerald-200"
+    avatar: avatarAdaora
   },
   {
     name: "Tunde O.",
@@ -16,7 +23,7 @@ const testimonials = [
     content: "I was skeptical about online counseling, but the support I received was life-changing. The AI chatbot helped me through late-night cravings when I had no one else to talk to.",
     initials: "TO",
     bgColor: "bg-amber-100",
-    avatarBg: "bg-amber-200"
+    avatar: avatarTunde
   },
   {
     name: "Chisom E.",
@@ -24,7 +31,7 @@ const testimonials = [
     content: "After struggling with substance abuse for 8 years, DovesMind connected me with a rehabilitation center that truly cared. The follow-up support made all the difference.",
     initials: "CE",
     bgColor: "bg-rose-100",
-    avatarBg: "bg-rose-200"
+    avatar: avatarChisom
   },
   {
     name: "Ibrahim K.",
@@ -32,7 +39,7 @@ const testimonials = [
     content: "The confidentiality and respect I received here helped me open up for the first time. My counselor helped me understand the root causes and gave me tools to stay strong.",
     initials: "IK",
     bgColor: "bg-sky-100",
-    avatarBg: "bg-sky-200"
+    avatar: avatarIbrahim
   },
   {
     name: "Ngozi A.",
@@ -40,7 +47,7 @@ const testimonials = [
     content: "The variety of support options is amazing! Whether I needed a morning check-in or a calming bedtime session, DovesMind has it all. Highly recommend!",
     initials: "NA",
     bgColor: "bg-violet-100",
-    avatarBg: "bg-violet-200"
+    avatar: avatarNgozi
   },
   {
     name: "Emeka U.",
@@ -48,7 +55,7 @@ const testimonials = [
     content: "This service has changed my daily routine for the better! The wellness programs help me feel refreshed and energized. Love the personalized approach!",
     initials: "EU",
     bgColor: "bg-teal-100",
-    avatarBg: "bg-teal-200"
+    avatar: avatarEmeka
   },
 ];
 
@@ -91,8 +98,9 @@ const RecoveryTestimonials = () => {
 
               {/* Author */}
               <div className="flex items-center gap-3">
-                <Avatar className={`h-10 w-10 ${testimonial.avatarBg}`}>
-                  <AvatarFallback className={`${testimonial.avatarBg} text-foreground font-medium text-sm`}>
+                <Avatar className="h-10 w-10 border-2 border-white shadow-sm">
+                  <AvatarImage src={testimonial.avatar} alt={testimonial.name} className="object-cover" />
+                  <AvatarFallback className="bg-muted text-foreground font-medium text-sm">
                     {testimonial.initials}
                   </AvatarFallback>
                 </Avatar>
