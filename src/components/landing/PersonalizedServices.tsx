@@ -9,8 +9,16 @@ import avatarIbrahim from "@/assets/avatar-ibrahim.jpg";
 import avatarNgozi from "@/assets/avatar-ngozi.jpg";
 import avatarTunde from "@/assets/avatar-tunde.jpg";
 
-const leftAvatars = [avatarAdaora, avatarChisom, avatarEmeka];
-const rightAvatars = [avatarIbrahim, avatarNgozi, avatarTunde];
+const leftAvatars = [
+  { src: avatarAdaora, top: "0%", left: "0px" },
+  { src: avatarChisom, top: "40%", left: "30px" },
+  { src: avatarEmeka, top: "75%", left: "-10px" },
+];
+const rightAvatars = [
+  { src: avatarIbrahim, top: "5%", right: "0px" },
+  { src: avatarNgozi, top: "45%", right: "35px" },
+  { src: avatarTunde, top: "80%", right: "-5px" },
+];
 
 const scrollToContact = () => {
   const contactSection = document.getElementById("contact");
@@ -54,31 +62,26 @@ const PersonalizedServices = () => {
 
       <div className="container-narrow relative z-10">
         <div className="flex items-center justify-center gap-6 md:gap-12">
-          {/* Left side avatars */}
-          <motion.div 
-            className="hidden md:flex flex-col gap-4"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          {/* Left side avatars - scattered */}
+          <div className="hidden md:block relative w-24 h-48">
             {leftAvatars.map((avatar, index) => (
               <motion.div
                 key={index}
-                className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 shadow-lg"
+                className="absolute w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 shadow-lg"
+                style={{ top: avatar.top, left: avatar.left }}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.15 }}
               >
                 <img 
-                  src={avatar} 
+                  src={avatar.src} 
                   alt="Team member"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </div>
 
           {/* Center content */}
           <div className="text-center max-w-2xl">
@@ -122,31 +125,26 @@ const PersonalizedServices = () => {
             </motion.div>
           </div>
 
-          {/* Right side avatars */}
-          <motion.div 
-            className="hidden md:flex flex-col gap-4"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          {/* Right side avatars - scattered */}
+          <div className="hidden md:block relative w-24 h-48">
             {rightAvatars.map((avatar, index) => (
               <motion.div
                 key={index}
-                className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 shadow-lg"
+                className="absolute w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 shadow-lg"
+                style={{ top: avatar.top, right: avatar.right }}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.15 }}
               >
                 <img 
-                  src={avatar} 
+                  src={avatar.src} 
                   alt="Team member"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
