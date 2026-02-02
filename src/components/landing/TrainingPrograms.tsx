@@ -114,7 +114,7 @@ const TrainingPrograms = () => {
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 py-6 rounded-xl"
               asChild
             >
-              <Link to="/training-programs">
+              <Link to="/trainings">
                 Request Training Program
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>

@@ -17,9 +17,60 @@ import {
   Star,
   Quote,
   ArrowLeft,
-  Send
+  Send,
+  MessageCircle,
+  Home,
+  BookOpen,
+  Heart
 } from "lucide-react";
 import { Link } from "react-router-dom";
+
+const services = [
+  {
+    icon: MessageCircle,
+    title: "Online Consultations",
+    description: "Confidential one-on-one sessions with certified psychologists from the comfort of your home.",
+    features: [
+      "Video and audio sessions available",
+      "Flexible scheduling",
+      "Complete privacy guaranteed",
+      "Follow-up support included"
+    ]
+  },
+  {
+    icon: Home,
+    title: "Rehabilitation Referrals",
+    description: "We connect you with trusted rehabilitation centers across Nigeria tailored to your needs.",
+    features: [
+      "Vetted partner facilities",
+      "Personalized matching",
+      "Family counseling support",
+      "Post-rehabilitation follow-up"
+    ]
+  },
+  {
+    icon: BookOpen,
+    title: "Educational Resources",
+    description: "Access our library of mental health and addiction recovery materials.",
+    features: [
+      "Self-help guides",
+      "Video tutorials",
+      "Support group directories",
+      "Crisis intervention resources"
+    ]
+  },
+  {
+    icon: Heart,
+    title: "Family Support Programs",
+    description: "Helping families understand and support their loved ones through recovery.",
+    features: [
+      "Family therapy sessions",
+      "Caregiver training",
+      "Support group connections",
+      "Communication workshops"
+    ]
+  },
+];
 
 const programs = [
   {
@@ -99,14 +150,14 @@ const reviews = [
   },
 ];
 
-const TrainingProgramsPage = () => {
+const TrainingsPage = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     organization: "",
-    programType: "",
+    inquiryType: "",
     message: ""
   });
 
@@ -120,7 +171,7 @@ const TrainingProgramsPage = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.organization,
-          message: `[Training Program Inquiry - ${formData.programType}]\n\nOrganization: ${formData.organization}\n\n${formData.message}`
+          message: `[${formData.inquiryType} Inquiry]\n\nOrganization: ${formData.organization}\n\n${formData.message}`
         },
       });
 
@@ -135,7 +186,7 @@ const TrainingProgramsPage = () => {
         name: "",
         email: "",
         organization: "",
-        programType: "",
+        inquiryType: "",
         message: ""
       });
     } catch (error) {
@@ -169,18 +220,18 @@ const TrainingProgramsPage = () => {
               Back to Home
             </Link>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Training Programs
+              Trainings & Services
             </h1>
             <p className="text-xl text-primary-foreground/80 max-w-3xl">
-              Empowering institutions across Nigeria with evidence-based drug abuse prevention 
-              and mental health awareness programs tailored to their specific needs.
+              Comprehensive mental health support and evidence-based training programs 
+              for individuals, families, and institutions across Nigeria.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* About Programs Section */}
-      <section id="about" className="section-padding">
+      {/* Services Section */}
+      <section id="services" className="section-padding">
         <div className="container-narrow">
           <motion.div
             className="text-center mb-16"
@@ -190,17 +241,17 @@ const TrainingProgramsPage = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Our Programs
+              Our Services
             </h2>
             <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-              Each program is customized to address the unique challenges and needs of your institution, 
-              delivered by certified professionals with extensive field experience.
+              Professional psychological support services designed to help individuals 
+              and families navigate their journey to wellness and recovery.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {programs.map((program, index) => {
-              const Icon = program.icon;
+            {services.map((service, index) => {
+              const Icon = service.icon;
               return (
                 <motion.div
                   key={index}
@@ -211,19 +262,72 @@ const TrainingProgramsPage = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-xl bg-dove-teal/10 flex items-center justify-center">
-                      <Icon className="h-7 w-7 text-dove-teal" />
+                    <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center">
+                      <Icon className="h-7 w-7 text-accent" />
+                    </div>
+                    <h3 className="font-semibold text-xl text-card-foreground">{service.title}</h3>
+                  </div>
+                  <p className="text-muted-foreground mb-6">{service.description}</p>
+                  <ul className="space-y-3">
+                    {service.features.map((feature, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm text-card-foreground">
+                        <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Training Programs Section */}
+      <section id="trainings" className="section-padding bg-dove-teal text-primary-foreground">
+        <div className="container-narrow">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Training Programs
+            </h2>
+            <p className="text-primary-foreground/80 max-w-3xl mx-auto text-lg">
+              Empowering institutions with evidence-based drug abuse prevention 
+              and mental health awareness programs tailored to their specific needs.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {programs.map((program, index) => {
+              const Icon = program.icon;
+              return (
+                <motion.div
+                  key={index}
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center">
+                      <Icon className="h-7 w-7 text-accent" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-xl text-card-foreground">{program.title}</h3>
+                      <h3 className="font-semibold text-xl">{program.title}</h3>
                       <p className="text-sm text-accent">For: {program.audience}</p>
                     </div>
                   </div>
-                  <p className="text-muted-foreground mb-6">{program.description}</p>
+                  <p className="text-primary-foreground/80 mb-6">{program.description}</p>
                   <ul className="space-y-3">
                     {program.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm text-card-foreground">
-                        <CheckCircle className="h-5 w-5 text-dove-teal flex-shrink-0" />
+                      <li key={i} className="flex items-center gap-3 text-sm text-primary-foreground/90">
+                        <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
@@ -249,7 +353,7 @@ const TrainingProgramsPage = () => {
               What Our Partners Say
             </h2>
             <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-              Hear from institutions that have benefited from our training programs.
+              Hear from institutions and individuals who have benefited from our programs and services.
             </p>
           </motion.div>
 
@@ -292,10 +396,10 @@ const TrainingProgramsPage = () => {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Request a Training Program
+                Get Started
               </h2>
               <p className="text-muted-foreground text-lg">
-                Fill out the form below and our team will reach out to discuss your institution's needs.
+                Interested in our services or training programs? Fill out the form below and our team will reach out.
               </p>
             </motion.div>
 
@@ -333,40 +437,46 @@ const TrainingProgramsPage = () => {
 
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="organization">Organization Name *</Label>
+                  <Label htmlFor="organization">Organization (if applicable)</Label>
                   <Input
                     id="organization"
                     value={formData.organization}
                     onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                     placeholder="Your organization"
-                    required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="programType">Program Type *</Label>
+                  <Label htmlFor="inquiryType">I'm interested in *</Label>
                   <select
-                    id="programType"
-                    value={formData.programType}
-                    onChange={(e) => setFormData({ ...formData, programType: e.target.value })}
+                    id="inquiryType"
+                    value={formData.inquiryType}
+                    onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     required
                   >
-                    <option value="">Select a program</option>
-                    <option value="Schools & Universities">Schools & Universities</option>
-                    <option value="Corporate Organizations">Corporate Organizations</option>
-                    <option value="NGOs & Community Groups">NGOs & Community Groups</option>
-                    <option value="Government & Institutions">Government & Institutions</option>
+                    <option value="">Select an option</option>
+                    <optgroup label="Services">
+                      <option value="Online Consultation">Online Consultation</option>
+                      <option value="Rehabilitation Referral">Rehabilitation Referral</option>
+                      <option value="Family Support">Family Support Program</option>
+                    </optgroup>
+                    <optgroup label="Training Programs">
+                      <option value="Schools Training">Schools & Universities Training</option>
+                      <option value="Corporate Training">Corporate Wellness Program</option>
+                      <option value="NGO Training">NGO & Community Training</option>
+                      <option value="Government Training">Government & Institutional Training</option>
+                    </optgroup>
                   </select>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message">Additional Information</Label>
+                <Label htmlFor="message">Tell us more about your needs</Label>
                 <Textarea
                   id="message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Tell us about your organization's needs, expected number of participants, preferred dates, etc."
+                  placeholder="Describe your situation or requirements..."
                   rows={5}
                 />
               </div>
@@ -396,4 +506,4 @@ const TrainingProgramsPage = () => {
   );
 };
 
-export default TrainingProgramsPage;
+export default TrainingsPage;
