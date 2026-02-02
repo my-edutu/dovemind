@@ -18,6 +18,8 @@ interface UserInfo {
 const ChatbotWidget = () => {
   const { isOpen, openChat, closeChat } = useChatbot();
   const [showButton, setShowButton] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(false);
+  const [greetingDismissed, setGreetingDismissed] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "" });
@@ -29,13 +31,26 @@ const ChatbotWidget = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowButton(window.scrollY > 400);
+      const footer = document.querySelector("footer");
+      const footerVisible = footer 
+        ? footer.getBoundingClientRect().top < window.innerHeight - 100
+        : false;
+      
+      const shouldShow = window.scrollY > 400 && !footerVisible;
+      setShowButton(shouldShow);
+      
+      // Show greeting after button appears (with delay), only if not dismissed
+      if (shouldShow && !greetingDismissed) {
+        setTimeout(() => setShowGreeting(true), 1500);
+      } else {
+        setShowGreeting(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [greetingDismissed]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -117,20 +132,57 @@ const ChatbotWidget = () => {
     setFormErrors({ name: "", email: "" });
   };
 
+  const handleOpenChat = () => {
+    setGreetingDismissed(true);
+    setShowGreeting(false);
+    openChat();
+  };
+
   return (
     <>
-      {/* Floating Chat Button */}
+      {/* Floating Chat Button with Greeting */}
       <AnimatePresence>
         {showButton && !isOpen && (
           <motion.div
-            className="fixed bottom-6 right-6 z-40"
+            className="fixed bottom-6 right-6 z-40 flex items-end gap-3"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.3 }}
           >
+            {/* Greeting Popup */}
+            <AnimatePresence>
+              {showGreeting && !greetingDismissed && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 20, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-card shadow-lg rounded-2xl rounded-br-sm p-4 max-w-[200px] border border-border cursor-pointer"
+                  onClick={handleOpenChat}
+                >
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setGreetingDismissed(true);
+                      setShowGreeting(false);
+                    }}
+                    className="absolute -top-2 -right-2 w-6 h-6 bg-muted rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                  <p className="text-sm font-medium text-foreground">
+                    Hi! I'm <span className="text-dove-teal">DovesMind AI</span> 👋
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    How can I help you today?
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            
             <Button
-              onClick={openChat}
+              onClick={handleOpenChat}
               className="h-14 w-14 rounded-full bg-dove-teal hover:bg-dove-teal/90 shadow-lg"
             >
               <Bot className="h-6 w-6" />
