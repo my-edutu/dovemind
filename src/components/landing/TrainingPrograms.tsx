@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Building2, Users, Landmark, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import serviceTraining from "@/assets/service-training.jpg";
 import serviceConsultation from "@/assets/service-consultation.jpg";
@@ -62,6 +63,7 @@ const programs = [
 
 const TrainingPrograms = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const isMobile = useIsMobile();
 
   const handleCardClick = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
@@ -81,8 +83,7 @@ const TrainingPrograms = () => {
           <div>
             <p className="text-sm text-muted-foreground mb-2">Our Programs</p>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Training Programs <br />
-              <span className="text-dove-teal">For Nigeria</span>
+              Training Programs
             </h2>
           </div>
           <Link 
@@ -94,14 +95,30 @@ const TrainingPrograms = () => {
           </Link>
         </motion.div>
 
-        {/* Cards Container - Horizontal layout with overlap */}
-        <div className="relative flex flex-col lg:flex-row gap-4 lg:gap-0">
+        {/* Cards Container */}
+        <div className={`${isMobile ? 'grid grid-cols-1 gap-4' : 'relative flex flex-row'}`}>
           {programs.map((program, index) => {
             const Icon = program.icon;
             const isExpanded = expandedIndex === index;
             const hasExpanded = expandedIndex !== null;
             const isBeforeExpanded = expandedIndex !== null && index < expandedIndex;
             const isAfterExpanded = expandedIndex !== null && index > expandedIndex;
+            
+            // Desktop animation values
+            const desktopAnimate = {
+              width: isExpanded ? "100%" : hasExpanded ? "20%" : "25%",
+              marginLeft: index === 0 ? 0 : isExpanded ? 0 : "-2%",
+              x: isBeforeExpanded ? -30 : isAfterExpanded ? 30 : 0,
+              scale: hasExpanded && !isExpanded ? 0.95 : 1,
+              opacity: hasExpanded && !isExpanded ? 0.7 : 1,
+            };
+
+            // Mobile: no overlap animations
+            const mobileAnimate = {
+              scale: 1,
+              opacity: 1,
+              x: 0,
+            };
             
             return (
               <motion.div
@@ -113,20 +130,14 @@ const TrainingPrograms = () => {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                animate={{
-                  width: isExpanded ? "100%" : hasExpanded ? "20%" : "25%",
-                  marginLeft: index === 0 ? 0 : isExpanded ? 0 : "-2%",
-                  x: isBeforeExpanded ? -30 : isAfterExpanded ? 30 : 0,
-                  scale: hasExpanded && !isExpanded ? 0.95 : 1,
-                  opacity: hasExpanded && !isExpanded ? 0.7 : 1,
-                }}
+                animate={isMobile ? mobileAnimate : desktopAnimate}
                 transition={{ 
                   duration: 0.5, 
                   ease: [0.4, 0, 0.2, 1],
                   delay: index * 0.05 
                 }}
                 onClick={() => handleCardClick(index)}
-                whileHover={!hasExpanded ? { 
+                whileHover={!isMobile && !hasExpanded ? { 
                   scale: 1.02, 
                   zIndex: 25,
                   marginLeft: index === 0 ? 0 : "0%",
@@ -134,12 +145,12 @@ const TrainingPrograms = () => {
               >
                 <motion.div 
                   className="p-6 h-full flex flex-col min-h-[280px] lg:min-h-[320px]"
-                  layout
+                  layout={!isMobile}
                 >
                   {/* Icon */}
                   <motion.div 
                     className="w-10 h-10 rounded-xl bg-dove-teal/10 flex items-center justify-center mb-4"
-                    layout
+                    layout={!isMobile}
                   >
                     <Icon className="h-5 w-5 text-dove-teal" />
                   </motion.div>
@@ -147,7 +158,7 @@ const TrainingPrograms = () => {
                   {/* Title */}
                   <motion.h3 
                     className="font-semibold text-lg text-card-foreground mb-2"
-                    layout
+                    layout={!isMobile}
                   >
                     {program.title}
                   </motion.h3>
@@ -160,7 +171,7 @@ const TrainingPrograms = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3, delay: 0.2 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
                         className="flex flex-col lg:flex-row gap-6 flex-1"
                       >
                         <div className="flex-1">
@@ -196,7 +207,7 @@ const TrainingPrograms = () => {
                         transition={{ duration: 0.3 }}
                         className="flex-1 flex flex-col justify-between"
                       >
-                        <p className={`text-muted-foreground text-sm line-clamp-3 mb-4 ${hasExpanded ? 'hidden lg:block' : ''}`}>
+                        <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
                           {program.description}
                         </p>
                       </motion.div>
@@ -206,9 +217,9 @@ const TrainingPrograms = () => {
                   {/* Footer */}
                   <motion.div 
                     className="flex items-center justify-between mt-auto pt-4"
-                    layout
+                    layout={!isMobile}
                   >
-                    <span className={`text-sm text-muted-foreground ${hasExpanded && !isExpanded ? 'hidden lg:block' : ''}`}>
+                    <span className="text-sm text-muted-foreground">
                       {isExpanded ? "Close" : "Read More"}
                     </span>
                     <motion.div 
