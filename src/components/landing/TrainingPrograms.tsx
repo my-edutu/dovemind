@@ -38,8 +38,12 @@ const programs = [
 ];
 
 const TrainingPrograms = () => {
-  const [expandedIndex, setExpandedIndex] = useState<number>(1);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const isMobile = useIsMobile();
+
+  const handleClick = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
 
   return (
     <section id="training" className="section-padding bg-background">
@@ -67,12 +71,16 @@ const TrainingPrograms = () => {
               <motion.div
                 key={index}
                 className={`${program.bgColor} rounded-3xl cursor-pointer overflow-hidden`}
-                onClick={() => setExpandedIndex(index)}
+                onClick={() => handleClick(index)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                style={{
+                  width: isMobile ? "100%" : isExpanded ? "400px" : "200px",
+                  minWidth: isMobile ? "100%" : isExpanded ? "400px" : "200px",
+                }}
                 animate={{
-                  flex: isMobile ? "none" : isExpanded ? 2.5 : 1,
+                  width: isMobile ? "100%" : isExpanded ? 400 : 200,
                 }}
                 transition={{ 
                   duration: 0.5, 
@@ -83,16 +91,16 @@ const TrainingPrograms = () => {
                 <div className="p-6 h-full flex flex-col min-h-[280px]">
                   {/* Title */}
                   <motion.h3 
-                    className="font-bold text-lg text-foreground mb-3"
+                    className="font-bold text-lg text-foreground"
                     layout="position"
                   >
                     {program.title}
                   </motion.h3>
 
-                  {/* Content */}
-                  <div className="flex-1">
+                  {/* Content - only show when expanded */}
+                  <div className="flex-1 mt-3">
                     <AnimatePresence mode="wait">
-                      {isExpanded || isMobile ? (
+                      {(isExpanded || isMobile) && (
                         <motion.div
                           key="expanded"
                           initial={{ opacity: 0 }}
@@ -105,7 +113,7 @@ const TrainingPrograms = () => {
                             {program.description}
                           </p>
                           <motion.div 
-                            className="w-32 h-36 rounded-2xl overflow-hidden flex-shrink-0"
+                            className="w-28 h-32 rounded-2xl overflow-hidden flex-shrink-0"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 }}
@@ -117,13 +125,6 @@ const TrainingPrograms = () => {
                             />
                           </motion.div>
                         </motion.div>
-                      ) : (
-                        <motion.div
-                          key="collapsed"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                        />
                       )}
                     </AnimatePresence>
                   </div>
