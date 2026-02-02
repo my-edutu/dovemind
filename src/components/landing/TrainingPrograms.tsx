@@ -70,19 +70,18 @@ const TrainingPrograms = () => {
             return (
               <motion.div
                 key={index}
-                className={`${program.bgColor} rounded-3xl cursor-pointer overflow-hidden`}
+                className={`${program.bgColor} rounded-3xl cursor-pointer overflow-hidden flex-shrink-0`}
                 onClick={() => handleClick(index)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                style={{
-                  width: isMobile ? "100%" : isExpanded ? "350px" : "250px",
-                  minWidth: isMobile ? "100%" : isExpanded ? "350px" : "250px",
-                  height: isMobile ? "auto" : isExpanded ? "350px" : "250px",
-                }}
                 animate={{
-                  width: isMobile ? "100%" : isExpanded ? 350 : 250,
-                  height: isMobile ? "auto" : isExpanded ? 350 : 250,
+                  width: isMobile ? "100%" : isExpanded ? 450 : 250,
+                }}
+                style={{
+                  width: isMobile ? "100%" : isExpanded ? "450px" : "250px",
+                  height: isMobile ? "auto" : "250px",
+                  minHeight: isMobile ? "250px" : "250px",
                 }}
                 transition={{ 
                   duration: 0.5, 
