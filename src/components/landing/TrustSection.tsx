@@ -68,7 +68,7 @@ const TrustSection = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="relative" style={{ height: isMobile ? 220 : 260 }}>
+            <div className="relative pt-16" style={{ height: isMobile ? 280 : 320 }}>
               <CardSwap
                 width={isMobile ? 220 : 280}
                 height={isMobile ? 160 : 180}
