@@ -1,95 +1,89 @@
 import { motion } from "framer-motion";
-import { Shield, User, Building, Heart } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { Shield, User, Building, Heart, Brain, Users } from "lucide-react";
 
 const benefits = [
   {
     icon: Shield,
     title: "Confidential Support",
-    description: "Your privacy is our priority.",
+    description: "Your privacy is our priority. All sessions and consultations are completely confidential.",
+    color: "bg-rose-500",
   },
   {
-    icon: User,
+    icon: Brain,
     title: "Professional Guidance",
-    description: "Work with certified psychologists.",
+    description: "Work with certified psychologists who specialize in addiction and mental health recovery.",
+    color: "bg-amber-400",
   },
   {
     icon: Building,
     title: "Trusted Referrals",
-    description: "Access to vetted treatment facilities.",
+    description: "Access to vetted treatment facilities and rehabilitation centers across Nigeria.",
+    color: "bg-rose-400",
   },
   {
     icon: Heart,
     title: "Emotional Well-being",
-    description: "Build lasting emotional resilience.",
+    description: "Build lasting emotional resilience through personalized therapeutic approaches.",
+    color: "bg-violet-500",
+  },
+  {
+    icon: Users,
+    title: "Family Support",
+    description: "Comprehensive programs to help families understand and support their loved ones.",
+    color: "bg-teal-500",
   },
 ];
 
 const WhyMatters = () => {
-  const isMobile = useIsMobile();
-  const displayBenefits = isMobile ? benefits.slice(0, 4) : benefits;
-
   return (
-    <section id="about" className="section-padding bg-secondary/50 pt-32 md:pt-40">
+    <section id="about" className="section-padding bg-[#f8f9fa] pt-32 md:pt-40">
       <div className="container-narrow">
-        {/* Section header */}
-        <motion.div 
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-        >
-          <motion.h2 
-            className="text-2xl md:text-4xl font-bold text-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        <div className="grid lg:grid-cols-[1fr,2fr] gap-12 lg:gap-16">
+          {/* Left side - Header */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6 }}
           >
-            Why Psychological Support Matters
-          </motion.h2>
-          <motion.p 
-            className="text-muted-foreground max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Early intervention and ethical care are the foundations of lasting recovery.
-          </motion.p>
-        </motion.div>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-[2px] bg-dove-teal" />
+              <span className="text-sm text-dove-teal font-medium">Our Support</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4 leading-tight">
+              Why Psychological Support Matters
+            </h2>
+            <p className="text-muted-foreground">
+              Early intervention and ethical care are the foundations of lasting recovery. We provide comprehensive support for individuals and families.
+            </p>
+          </motion.div>
 
-        {/* Benefits grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {displayBenefits.map((benefit, index) => {
-            const Icon = benefit.icon;
-            return (
-              <motion.div
-                key={index}
-                className="flex flex-col items-center text-center p-4 md:p-6 rounded-2xl bg-card border border-border hover:border-accent/30 transition-colors"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.03, y: -5 }}
-              >
-                <motion.div 
-                  className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-3"
-                  whileHover={{ rotate: 10 }}
-                  transition={{ duration: 0.3 }}
+          {/* Right side - Cards grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {benefits.map((benefit, index) => {
+              const Icon = benefit.icon;
+              return (
+                <motion.div
+                  key={index}
+                  className="bg-white rounded-2xl p-6 shadow-sm"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Icon className="h-6 w-6 text-accent" />
+                  <div className={`w-12 h-12 ${benefit.color} rounded-full flex items-center justify-center mb-4`}>
+                    <Icon className="h-5 w-5 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-foreground text-lg mb-2">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {benefit.description}
+                  </p>
                 </motion.div>
-                <h3 className="font-semibold text-card-foreground text-sm md:text-base mb-1">
-                  {benefit.title}
-                </h3>
-                <p className="text-xs md:text-sm text-muted-foreground">
-                  {benefit.description}
-                </p>
-              </motion.div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
