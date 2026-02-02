@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Feather, LogOut, MessageSquare, FileText, Users, Eye } from "lucide-react";
+import { Feather, LogOut, MessageSquare, FileText, Users, Eye, Cpu } from "lucide-react";
 import { motion } from "framer-motion";
 import ChatSessionsTab from "@/components/admin/ChatSessionsTab";
 import BlogsTab from "@/components/admin/BlogsTab";
+import AIUsageTab from "@/components/admin/AIUsageTab";
 
 const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -164,14 +165,18 @@ const AdminDashboard = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Tabs defaultValue="chats" className="space-y-4">
-            <TabsList className="grid w-full max-w-md grid-cols-2">
+            <TabsList className="grid w-full max-w-lg grid-cols-3">
               <TabsTrigger value="chats">
                 <MessageSquare className="h-4 w-4 mr-2" />
-                Chat Sessions
+                Chats
               </TabsTrigger>
               <TabsTrigger value="blogs">
                 <FileText className="h-4 w-4 mr-2" />
-                Blog Posts
+                Blogs
+              </TabsTrigger>
+              <TabsTrigger value="usage">
+                <Cpu className="h-4 w-4 mr-2" />
+                AI Usage
               </TabsTrigger>
             </TabsList>
             <TabsContent value="chats">
@@ -179,6 +184,9 @@ const AdminDashboard = () => {
             </TabsContent>
             <TabsContent value="blogs">
               <BlogsTab />
+            </TabsContent>
+            <TabsContent value="usage">
+              <AIUsageTab />
             </TabsContent>
           </Tabs>
         </motion.div>
