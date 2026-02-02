@@ -2,6 +2,16 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
+import avatarAdaora from "@/assets/avatar-adaora.jpg";
+import avatarChisom from "@/assets/avatar-chisom.jpg";
+import avatarEmeka from "@/assets/avatar-emeka.jpg";
+import avatarIbrahim from "@/assets/avatar-ibrahim.jpg";
+import avatarNgozi from "@/assets/avatar-ngozi.jpg";
+import avatarTunde from "@/assets/avatar-tunde.jpg";
+
+const leftAvatars = [avatarAdaora, avatarChisom, avatarEmeka];
+const rightAvatars = [avatarIbrahim, avatarNgozi, avatarTunde];
+
 const scrollToContact = () => {
   const contactSection = document.getElementById("contact");
   if (contactSection) {
@@ -42,45 +52,102 @@ const PersonalizedServices = () => {
         </svg>
       </motion.div>
 
-      <div className="container-narrow relative z-10 text-center">
-        <motion.h2 
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-foreground mb-6 italic leading-snug"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-        >
-          Personalized Mental Health<br />
-          Services for a Better You
-        </motion.h2>
-        
-        <motion.p 
-          className="text-primary-foreground/80 text-sm max-w-2xl mx-auto mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <span className="text-accent">✦</span> Struggling with stress, anxiety, or emotional challenges? Our certified professionals are here to help! Schedule your consultation now and take the first step towards a healthier mind.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-            <Button
-              size="lg"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold rounded-full px-8"
-              onClick={scrollToContact}
-            >
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+      <div className="container-narrow relative z-10">
+        <div className="flex items-center justify-center gap-6 md:gap-12">
+          {/* Left side avatars */}
+          <motion.div 
+            className="hidden md:flex flex-col gap-4"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            {leftAvatars.map((avatar, index) => (
+              <motion.div
+                key={index}
+                className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 shadow-lg"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                <img 
+                  src={avatar} 
+                  alt="Team member"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            ))}
           </motion.div>
-        </motion.div>
+
+          {/* Center content */}
+          <div className="text-center max-w-2xl">
+            <motion.h2 
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-foreground mb-6 italic leading-snug"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7 }}
+            >
+              Personalized Mental Health<br />
+              Services for a Better You
+            </motion.h2>
+            
+            <motion.p 
+              className="text-primary-foreground/80 text-sm mx-auto mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <span className="text-accent">✦</span> Struggling with stress, anxiety, or emotional challenges? Our certified professionals are here to help! Schedule your consultation now and take the first step towards a healthier mind.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                <Button
+                  size="lg"
+                  className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold rounded-full px-8"
+                  onClick={scrollToContact}
+                >
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* Right side avatars */}
+          <motion.div 
+            className="hidden md:flex flex-col gap-4"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            {rightAvatars.map((avatar, index) => (
+              <motion.div
+                key={index}
+                className="w-14 h-14 rounded-full overflow-hidden border-2 border-white/30 shadow-lg"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                <img 
+                  src={avatar} 
+                  alt="Team member"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
