@@ -94,27 +94,46 @@ const TrainingPrograms = () => {
           </Link>
         </motion.div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Cards Container - Horizontal layout with overlap */}
+        <div className="relative flex flex-col lg:flex-row gap-4 lg:gap-0">
           {programs.map((program, index) => {
             const Icon = program.icon;
             const isExpanded = expandedIndex === index;
+            const hasExpanded = expandedIndex !== null;
+            const isBeforeExpanded = expandedIndex !== null && index < expandedIndex;
+            const isAfterExpanded = expandedIndex !== null && index > expandedIndex;
             
             return (
               <motion.div
                 key={index}
-                className={`relative bg-card rounded-3xl border border-border overflow-hidden cursor-pointer transition-all duration-500 ${
-                  isExpanded ? "lg:col-span-2 row-span-1" : ""
-                }`}
+                className="relative bg-card rounded-3xl border border-border overflow-hidden cursor-pointer shadow-lg"
+                style={{ 
+                  zIndex: isExpanded ? 20 : 10 - index,
+                }}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                animate={{
+                  width: isExpanded ? "100%" : hasExpanded ? "20%" : "25%",
+                  marginLeft: index === 0 ? 0 : isExpanded ? 0 : "-2%",
+                  x: isBeforeExpanded ? -30 : isAfterExpanded ? 30 : 0,
+                  scale: hasExpanded && !isExpanded ? 0.95 : 1,
+                  opacity: hasExpanded && !isExpanded ? 0.7 : 1,
+                }}
+                transition={{ 
+                  duration: 0.5, 
+                  ease: [0.4, 0, 0.2, 1],
+                  delay: index * 0.05 
+                }}
                 onClick={() => handleCardClick(index)}
-                layout
+                whileHover={!hasExpanded ? { 
+                  scale: 1.02, 
+                  zIndex: 25,
+                  marginLeft: index === 0 ? 0 : "0%",
+                } : {}}
               >
                 <motion.div 
-                  className="p-6 h-full flex flex-col"
+                  className="p-6 h-full flex flex-col min-h-[280px] lg:min-h-[320px]"
                   layout
                 >
                   {/* Icon */}
@@ -141,8 +160,8 @@ const TrainingPrograms = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="flex flex-col lg:flex-row gap-4 flex-1"
+                        transition={{ duration: 0.3, delay: 0.2 }}
+                        className="flex flex-col lg:flex-row gap-6 flex-1"
                       >
                         <div className="flex-1">
                           <p className="text-muted-foreground text-sm mb-4">
@@ -160,7 +179,7 @@ const TrainingPrograms = () => {
                             For: {program.audience}
                           </p>
                         </div>
-                        <div className="lg:w-40 h-32 lg:h-auto rounded-2xl overflow-hidden flex-shrink-0">
+                        <div className="lg:w-48 h-36 lg:h-auto rounded-2xl overflow-hidden flex-shrink-0">
                           <img 
                             src={program.image} 
                             alt={program.title}
@@ -177,7 +196,7 @@ const TrainingPrograms = () => {
                         transition={{ duration: 0.3 }}
                         className="flex-1 flex flex-col justify-between"
                       >
-                        <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
+                        <p className={`text-muted-foreground text-sm line-clamp-3 mb-4 ${hasExpanded ? 'hidden lg:block' : ''}`}>
                           {program.description}
                         </p>
                       </motion.div>
@@ -189,7 +208,7 @@ const TrainingPrograms = () => {
                     className="flex items-center justify-between mt-auto pt-4"
                     layout
                   >
-                    <span className="text-sm text-muted-foreground">
+                    <span className={`text-sm text-muted-foreground ${hasExpanded && !isExpanded ? 'hidden lg:block' : ''}`}>
                       {isExpanded ? "Close" : "Read More"}
                     </span>
                     <motion.div 
