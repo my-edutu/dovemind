@@ -57,14 +57,21 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // DovesMind custom colors
+        // DovesMind custom colors (Blue + Cyan brand)
         dove: {
-          teal: "hsl(var(--dove-teal))",
-          "teal-dark": "hsl(var(--dove-teal-dark))",
-          "teal-light": "hsl(var(--dove-teal-light))",
-          lime: "hsl(var(--dove-lime))",
-          "lime-bright": "hsl(var(--dove-lime-bright))",
-          "lime-dark": "hsl(var(--dove-lime-dark))",
+          blue: "hsl(var(--dove-blue))",
+          "blue-dark": "hsl(var(--dove-blue-dark))",
+          "blue-light": "hsl(var(--dove-blue-light))",
+          cyan: "hsl(var(--dove-cyan))",
+          "cyan-bright": "hsl(var(--dove-cyan-bright))",
+          "cyan-dark": "hsl(var(--dove-cyan-dark))",
+          // Legacy aliases for compatibility
+          teal: "hsl(var(--dove-blue))",
+          "teal-dark": "hsl(var(--dove-blue-dark))",
+          "teal-light": "hsl(var(--dove-blue-light))",
+          lime: "hsl(var(--dove-cyan))",
+          "lime-bright": "hsl(var(--dove-cyan-bright))",
+          "lime-dark": "hsl(var(--dove-cyan-dark))",
         },
       },
       borderRadius: {
@@ -114,7 +121,7 @@ export default {
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "hero-gradient": "linear-gradient(135deg, hsl(var(--dove-teal-dark)) 0%, hsl(var(--dove-teal)) 50%, hsl(var(--dove-teal-light)) 100%)",
+        "hero-gradient": "linear-gradient(135deg, hsl(var(--dove-blue-dark)) 0%, hsl(var(--dove-blue)) 50%, hsl(var(--dove-cyan)) 100%)",
       },
     },
   },

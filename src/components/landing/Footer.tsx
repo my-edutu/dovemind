@@ -1,5 +1,6 @@
-import { Feather, Mail, Phone, MessageCircle, Clock } from "lucide-react";
+import { Mail, Phone, MessageCircle, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import logoImage from "@/assets/logo-dovesmind.png";
 
 const footerLinks = {
   services: [
@@ -22,16 +23,14 @@ const Footer = () => {
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello, I'd like to inquire about your services.")}`;
 
   return (
-    <footer className="bg-dove-teal-dark text-primary-foreground">
+    <footer className="bg-dove-blue-dark text-primary-foreground">
       {/* Main footer */}
       <div className="container-narrow py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* About */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent">
-                <Feather className="h-5 w-5 text-accent-foreground" />
-              </div>
+              <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
               <div>
                 <span className="text-lg font-bold">DovesMind</span>
                 <span className="text-lg font-light text-accent"> Synergy</span>
@@ -121,7 +120,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright bar */}
-      <div className="border-t border-dove-teal-light/20">
+      <div className="border-t border-dove-blue-light/20">
         <div className="container-narrow py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
             <p>© {currentYear} DovesMind Synergy. All rights reserved.</p>

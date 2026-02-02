@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Feather, LogOut, MessageSquare, FileText, Users, Eye, Cpu } from "lucide-react";
+import { LogOut, MessageSquare, FileText, Users, Eye, Cpu } from "lucide-react";
 import { motion } from "framer-motion";
 import ChatSessionsTab from "@/components/admin/ChatSessionsTab";
 import BlogsTab from "@/components/admin/BlogsTab";
 import AIUsageTab from "@/components/admin/AIUsageTab";
+import logoImage from "@/assets/logo-dovesmind.png";
 
 const AdminDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -84,12 +85,10 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-dove-teal-dark border-b border-dove-teal-light/20">
+      <header className="bg-dove-blue-dark border-b border-dove-blue-light/20">
         <div className="container-narrow py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent">
-              <Feather className="h-5 w-5 text-accent-foreground" />
-            </div>
+            <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
             <div>
               <span className="text-lg font-bold text-primary-foreground">DovesMind</span>
               <span className="text-lg font-light text-accent"> Admin</span>
