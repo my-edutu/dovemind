@@ -10,33 +10,38 @@ import RecoveryTestimonials from "@/components/landing/RecoveryTestimonials";
 import TeamSection from "@/components/landing/TeamSection";
 import DovesMindAI from "@/components/landing/DovesMindAI";
 import TrustSection from "@/components/landing/TrustSection";
-import ContactForm from "@/components/landing/ContactForm";
+import FAQSection from "@/components/landing/FAQSection";
 import Footer from "@/components/landing/Footer";
 import ChatbotWidget from "@/components/landing/ChatbotWidget";
+import ContactModal from "@/components/landing/ContactModal";
 import { ChatbotProvider } from "@/contexts/ChatbotContext";
+import { ContactModalProvider } from "@/contexts/ContactModalContext";
 
 const Index = () => {
   return (
     <ChatbotProvider>
-      <div className="min-h-screen">
-        <Header />
-        <main>
-          <HeroSection />
-          <WhyMatters />
-          <VideoSection />
-          <PersonalizedServices />
-          <Statistics />
-          <ServicesOverview />
-          <TrainingPrograms />
-          <RecoveryTestimonials />
-          <DovesMindAI />
-          <TeamSection />
-          <TrustSection />
-          <ContactForm />
-        </main>
-        <Footer />
-        <ChatbotWidget />
-      </div>
+      <ContactModalProvider>
+        <div className="min-h-screen">
+          <Header />
+          <main>
+            <HeroSection />
+            <WhyMatters />
+            <VideoSection />
+            <PersonalizedServices />
+            <Statistics />
+            <ServicesOverview />
+            <TrainingPrograms />
+            <RecoveryTestimonials />
+            <DovesMindAI />
+            <TeamSection />
+            <TrustSection />
+            <FAQSection />
+          </main>
+          <Footer />
+          <ChatbotWidget />
+          <ContactModal />
+        </div>
+      </ContactModalProvider>
     </ChatbotProvider>
   );
 };

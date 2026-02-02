@@ -2,48 +2,24 @@ import { useState } from "react";
 import { Menu, Feather } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useContactModal } from "@/contexts/ContactModalContext";
 
 const navLinks = [
-  { name: "About", href: "/about", isExternal: false },
-  { name: "Trainings", href: "/trainings", isExternal: false },
-  { name: "Team", href: "/team", isExternal: false },
-  { name: "Blog", href: "/blog", isExternal: false },
-  { name: "Contact", href: "#contact", isExternal: true },
+  { name: "About", href: "/about", isPage: true },
+  { name: "Trainings", href: "/trainings", isPage: true },
+  { name: "Team", href: "/team", isPage: true },
+  { name: "Blog", href: "/blog", isPage: true },
+  { name: "Contact", href: "/contact", isPage: true },
 ];
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const { openModal } = useContactModal();
 
-  const handleNavClick = (href: string, isExternal: boolean) => {
+  const handleBookConsultation = () => {
     setIsOpen(false);
-    if (isExternal && href.startsWith("#")) {
-      const element = document.getElementById(href.slice(1));
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      } else {
-        // Navigate to home and scroll
-        navigate("/");
-        setTimeout(() => {
-          const el = document.getElementById(href.slice(1));
-          el?.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      }
-    }
-  };
-
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    } else {
-      navigate("/");
-      setTimeout(() => {
-        const el = document.getElementById("contact");
-        el?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }
+    openModal();
   };
 
   return (
@@ -64,23 +40,13 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              link.isExternal ? (
-                <button
-                  key={link.name}
-                  onClick={() => handleNavClick(link.href, link.isExternal)}
-                  className="text-sm font-medium text-primary-foreground/80 hover:text-accent transition-colors"
-                >
-                  {link.name}
-                </button>
-              ) : (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="text-sm font-medium text-primary-foreground/80 hover:text-accent transition-colors"
-                >
-                  {link.name}
-                </Link>
-              )
+              <Link
+                key={link.name}
+                to={link.href}
+                className="text-sm font-medium text-primary-foreground/80 hover:text-accent transition-colors"
+              >
+                {link.name}
+              </Link>
             ))}
           </nav>
 
@@ -89,7 +55,7 @@ const Header = () => {
             <Button
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
               size="lg"
-              onClick={scrollToContact}
+              onClick={handleBookConsultation}
             >
               Book Consultation
             </Button>
@@ -116,33 +82,20 @@ const Header = () => {
                 </Link>
                 <nav className="flex flex-col gap-4">
                   {navLinks.map((link) => (
-                    link.isExternal ? (
-                      <button
-                        key={link.name}
-                        onClick={() => handleNavClick(link.href, link.isExternal)}
-                        className="text-base font-medium text-primary-foreground/80 hover:text-accent transition-colors py-2 text-left"
-                      >
-                        {link.name}
-                      </button>
-                    ) : (
-                      <Link
-                        key={link.name}
-                        to={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="text-base font-medium text-primary-foreground/80 hover:text-accent transition-colors py-2"
-                      >
-                        {link.name}
-                      </Link>
-                    )
+                    <Link
+                      key={link.name}
+                      to={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="text-base font-medium text-primary-foreground/80 hover:text-accent transition-colors py-2"
+                    >
+                      {link.name}
+                    </Link>
                   ))}
                 </nav>
                 <Button
                   className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold mt-4"
                   size="lg"
-                  onClick={() => {
-                    setIsOpen(false);
-                    scrollToContact();
-                  }}
+                  onClick={handleBookConsultation}
                 >
                   Book Consultation
                 </Button>
