@@ -8,8 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Edit, Trash2, FileText, Eye, EyeOff } from "lucide-react";
+import { Plus, Edit, Trash2, FileText, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
+import MarkdownEditor from "./MarkdownEditor";
 
 interface Blog {
   id: string;
@@ -268,13 +269,11 @@ const BlogsTab = () => {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="content">Content *</Label>
-                <Textarea
-                  id="content"
+                <MarkdownEditor
                   value={formData.content}
-                  onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                  placeholder="Write your blog content here (Markdown supported)"
-                  rows={10}
-                  required
+                  onChange={(content) => setFormData({ ...formData, content })}
+                  placeholder="Write your blog content here..."
+                  rows={12}
                 />
               </div>
               <div className="space-y-2">
@@ -285,6 +284,16 @@ const BlogsTab = () => {
                   onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })}
                   placeholder="https://example.com/image.jpg"
                 />
+                {formData.cover_image && (
+                  <div className="mt-2 rounded-lg overflow-hidden border">
+                    <img 
+                      src={formData.cover_image} 
+                      alt="Cover preview" 
+                      className="w-full h-32 object-cover"
+                      onError={(e) => (e.currentTarget.style.display = 'none')}
+                    />
+                  </div>
+                )}
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -335,7 +344,15 @@ const BlogsTab = () => {
                   <p className="text-sm text-muted-foreground line-clamp-1">
                     {blog.excerpt || blog.content.substring(0, 100)}...
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">
+                  <a 
+                    href={`/blog/${blog.slug}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-xs text-dove-teal hover:underline inline-flex items-center gap-1 mt-1"
+                  >
+                    /blog/{blog.slug} <ExternalLink className="h-3 w-3" />
+                  </a>
+                  <p className="text-xs text-muted-foreground">
                     Created: {format(new Date(blog.created_at), "MMM d, yyyy")}
                   </p>
                 </div>

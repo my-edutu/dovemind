@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Calendar, ArrowLeft } from "lucide-react";
 import { format } from "date-fns";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -122,8 +123,8 @@ const BlogPostPage = () => {
             </h1>
 
             {/* Content */}
-            <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-dove-teal">
-              <ReactMarkdown>{blog.content}</ReactMarkdown>
+            <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-muted-foreground prose-a:text-dove-teal prose-img:rounded-xl prose-blockquote:border-dove-teal">
+              <ReactMarkdown rehypePlugins={[rehypeRaw]}>{blog.content}</ReactMarkdown>
             </div>
           </motion.div>
         </div>
