@@ -89,58 +89,56 @@ const TrainingPrograms = () => {
                 layout
               >
                 <div className="p-6 h-full flex flex-col min-h-[280px]">
-                  {/* Title */}
-                  <motion.h3 
-                    className="font-bold text-lg text-foreground"
-                    layout="position"
-                  >
-                    {program.title}
-                  </motion.h3>
-
-                  {/* Content - only show when expanded */}
-                  <div className="flex-1 mt-3">
-                    <AnimatePresence mode="wait">
-                      {(isExpanded || isMobile) && (
-                        <motion.div
-                          key="expanded"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="flex gap-4 h-full"
-                        >
-                          <p className="text-muted-foreground text-sm leading-relaxed flex-1">
-                            {program.description}
-                          </p>
-                          <motion.div 
-                            className="w-28 h-32 rounded-2xl overflow-hidden flex-shrink-0"
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.4, delay: 0.1 }}
-                          >
-                            <img 
-                              src={program.image} 
-                              alt={program.title}
-                              className="w-full h-full object-cover"
-                            />
-                          </motion.div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Footer */}
-                  <motion.div 
-                    className="flex items-center justify-between mt-4 pt-3"
-                    layout="position"
-                  >
-                    <span className="text-sm text-muted-foreground">Read More</span>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
-                      isExpanded ? "bg-dove-teal text-white" : "bg-white/70 text-muted-foreground"
-                    }`}>
-                      <ArrowUpRight className="h-4 w-4" />
-                    </div>
-                  </motion.div>
+                  <AnimatePresence mode="wait">
+                    {!isExpanded ? (
+                      /* Collapsed state - show text */
+                      <motion.div
+                        key="collapsed"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="flex flex-col h-full"
+                      >
+                        <h3 className="font-bold text-lg text-foreground mb-3">
+                          {program.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                          {program.description}
+                        </p>
+                        <div className="flex items-center justify-between mt-4 pt-3">
+                          <span className="text-sm text-muted-foreground">View</span>
+                          <div className="w-8 h-8 rounded-full bg-white/70 text-muted-foreground flex items-center justify-center">
+                            <ArrowUpRight className="h-4 w-4" />
+                          </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      /* Expanded state - show only image */
+                      <motion.div
+                        key="expanded"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="h-full flex flex-col"
+                      >
+                        <div className="flex-1 rounded-2xl overflow-hidden">
+                          <img 
+                            src={program.image} 
+                            alt={program.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex items-center justify-between mt-4 pt-2">
+                          <span className="text-sm font-medium text-foreground">{program.title}</span>
+                          <div className="w-8 h-8 rounded-full bg-dove-teal text-white flex items-center justify-center">
+                            <ArrowUpRight className="h-4 w-4" />
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </motion.div>
             );
