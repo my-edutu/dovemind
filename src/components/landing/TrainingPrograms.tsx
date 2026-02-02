@@ -115,28 +115,41 @@ const TrainingPrograms = () => {
                         </div>
                       </motion.div>
                     ) : (
-                      /* Expanded state - show only image */
+                      /* Expanded state - show text and image side by side */
                       <motion.div
                         key="expanded"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="h-full flex flex-col"
+                        className="h-full flex gap-4"
                       >
-                        <div className="flex-1 rounded-2xl overflow-hidden">
+                        <div className="flex-1 flex flex-col">
+                          <h3 className="font-bold text-lg text-foreground mb-3">
+                            {program.title}
+                          </h3>
+                          <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                            {program.description}
+                          </p>
+                          <div className="flex items-center gap-2 mt-4">
+                            <span className="text-sm text-muted-foreground">Close</span>
+                            <div className="w-8 h-8 rounded-full bg-dove-teal text-white flex items-center justify-center">
+                              <ArrowUpRight className="h-4 w-4" />
+                            </div>
+                          </div>
+                        </div>
+                        <motion.div 
+                          className="w-40 h-full rounded-2xl overflow-hidden flex-shrink-0"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: 0.1 }}
+                        >
                           <img 
                             src={program.image} 
                             alt={program.title}
                             className="w-full h-full object-cover"
                           />
-                        </div>
-                        <div className="flex items-center justify-between mt-4 pt-2">
-                          <span className="text-sm font-medium text-foreground">{program.title}</span>
-                          <div className="w-8 h-8 rounded-full bg-dove-teal text-white flex items-center justify-center">
-                            <ArrowUpRight className="h-4 w-4" />
-                          </div>
-                        </div>
+                        </motion.div>
                       </motion.div>
                     )}
                   </AnimatePresence>
