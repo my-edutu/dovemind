@@ -123,28 +123,25 @@ const TrainingPrograms = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3, delay: 0.1 }}
-                        className="flex flex-col flex-1"
+                        className="flex flex-1 gap-4"
                       >
-                        <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                          {program.description}
-                        </p>
+                        {/* Text content */}
+                        <div className="flex-1 flex flex-col">
+                          <p className="text-muted-foreground text-sm leading-relaxed">
+                            {program.description}
+                          </p>
+                          <p className="text-xs text-muted-foreground/70 mt-2">
+                            For: {program.audience}
+                          </p>
+                        </div>
                         
-                        {/* Image */}
-                        <div className="flex gap-3 mt-auto">
-                          <div className="w-24 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                            <img 
-                              src={program.image} 
-                              alt={program.title}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          <div className="w-24 h-16 rounded-xl overflow-hidden flex-shrink-0">
-                            <img 
-                              src={program.image} 
-                              alt={program.title}
-                              className="w-full h-full object-cover scale-110"
-                            />
-                          </div>
+                        {/* Image on the side */}
+                        <div className="w-28 h-32 rounded-xl overflow-hidden flex-shrink-0 shadow-sm">
+                          <img 
+                            src={program.image} 
+                            alt={program.title}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                       </motion.div>
                     ) : (
