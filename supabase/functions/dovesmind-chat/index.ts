@@ -1,9 +1,15 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
+
+// Rough token estimation (4 chars ≈ 1 token)
+function estimateTokens(text: string): number {
+  return Math.ceil(text.length / 4);
+}
 
 const SYSTEM_PROMPT = `You are DovesMind AI, a compassionate and professional mental health support assistant for DovesMind Synergy — a Nigerian-focused psychological support and substance abuse prevention platform.
 
@@ -37,8 +43,10 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages, sessionId } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+    const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     
     if (!LOVABLE_API_KEY) {
       console.error("LOVABLE_API_KEY is not configured");
@@ -46,6 +54,10 @@ serve(async (req) => {
     }
 
     console.log("Received messages:", messages.length);
+    
+    // Estimate input tokens
+    const inputTokens = messages.reduce((acc: number, msg: { content: string }) => 
+      acc + estimateTokens(msg.content), 0) + estimateTokens(SYSTEM_PROMPT);
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -87,6 +99,24 @@ serve(async (req) => {
     }
 
     console.log("Streaming response started");
+
+    // Log AI usage asynchronously (don't block response)
+    if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
+      const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+      
+      // Estimate output tokens (rough estimate for streaming - actual varies)
+      const estimatedOutputTokens = 150; // Average response length
+      
+      supabase.from("ai_usage_logs").insert({
+        session_id: sessionId || null,
+        input_tokens: inputTokens,
+        output_tokens: estimatedOutputTokens,
+        model: "gemini-3-flash-preview"
+      }).then(({ error }) => {
+        if (error) console.error("Failed to log AI usage:", error);
+        else console.log("AI usage logged:", { inputTokens, outputTokens: estimatedOutputTokens });
+      });
+    }
 
     return new Response(response.body, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },

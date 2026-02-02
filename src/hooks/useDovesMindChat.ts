@@ -98,7 +98,8 @@ export const useDovesMindChat = () => {
         },
         body: JSON.stringify({ 
           messages: updatedMessages.map(m => ({ role: m.role, content: m.content })),
-          userContext: userContext ? { name: userContext.name, email: userContext.email } : null
+          userContext: userContext ? { name: userContext.name, email: userContext.email } : null,
+          sessionId: sessionIdRef.current
         }),
       });
 
