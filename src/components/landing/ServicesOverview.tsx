@@ -66,46 +66,50 @@ const ServicesOverview = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className={`grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-2'} gap-8 items-center`}>
                   <div>
                     <h3 className="text-2xl font-bold text-card-foreground mb-4">
                       One-on-One Psychological Consultation
                     </h3>
-                    <p className="text-muted-foreground mb-6">
+                    <p className="text-muted-foreground">
                       Connect with certified psychologists for confidential, personalized support. 
                       Our sessions are designed to help you navigate challenges and build coping strategies.
                     </p>
-                    <ul className="space-y-3">
-                      {[
-                        "Confidential online consultations",
-                        "Certified and experienced psychologists",
-                        "Personalized coping strategies",
-                        "Secure booking and payment",
-                      ].map((item, i) => (
-                        <motion.li 
-                          key={i} 
-                          className="flex items-center gap-3 text-card-foreground"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                        >
-                          {!isMobile && <Check className="h-5 w-5 text-accent flex-shrink-0" />}
-                          <span>{item}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
+                    {!isMobile && (
+                      <ul className="space-y-3 mt-6">
+                        {[
+                          "Confidential online consultations",
+                          "Certified and experienced psychologists",
+                          "Personalized coping strategies",
+                          "Secure booking and payment",
+                        ].map((item, i) => (
+                          <motion.li 
+                            key={i} 
+                            className="flex items-center gap-3 text-card-foreground"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                          >
+                            <Check className="h-5 w-5 text-accent flex-shrink-0" />
+                            <span>{item}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                  <motion.div 
-                    className="rounded-xl overflow-hidden"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img 
-                      src={consultationImg} 
-                      alt="Professional psychological consultation session" 
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                  </motion.div>
+                  {!isMobile && (
+                    <motion.div 
+                      className="rounded-xl overflow-hidden"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <img 
+                        src={consultationImg} 
+                        alt="Professional psychological consultation session" 
+                        className="w-full h-64 md:h-80 object-cover"
+                      />
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             </TabsContent>
@@ -117,46 +121,50 @@ const ServicesOverview = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className={`grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-2'} gap-8 items-center`}>
                   <div>
                     <h3 className="text-2xl font-bold text-card-foreground mb-4">
                       Rehabilitation Referral Guidance
                     </h3>
-                    <p className="text-muted-foreground mb-6">
+                    <p className="text-muted-foreground">
                       We connect you with trusted rehabilitation centers and provide guidance 
                       for families navigating the recovery process.
                     </p>
-                    <ul className="space-y-3">
-                      {[
-                        "Professional assessment and evaluation",
-                        "Trusted rehabilitation center referrals",
-                        "Family guidance and support",
-                        "Clear next steps and follow-up",
-                      ].map((item, i) => (
-                        <motion.li 
-                          key={i} 
-                          className="flex items-center gap-3 text-card-foreground"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                        >
-                          {!isMobile && <Check className="h-5 w-5 text-accent flex-shrink-0" />}
-                          <span>{item}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
+                    {!isMobile && (
+                      <ul className="space-y-3 mt-6">
+                        {[
+                          "Professional assessment and evaluation",
+                          "Trusted rehabilitation center referrals",
+                          "Family guidance and support",
+                          "Clear next steps and follow-up",
+                        ].map((item, i) => (
+                          <motion.li 
+                            key={i} 
+                            className="flex items-center gap-3 text-card-foreground"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                          >
+                            <Check className="h-5 w-5 text-accent flex-shrink-0" />
+                            <span>{item}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                  <motion.div 
-                    className="rounded-xl overflow-hidden"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img 
-                      src={rehabilitationImg} 
-                      alt="Trusted rehabilitation center facility" 
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                  </motion.div>
+                  {!isMobile && (
+                    <motion.div 
+                      className="rounded-xl overflow-hidden"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <img 
+                        src={rehabilitationImg} 
+                        alt="Trusted rehabilitation center facility" 
+                        className="w-full h-64 md:h-80 object-cover"
+                      />
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             </TabsContent>
@@ -168,46 +176,50 @@ const ServicesOverview = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className={`grid ${isMobile ? 'grid-cols-1' : 'md:grid-cols-2'} gap-8 items-center`}>
                   <div>
                     <h3 className="text-2xl font-bold text-card-foreground mb-4">
                       Training & Prevention Programs
                     </h3>
-                    <p className="text-muted-foreground mb-6">
+                    <p className="text-muted-foreground">
                       Comprehensive drug abuse awareness and prevention training for institutions, 
                       organizations, and communities.
                     </p>
-                    <ul className="space-y-3">
-                      {[
-                        "Schools and educational institutions",
-                        "Corporate organizations",
-                        "NGOs & government bodies",
-                        "Community awareness programs",
-                      ].map((item, i) => (
-                        <motion.li 
-                          key={i} 
-                          className="flex items-center gap-3 text-card-foreground"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                        >
-                          {!isMobile && <Check className="h-5 w-5 text-accent flex-shrink-0" />}
-                          <span>{item}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
+                    {!isMobile && (
+                      <ul className="space-y-3 mt-6">
+                        {[
+                          "Schools and educational institutions",
+                          "Corporate organizations",
+                          "NGOs & government bodies",
+                          "Community awareness programs",
+                        ].map((item, i) => (
+                          <motion.li 
+                            key={i} 
+                            className="flex items-center gap-3 text-card-foreground"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                          >
+                            <Check className="h-5 w-5 text-accent flex-shrink-0" />
+                            <span>{item}</span>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                  <motion.div 
-                    className="rounded-xl overflow-hidden"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img 
-                      src={trainingImg} 
-                      alt="Drug abuse prevention training workshop" 
-                      className="w-full h-64 md:h-80 object-cover"
-                    />
-                  </motion.div>
+                  {!isMobile && (
+                    <motion.div 
+                      className="rounded-xl overflow-hidden"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <img 
+                        src={trainingImg} 
+                        alt="Drug abuse prevention training workshop" 
+                        className="w-full h-64 md:h-80 object-cover"
+                      />
+                    </motion.div>
+                  )}
                 </div>
               </motion.div>
             </TabsContent>
