@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Building2, Users, Landmark, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const programs = [
   {
@@ -28,13 +29,6 @@ const programs = [
     audience: "Civil Servants, Policy Makers"
   },
 ];
-
-const scrollToContact = () => {
-  const contactSection = document.getElementById("contact");
-  if (contactSection) {
-    contactSection.scrollIntoView({ behavior: "smooth" });
-  }
-};
 
 const TrainingPrograms = () => {
   return (
@@ -118,10 +112,12 @@ const TrainingPrograms = () => {
             <Button
               size="lg"
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 py-6 rounded-xl"
-              onClick={scrollToContact}
+              asChild
             >
-              Request Training Program
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <Link to="/training-programs">
+                Request Training Program
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </motion.div>
         </motion.div>
