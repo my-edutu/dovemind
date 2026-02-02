@@ -1,35 +1,37 @@
 import { motion } from "framer-motion";
-import { Linkedin, Mail, Users, Heart, ArrowRight } from "lucide-react";
+import { Users, Heart, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
 import { useNavigate } from "react-router-dom";
+import avatarAdaora from "@/assets/avatar-adaora.jpg";
+import avatarChisom from "@/assets/avatar-chisom.jpg";
+import avatarEmeka from "@/assets/avatar-emeka.jpg";
+import avatarIbrahim from "@/assets/avatar-ibrahim.jpg";
+import avatarNgozi from "@/assets/avatar-ngozi.jpg";
+import avatarTunde from "@/assets/avatar-tunde.jpg";
 
 const team = [
   {
     name: "Dr. Adaeze Okonkwo",
     role: "Founder & Lead Psychologist",
-    bio: "PhD in Clinical Psychology with 15+ years experience in substance abuse counseling and mental health advocacy.",
-    image: "/placeholder.svg"
+    image: avatarAdaora
   },
   {
     name: "Chukwuemeka Nwosu",
     role: "Head of Training Programs",
-    bio: "Certified counselor specializing in corporate wellness and institutional drug prevention programs.",
-    image: "/placeholder.svg"
+    image: avatarChisom
   },
   {
     name: "Fatima Ibrahim",
     role: "Clinical Psychologist",
-    bio: "Masters in Psychology from University of Lagos, specializing in adolescent mental health and family therapy.",
-    image: "/placeholder.svg"
+    image: avatarEmeka
   },
   {
     name: "Olumide Adeyemi",
     role: "Community Outreach Director",
-    bio: "10+ years experience in community health education and NGO partnerships across Nigeria.",
-    image: "/placeholder.svg"
+    image: avatarIbrahim
   },
 ];
 
@@ -39,36 +41,42 @@ const pioneers = [
     role: "Senior Mental Health Officer",
     specialty: "Trauma & PTSD Specialist",
     experience: "12+ years",
+    image: avatarNgozi,
   },
   {
     name: "Abubakar Suleiman",
     role: "Mental Health Officer",
     specialty: "Addiction Recovery Counselor",
     experience: "8+ years",
+    image: avatarTunde,
   },
   {
     name: "Blessing Okoro",
     role: "Mental Health Officer",
     specialty: "Youth Mental Health Advocate",
     experience: "6+ years",
+    image: avatarAdaora,
   },
   {
     name: "Emeka Obi",
     role: "Mental Health Officer",
     specialty: "Family Therapy & Intervention",
     experience: "10+ years",
+    image: avatarChisom,
   },
   {
     name: "Hauwa Abdullahi",
     role: "Mental Health Officer",
     specialty: "Crisis Intervention Specialist",
     experience: "7+ years",
+    image: avatarEmeka,
   },
   {
     name: "Tunde Bakare",
     role: "Mental Health Officer",
     specialty: "Cognitive Behavioral Therapy",
     experience: "9+ years",
+    image: avatarIbrahim,
   },
 ];
 
@@ -125,57 +133,36 @@ const TeamPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
             {team.map((member, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-2xl border border-border overflow-hidden group"
+                className="text-left"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
               >
-                <div className="aspect-square bg-secondary relative overflow-hidden">
-                  <motion.img 
+                {/* Large rounded photo */}
+                <motion.div 
+                  className="aspect-square mb-4 overflow-hidden rounded-3xl bg-muted"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img 
                     src={member.image} 
                     alt={member.name}
                     className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.4 }}
                   />
-                  <motion.div 
-                    className="absolute inset-0 bg-dove-teal/80 flex items-center justify-center gap-4"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.button 
-                      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Linkedin className="h-5 w-5 text-white" />
-                    </motion.button>
-                    <motion.button 
-                      className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Mail className="h-5 w-5 text-white" />
-                    </motion.button>
-                  </motion.div>
-                </div>
+                </motion.div>
                 
-                <div className="p-5">
-                  <h3 className="font-semibold text-card-foreground mb-1">
-                    {member.name}
-                  </h3>
-                  <p className="text-sm text-accent mb-3">{member.role}</p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {member.bio}
-                  </p>
-                </div>
+                {/* Name and role below */}
+                <h3 className="font-semibold text-foreground text-base md:text-lg">
+                  {member.name}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {member.role}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -204,36 +191,37 @@ const TeamPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-6">
             {pioneers.map((officer, index) => (
               <motion.div
                 key={index}
+                className="text-left"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-lg transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-14 h-14 rounded-full bg-dove-teal/10 flex items-center justify-center flex-shrink-0">
-                        <Heart className="h-6 w-6 text-dove-teal" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-card-foreground mb-1">
-                          {officer.name}
-                        </h3>
-                        <p className="text-sm text-accent mb-2">{officer.role}</p>
-                        <p className="text-xs text-muted-foreground mb-1">
-                          {officer.specialty}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Experience: {officer.experience}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                {/* Rounded photo */}
+                <motion.div 
+                  className="aspect-square mb-4 overflow-hidden rounded-3xl bg-muted"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <img 
+                    src={officer.image} 
+                    alt={officer.name}
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+                
+                {/* Name and details below */}
+                <h3 className="font-semibold text-foreground text-base md:text-lg">
+                  {officer.name}
+                </h3>
+                <p className="text-sm text-accent mb-1">{officer.specialty}</p>
+                <p className="text-xs text-muted-foreground">
+                  {officer.experience} experience
+                </p>
               </motion.div>
             ))}
           </div>

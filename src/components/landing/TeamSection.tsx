@@ -1,109 +1,84 @@
 import { motion } from "framer-motion";
-import { Linkedin, Mail } from "lucide-react";
+import avatarAdaora from "@/assets/avatar-adaora.jpg";
+import avatarChisom from "@/assets/avatar-chisom.jpg";
+import avatarEmeka from "@/assets/avatar-emeka.jpg";
+import avatarIbrahim from "@/assets/avatar-ibrahim.jpg";
 
 const team = [
   {
     name: "Dr. Adaeze Okonkwo",
     role: "Founder & Lead Psychologist",
-    bio: "PhD in Clinical Psychology with 15+ years experience in substance abuse counseling and mental health advocacy.",
-    image: "/placeholder.svg"
+    image: avatarAdaora
   },
   {
     name: "Chukwuemeka Nwosu",
     role: "Head of Training Programs",
-    bio: "Certified counselor specializing in corporate wellness and institutional drug prevention programs.",
-    image: "/placeholder.svg"
+    image: avatarChisom
   },
   {
     name: "Fatima Ibrahim",
     role: "Clinical Psychologist",
-    bio: "Masters in Psychology from University of Lagos, specializing in adolescent mental health and family therapy.",
-    image: "/placeholder.svg"
+    image: avatarEmeka
   },
   {
     name: "Olumide Adeyemi",
     role: "Community Outreach Director",
-    bio: "10+ years experience in community health education and NGO partnerships across Nigeria.",
-    image: "/placeholder.svg"
+    image: avatarIbrahim
   },
 ];
 
 const TeamSection = () => {
   return (
-    <section id="team" className="section-padding bg-background">
+    <section id="team" className="section-padding bg-secondary/30">
       <div className="container-narrow">
         {/* Section header */}
         <motion.div 
-          className="text-center mb-16"
+          className="mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-            Our Team
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Meet our team
           </h2>
-          <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-            Certified professionals dedicated to providing compassionate, ethical, 
-            and confidential psychological support to individuals and communities.
+          <p className="text-muted-foreground max-w-2xl text-lg">
+            Meet the exceptional team at DovesMind Synergy! Comprising diverse talents and expertise, 
+            we are a dedicated group committed to delivering excellence in every project.
           </p>
         </motion.div>
 
-        {/* Team grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Team grid - clean horizontal layout */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
           {team.map((member, index) => (
             <motion.div
               key={index}
-              className="bg-card rounded-2xl border border-border overflow-hidden group"
+              className="text-left"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
             >
-              {/* Image placeholder */}
-              <div className="aspect-square bg-secondary relative overflow-hidden">
-                <motion.img 
+              {/* Large rounded photo */}
+              <motion.div 
+                className="aspect-square mb-4 overflow-hidden rounded-3xl bg-muted"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img 
                   src={member.image} 
                   alt={member.name}
                   className="w-full h-full object-cover"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.4 }}
                 />
-                {/* Overlay with social links */}
-                <motion.div 
-                  className="absolute inset-0 bg-dove-teal/80 flex items-center justify-center gap-4"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.button 
-                    className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Linkedin className="h-5 w-5 text-white" />
-                  </motion.button>
-                  <motion.button 
-                    className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Mail className="h-5 w-5 text-white" />
-                  </motion.button>
-                </motion.div>
-              </div>
+              </motion.div>
               
-              {/* Info */}
-              <div className="p-5">
-                <h3 className="font-semibold text-card-foreground mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-sm text-accent mb-3">{member.role}</p>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {member.bio}
-                </p>
-              </div>
+              {/* Name and role below */}
+              <h3 className="font-semibold text-foreground text-base md:text-lg">
+                {member.name}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {member.role}
+              </p>
             </motion.div>
           ))}
         </div>
