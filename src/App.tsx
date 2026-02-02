@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import AboutPage from "./pages/About";
 import TrainingsPage from "./pages/Trainings";
 import TeamPage from "./pages/Team";
+import AdminLogin from "./pages/admin/Login";
+import AdminDashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
@@ -24,6 +26,8 @@ const App = () => {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/trainings" element={<TrainingsPage />} />
             <Route path="/team" element={<TeamPage />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

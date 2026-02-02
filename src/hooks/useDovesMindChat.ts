@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 type Message = {
   role: "user" | "assistant";
@@ -17,24 +18,60 @@ export const useDovesMindChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [userContext, setUserContextState] = useState<UserContext | null>(null);
+  const sessionIdRef = useRef<string | null>(null);
   const { toast } = useToast();
+
+  const saveSession = useCallback(async (msgs: Message[]) => {
+    if (!userContext) return;
+
+    // Convert messages to JSON-compatible format
+    const messagesJson = JSON.parse(JSON.stringify(msgs));
+
+    try {
+      if (sessionIdRef.current) {
+        // Update existing session
+        await supabase
+          .from("chat_sessions")
+          .update({ messages: messagesJson })
+          .eq("id", sessionIdRef.current);
+      } else {
+        // Create new session
+        const { data, error } = await supabase
+          .from("chat_sessions")
+          .insert([{
+            name: userContext.name,
+            email: userContext.email,
+            messages: messagesJson,
+          }])
+          .select("id")
+          .single();
+
+        if (!error && data) {
+          sessionIdRef.current = data.id;
+        }
+      }
+    } catch (error) {
+      console.error("Failed to save chat session:", error);
+    }
+  }, [userContext]);
 
   const setUserContext = useCallback((context: UserContext) => {
     setUserContextState(context);
+    sessionIdRef.current = null; // Reset session for new user
     // Set personalized welcome message
-    setMessages([
-      {
-        role: "assistant",
-        content: `Hello ${context.name}! I'm DovesMind AI, your mental health support companion. I'm here to listen, provide guidance, and connect you with professional help when needed. How are you feeling today?`,
-      },
-    ]);
+    const welcomeMsg: Message = {
+      role: "assistant",
+      content: `Hello ${context.name}! I'm DovesMind AI, your mental health support companion. I'm here to listen, provide guidance, and connect you with professional help when needed. How are you feeling today?`,
+    };
+    setMessages([welcomeMsg]);
   }, []);
 
   const sendMessage = useCallback(async (input: string) => {
     if (!input.trim() || isLoading) return;
 
     const userMsg: Message = { role: "user", content: input.trim() };
-    setMessages((prev) => [...prev, userMsg]);
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
     setIsLoading(true);
 
     let assistantContent = "";
@@ -60,7 +97,7 @@ export const useDovesMindChat = () => {
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
         body: JSON.stringify({ 
-          messages: [...messages, userMsg].map(m => ({ role: m.role, content: m.content })),
+          messages: updatedMessages.map(m => ({ role: m.role, content: m.content })),
           userContext: userContext ? { name: userContext.name, email: userContext.email } : null
         }),
       });
@@ -141,6 +178,13 @@ export const useDovesMindChat = () => {
           } catch { /* ignore */ }
         }
       }
+
+      // Save session after successful response
+      setMessages((currentMessages) => {
+        saveSession(currentMessages);
+        return currentMessages;
+      });
+
     } catch (error) {
       console.error("Chat error:", error);
       setMessages((prev) => [
@@ -153,11 +197,12 @@ export const useDovesMindChat = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [messages, isLoading, userContext, toast]);
+  }, [messages, isLoading, userContext, toast, saveSession]);
 
   const clearChat = useCallback(() => {
     setMessages([]);
     setUserContextState(null);
+    sessionIdRef.current = null;
   }, []);
 
   return { messages, isLoading, sendMessage, clearChat, setUserContext };

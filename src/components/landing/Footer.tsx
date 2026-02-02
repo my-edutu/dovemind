@@ -1,4 +1,5 @@
 import { Feather, Mail, Phone, MessageCircle, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const footerLinks = {
   services: [
@@ -124,7 +125,15 @@ const Footer = () => {
         <div className="container-narrow py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
             <p>© {currentYear} DovesMind Synergy. All rights reserved.</p>
-            <p>Professional Psychological Support & Substance Abuse Prevention</p>
+            <div className="flex items-center gap-4">
+              <p>Professional Psychological Support & Substance Abuse Prevention</p>
+              <Link 
+                to="/admin/login" 
+                className="text-primary-foreground/40 hover:text-accent transition-colors"
+              >
+                Admin
+              </Link>
+            </div>
           </div>
         </div>
       </div>
