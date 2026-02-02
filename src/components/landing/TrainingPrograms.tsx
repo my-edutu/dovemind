@@ -58,29 +58,20 @@ const TrainingPrograms = () => {
       <div className="container-narrow relative z-10">
         {/* Section header */}
         <motion.div 
-          className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7 }}
         >
-          <div>
-            <p className="text-sm text-muted-foreground mb-2">Our Programs</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Training Programs
-            </h2>
-          </div>
-          <Link 
-            to="/trainings" 
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
-          >
-            Read More 
-            <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </Link>
+          <p className="text-sm text-muted-foreground mb-2">Our Programs</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+            Training Programs
+          </h2>
         </motion.div>
 
-        {/* Cards Container - Horizontal scrollable on desktop */}
-        <div className={`${isMobile ? 'grid grid-cols-1 gap-4' : 'flex gap-4 overflow-visible'}`}>
+        {/* Cards Container */}
+        <div className={`${isMobile ? 'grid grid-cols-1 gap-4' : 'flex gap-4 justify-center'}`}>
           {programs.map((program, index) => {
             const isExpanded = expandedIndex === index;
             
@@ -92,7 +83,7 @@ const TrainingPrograms = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 animate={{
-                  width: isMobile ? "100%" : isExpanded ? 420 : 220,
+                  width: isMobile ? "100%" : isExpanded ? 420 : 260,
                 }}
                 transition={{ 
                   duration: 0.5, 
@@ -103,7 +94,7 @@ const TrainingPrograms = () => {
                 layout
               >
                 <motion.div 
-                  className="p-6 h-full flex flex-col min-h-[300px]"
+                  className="p-6 h-full flex flex-col min-h-[320px]"
                   layout
                 >
                   {/* Title */}
@@ -160,14 +151,11 @@ const TrainingPrograms = () => {
                     )}
                   </AnimatePresence>
 
-                  {/* Footer */}
+                  {/* Footer icon */}
                   <motion.div 
-                    className="flex items-center justify-between mt-4 pt-4"
+                    className="flex items-center justify-end mt-4 pt-4"
                     layout="position"
                   >
-                    <span className="text-sm text-muted-foreground">
-                      Read More
-                    </span>
                     <motion.div 
                       className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
                         isExpanded 
