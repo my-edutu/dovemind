@@ -17,11 +17,7 @@ const programs = [
     description: "Age-appropriate drug awareness curriculum and mental health first aid training for educators and students.",
     audience: "Students, Teachers, Counselors",
     image: serviceTraining,
-    features: [
-      "Interactive workshops for students",
-      "Teacher training on early warning signs",
-      "Peer support program development",
-    ]
+    bgColor: "bg-emerald-50",
   },
   {
     icon: Building2,
@@ -29,11 +25,7 @@ const programs = [
     description: "Workplace wellness programs focusing on stress management, substance abuse prevention, and employee mental health.",
     audience: "HR Teams, Employees, Executives",
     image: serviceConsultation,
-    features: [
-      "Executive wellness briefings",
-      "Employee assistance program setup",
-      "Drug-free workplace policy",
-    ]
+    bgColor: "bg-amber-50",
   },
   {
     icon: Users,
@@ -41,11 +33,7 @@ const programs = [
     description: "Community-based prevention programs designed to build local capacity and support networks.",
     audience: "Community Leaders, Volunteers",
     image: serviceRehabilitation,
-    features: [
-      "Train-the-trainer programs",
-      "Community mobilization strategies",
-      "Outreach program development",
-    ]
+    bgColor: "bg-sky-50",
   },
   {
     icon: Landmark,
@@ -53,11 +41,7 @@ const programs = [
     description: "Policy-aligned training programs for government agencies and public institutions across Nigeria.",
     audience: "Civil Servants, Policy Makers",
     image: heroAwareness,
-    features: [
-      "Policy development workshops",
-      "Institutional capacity building",
-      "Public awareness campaign design",
-    ]
+    bgColor: "bg-rose-50",
   },
 ];
 
@@ -70,7 +54,7 @@ const TrainingPrograms = () => {
   };
 
   return (
-    <section id="training" className="section-padding bg-muted/30 relative overflow-hidden">
+    <section id="training" className="section-padding bg-background relative overflow-hidden">
       <div className="container-narrow relative z-10">
         {/* Section header */}
         <motion.div 
@@ -95,75 +79,42 @@ const TrainingPrograms = () => {
           </Link>
         </motion.div>
 
-        {/* Cards Container */}
-        <div className={`${isMobile ? 'grid grid-cols-1 gap-4' : 'relative flex flex-row'}`}>
+        {/* Cards Container - Horizontal scrollable on desktop */}
+        <div className={`${isMobile ? 'grid grid-cols-1 gap-4' : 'flex gap-4 overflow-visible'}`}>
           {programs.map((program, index) => {
-            const Icon = program.icon;
             const isExpanded = expandedIndex === index;
-            const hasExpanded = expandedIndex !== null;
-            const isBeforeExpanded = expandedIndex !== null && index < expandedIndex;
-            const isAfterExpanded = expandedIndex !== null && index > expandedIndex;
-            
-            // Desktop animation values
-            const desktopAnimate = {
-              width: isExpanded ? "100%" : hasExpanded ? "20%" : "25%",
-              marginLeft: index === 0 ? 0 : isExpanded ? 0 : "-2%",
-              x: isBeforeExpanded ? -30 : isAfterExpanded ? 30 : 0,
-              scale: hasExpanded && !isExpanded ? 0.95 : 1,
-              opacity: hasExpanded && !isExpanded ? 0.7 : 1,
-            };
-
-            // Mobile: no overlap animations
-            const mobileAnimate = {
-              scale: 1,
-              opacity: 1,
-              x: 0,
-            };
             
             return (
               <motion.div
                 key={index}
-                className="relative bg-card rounded-3xl border border-border overflow-hidden cursor-pointer shadow-lg"
-                style={{ 
-                  zIndex: isExpanded ? 20 : 10 - index,
-                }}
+                className={`relative ${program.bgColor} rounded-3xl overflow-hidden cursor-pointer flex-shrink-0`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                animate={isMobile ? mobileAnimate : desktopAnimate}
+                animate={{
+                  width: isMobile ? "100%" : isExpanded ? 420 : 220,
+                }}
                 transition={{ 
                   duration: 0.5, 
                   ease: [0.4, 0, 0.2, 1],
-                  delay: index * 0.05 
                 }}
                 onClick={() => handleCardClick(index)}
-                whileHover={!isMobile && !hasExpanded ? { 
-                  scale: 1.02, 
-                  zIndex: 25,
-                  marginLeft: index === 0 ? 0 : "0%",
-                } : {}}
+                whileHover={{ y: -5 }}
+                layout
               >
                 <motion.div 
-                  className="p-6 h-full flex flex-col min-h-[280px] lg:min-h-[320px]"
-                  layout={!isMobile}
+                  className="p-6 h-full flex flex-col min-h-[300px]"
+                  layout
                 >
-                  {/* Icon */}
-                  <motion.div 
-                    className="w-10 h-10 rounded-xl bg-dove-teal/10 flex items-center justify-center mb-4"
-                    layout={!isMobile}
-                  >
-                    <Icon className="h-5 w-5 text-dove-teal" />
-                  </motion.div>
-                  
                   {/* Title */}
                   <motion.h3 
-                    className="font-semibold text-lg text-card-foreground mb-2"
-                    layout={!isMobile}
+                    className="font-bold text-lg text-foreground mb-3"
+                    layout="position"
                   >
                     {program.title}
                   </motion.h3>
 
-                  {/* Expanded content */}
+                  {/* Content */}
                   <AnimatePresence mode="wait">
                     {isExpanded ? (
                       <motion.div
@@ -172,30 +123,28 @@ const TrainingPrograms = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3, delay: 0.1 }}
-                        className="flex flex-col lg:flex-row gap-6 flex-1"
+                        className="flex flex-col flex-1"
                       >
-                        <div className="flex-1">
-                          <p className="text-muted-foreground text-sm mb-4">
-                            {program.description}
-                          </p>
-                          <ul className="space-y-2 mb-4">
-                            {program.features.map((feature, i) => (
-                              <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 rounded-full bg-dove-teal" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                          <p className="text-xs text-dove-teal font-medium">
-                            For: {program.audience}
-                          </p>
-                        </div>
-                        <div className="lg:w-48 h-36 lg:h-auto rounded-2xl overflow-hidden flex-shrink-0">
-                          <img 
-                            src={program.image} 
-                            alt={program.title}
-                            className="w-full h-full object-cover"
-                          />
+                        <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                          {program.description}
+                        </p>
+                        
+                        {/* Image */}
+                        <div className="flex gap-3 mt-auto">
+                          <div className="w-24 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                            <img 
+                              src={program.image} 
+                              alt={program.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                          <div className="w-24 h-16 rounded-xl overflow-hidden flex-shrink-0">
+                            <img 
+                              src={program.image} 
+                              alt={program.title}
+                              className="w-full h-full object-cover scale-110"
+                            />
+                          </div>
                         </div>
                       </motion.div>
                     ) : (
@@ -205,9 +154,9 @@ const TrainingPrograms = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="flex-1 flex flex-col justify-between"
+                        className="flex-1"
                       >
-                        <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
+                        <p className="text-muted-foreground text-sm line-clamp-4">
                           {program.description}
                         </p>
                       </motion.div>
@@ -216,17 +165,17 @@ const TrainingPrograms = () => {
 
                   {/* Footer */}
                   <motion.div 
-                    className="flex items-center justify-between mt-auto pt-4"
-                    layout={!isMobile}
+                    className="flex items-center justify-between mt-4 pt-4"
+                    layout="position"
                   >
                     <span className="text-sm text-muted-foreground">
-                      {isExpanded ? "Close" : "Read More"}
+                      Read More
                     </span>
                     <motion.div 
                       className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
                         isExpanded 
                           ? "bg-dove-teal text-white" 
-                          : "bg-muted text-muted-foreground"
+                          : "bg-white/80 text-muted-foreground"
                       }`}
                       animate={{ rotate: isExpanded ? 45 : 0 }}
                       transition={{ duration: 0.3 }}
