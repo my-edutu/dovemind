@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 /* DovesMind Synergy Design System
-   Premium mental health aesthetic with deep teal and lime green accents
+   Premium mental health aesthetic with blue and turquoise brand colors
+   Blue: #1B5FD9 (Cobalt) | Turquoise: #2DD4BF (Cyan)
    All colors are HSL
 */
 
@@ -11,93 +12,93 @@
   :root {
     /* Light mode - used for light sections */
     --background: 210 40% 98%;
-    --foreground: 160 50% 10%;
+    --foreground: 215 50% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 160 50% 10%;
+    --card-foreground: 215 50% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 160 50% 10%;
+    --popover-foreground: 215 50% 15%;
 
-    /* Primary: Deep teal */
-    --primary: 160 60% 15%;
+    /* Primary: Cobalt Blue */
+    --primary: 220 75% 48%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Light gray */
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 160 50% 10%;
+    /* Secondary: Light gray with blue tint */
+    --secondary: 210 25% 96%;
+    --secondary-foreground: 215 50% 15%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 160 20% 40%;
+    --muted: 210 25% 96%;
+    --muted-foreground: 215 20% 45%;
 
-    /* Accent: Lime green */
-    --accent: 82 77% 55%;
-    --accent-foreground: 160 60% 10%;
+    /* Accent: Turquoise/Cyan */
+    --accent: 168 76% 50%;
+    --accent-foreground: 215 60% 12%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 160 20% 85%;
-    --input: 160 20% 85%;
-    --ring: 82 77% 55%;
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 168 76% 50%;
 
     --radius: 0.75rem;
 
     /* Custom DovesMind tokens */
-    --dove-teal: 160 60% 15%;
-    --dove-teal-dark: 160 70% 8%;
-    --dove-teal-light: 160 40% 25%;
-    --dove-lime: 82 77% 55%;
-    --dove-lime-bright: 82 85% 60%;
-    --dove-lime-dark: 82 60% 45%;
+    --dove-blue: 220 75% 48%;
+    --dove-blue-dark: 220 80% 35%;
+    --dove-blue-light: 220 70% 58%;
+    --dove-cyan: 168 76% 50%;
+    --dove-cyan-bright: 168 85% 55%;
+    --dove-cyan-dark: 168 65% 40%;
 
-    --sidebar-background: 160 60% 15%;
+    --sidebar-background: 220 75% 48%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 82 77% 55%;
-    --sidebar-primary-foreground: 160 60% 10%;
-    --sidebar-accent: 160 40% 20%;
+    --sidebar-primary: 168 76% 50%;
+    --sidebar-primary-foreground: 215 60% 12%;
+    --sidebar-accent: 220 70% 55%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 160 40% 20%;
-    --sidebar-ring: 82 77% 55%;
+    --sidebar-border: 220 60% 42%;
+    --sidebar-ring: 168 76% 50%;
   }
 
   .dark {
-    --background: 160 70% 8%;
+    --background: 220 50% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 160 60% 12%;
+    --card: 220 45% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 160 60% 12%;
+    --popover: 220 45% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 82 77% 55%;
-    --primary-foreground: 160 60% 10%;
+    --primary: 168 76% 50%;
+    --primary-foreground: 220 60% 10%;
 
-    --secondary: 160 40% 18%;
+    --secondary: 220 40% 18%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 160 40% 18%;
-    --muted-foreground: 160 20% 65%;
+    --muted: 220 40% 18%;
+    --muted-foreground: 210 20% 65%;
 
-    --accent: 82 77% 55%;
-    --accent-foreground: 160 60% 10%;
+    --accent: 168 76% 50%;
+    --accent-foreground: 220 60% 10%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 160 40% 20%;
-    --input: 160 40% 20%;
-    --ring: 82 77% 55%;
+    --border: 220 40% 22%;
+    --input: 220 40% 22%;
+    --ring: 168 76% 50%;
 
-    --sidebar-background: 160 70% 6%;
+    --sidebar-background: 220 55% 6%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 82 77% 55%;
-    --sidebar-primary-foreground: 160 60% 10%;
-    --sidebar-accent: 160 40% 15%;
+    --sidebar-primary: 168 76% 50%;
+    --sidebar-primary-foreground: 220 60% 10%;
+    --sidebar-accent: 220 45% 15%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 160 40% 15%;
-    --sidebar-ring: 82 77% 55%;
+    --sidebar-border: 220 40% 18%;
+    --sidebar-ring: 168 76% 50%;
   }
 }
 

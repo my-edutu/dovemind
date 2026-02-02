@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Menu, Feather } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link } from "react-router-dom";
 import { useContactModal } from "@/contexts/ContactModalContext";
+import logoImage from "@/assets/logo-dovesmind.png";
 
 const navLinks = [
   { name: "About", href: "/about", isPage: true },
@@ -23,14 +24,12 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-dove-teal-dark/95 backdrop-blur-sm border-b border-dove-teal-light/20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-dove-blue-dark/95 backdrop-blur-sm border-b border-dove-blue-light/20">
       <div className="container-narrow">
         <div className="flex h-16 md:h-20 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 text-primary-foreground">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent">
-              <Feather className="h-5 w-5 text-accent-foreground" />
-            </div>
+            <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
             <div className="hidden sm:block">
               <span className="text-lg font-bold">DovesMind</span>
               <span className="text-lg font-light text-accent"> Synergy</span>
@@ -69,12 +68,10 @@ const Header = () => {
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-dove-teal border-dove-teal-light/20">
+            <SheetContent side="right" className="w-[300px] bg-dove-blue border-dove-blue-light/20">
               <div className="flex flex-col gap-6 mt-8">
                 <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2 text-primary-foreground mb-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent">
-                    <Feather className="h-5 w-5 text-accent-foreground" />
-                  </div>
+                  <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
                   <div>
                     <span className="text-lg font-bold">DovesMind</span>
                     <span className="text-lg font-light text-accent"> Synergy</span>
