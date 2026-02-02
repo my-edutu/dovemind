@@ -115,7 +115,7 @@ const TrainingPrograms = () => {
                         </div>
                       </motion.div>
                     ) : (
-                      /* Expanded state - show text and image side by side */
+                      /* Expanded state - side by side on desktop, no image on mobile */
                       <motion.div
                         key="expanded"
                         initial={{ opacity: 0 }}
@@ -138,18 +138,20 @@ const TrainingPrograms = () => {
                             </div>
                           </div>
                         </div>
-                        <motion.div 
-                          className="w-40 h-full rounded-2xl overflow-hidden flex-shrink-0"
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.4, delay: 0.1 }}
-                        >
-                          <img 
-                            src={program.image} 
-                            alt={program.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </motion.div>
+                        {!isMobile && (
+                          <motion.div 
+                            className="w-40 h-full rounded-2xl overflow-hidden flex-shrink-0"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.4, delay: 0.1 }}
+                          >
+                            <img 
+                              src={program.image} 
+                              alt={program.title}
+                              className="w-full h-full object-cover"
+                            />
+                          </motion.div>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>
