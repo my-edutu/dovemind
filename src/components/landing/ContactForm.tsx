@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactSchema = z.object({
   name: z
@@ -62,15 +63,36 @@ const ContactForm = () => {
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
     
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message sent successfully!",
-      description: "Thank you for reaching out. We'll get back to you within 24-48 hours.",
-    });
-    
-    form.reset();
-    setIsSubmitting(false);
+    try {
+      const { data: result, error } = await supabase.functions.invoke("send-contact", {
+        body: {
+          name: data.name,
+          email: data.email,
+          phone: data.phone || undefined,
+          message: data.message,
+        },
+      });
+
+      if (error) {
+        throw new Error(error.message || "Failed to send message");
+      }
+
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. We'll get back to you within 24-48 hours.",
+      });
+      
+      form.reset();
+    } catch (error: any) {
+      console.error("Contact form error:", error);
+      toast({
+        title: "Failed to send message",
+        description: error.message || "Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
