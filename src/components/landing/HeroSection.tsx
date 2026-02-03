@@ -32,7 +32,7 @@ const HeroSection = () => {
   };
   
   return (
-    <section className="relative bg-background pt-20 pb-0">
+    <section className="relative bg-background min-h-screen flex flex-col">
       {/* Decorative background elements */}
       <motion.div 
         className="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"
@@ -45,11 +45,11 @@ const HeroSection = () => {
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="container-narrow relative z-10 pt-12 md:pt-20">
+      <div className="container-narrow relative z-10 pt-24 md:pt-32 lg:pt-40 flex-1 flex flex-col justify-center">
         {/* Main headline section */}
-        <div className="max-w-3xl mx-auto text-center mb-12">
+        <div className="max-w-4xl 2xl:max-w-5xl mx-auto text-center mb-12 md:mb-16 lg:mb-20">
           <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-bold text-foreground leading-tight mb-6 md:mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -74,7 +74,7 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.p 
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
+            className="text-lg md:text-xl 2xl:text-2xl text-muted-foreground max-w-2xl 2xl:max-w-3xl mx-auto mb-8 md:mb-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -115,7 +115,7 @@ const HeroSection = () => {
 
       {/* Tilted Cards Section - Infinite Loop */}
       <motion.div 
-        className="relative z-20 overflow-hidden"
+        className="relative z-20 overflow-hidden mt-auto pb-8 md:pb-12"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7, duration: 0.8 }}

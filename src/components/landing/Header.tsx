@@ -24,15 +24,15 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-dove-blue-dark/95 backdrop-blur-sm border-b border-dove-blue-light/20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
       <div className="container-narrow">
         <div className="flex h-16 md:h-20 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-primary-foreground">
+          <Link to="/" className="flex items-center gap-2 text-foreground">
             <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
             <div className="hidden sm:block">
-              <span className="text-lg font-bold">DovesMind</span>
-              <span className="text-lg font-light text-accent"> Synergy</span>
+              <span className="text-lg font-bold text-foreground">DovesMind</span>
+              <span className="text-lg font-light text-dove-teal"> Synergy</span>
             </div>
           </Link>
 
@@ -42,7 +42,7 @@ const Header = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-sm font-medium text-primary-foreground/80 hover:text-accent transition-colors"
+                className="text-sm font-medium text-foreground/80 hover:text-dove-teal transition-colors"
               >
                 {link.name}
               </Link>
@@ -52,7 +52,7 @@ const Header = () => {
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Button
-              className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+              className="bg-dove-teal text-white hover:bg-dove-teal-light font-semibold"
               size="lg"
               onClick={handleBookConsultation}
             >
@@ -63,18 +63,18 @@ const Header = () => {
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" className="text-primary-foreground">
+              <Button variant="ghost" size="icon" className="text-foreground">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-dove-blue border-dove-blue-light/20">
+            <SheetContent side="right" className="w-[300px] bg-white border-border">
               <div className="flex flex-col gap-6 mt-8">
-                <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2 text-primary-foreground mb-4">
+                <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2 text-foreground mb-4">
                   <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
                   <div>
-                    <span className="text-lg font-bold">DovesMind</span>
-                    <span className="text-lg font-light text-accent"> Synergy</span>
+                    <span className="text-lg font-bold text-foreground">DovesMind</span>
+                    <span className="text-lg font-light text-dove-teal"> Synergy</span>
                   </div>
                 </Link>
                 <nav className="flex flex-col gap-4">
@@ -83,14 +83,14 @@ const Header = () => {
                       key={link.name}
                       to={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="text-base font-medium text-primary-foreground/80 hover:text-accent transition-colors py-2"
+                      className="text-base font-medium text-foreground/80 hover:text-dove-teal transition-colors py-2"
                     >
                       {link.name}
                     </Link>
                   ))}
                 </nav>
                 <Button
-                  className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold mt-4"
+                  className="bg-dove-teal text-white hover:bg-dove-teal-light font-semibold mt-4"
                   size="lg"
                   onClick={handleBookConsultation}
                 >
