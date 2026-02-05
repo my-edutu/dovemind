@@ -32,7 +32,6 @@ const Header = () => {
             <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
             <div className="hidden sm:block">
               <span className="text-lg font-bold text-foreground">Dovesmind</span>
-              <span className="text-lg font-light text-dove-teal"> Synergy</span>
             </div>
           </Link>
 
@@ -74,7 +73,6 @@ const Header = () => {
                   <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
                   <div>
                     <span className="text-lg font-bold text-foreground">Dovesmind</span>
-                    <span className="text-lg font-light text-dove-teal"> Synergy</span>
                   </div>
                 </Link>
                 <nav className="flex flex-col gap-4">

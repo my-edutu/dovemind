@@ -1,27 +1,21 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
-import Header from "@/components/landing/Header";
-import Footer from "@/components/landing/Footer";
-import { 
-  GraduationCap, 
-  Building2, 
-  Users, 
-  Landmark, 
-  CheckCircle, 
+import {
+  GraduationCap,
+  Building2,
+  Users,
+  Landmark,
+  CheckCircle,
   ArrowLeft,
-  Send,
   MessageCircle,
   Home,
   BookOpen,
   Heart
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import Header from "@/components/landing/Header";
+import Footer from "@/components/landing/Footer";
+import BookingForm from "@/components/landing/BookingForm";
 
 const services = [
   {
@@ -123,59 +117,11 @@ const programs = [
 
 
 const TrainingsPage = () => {
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    organization: "",
-    inquiryType: "",
-    message: ""
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const { error } = await supabase.functions.invoke("send-contact", {
-        body: {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.organization,
-          message: `[${formData.inquiryType} Inquiry]\n\nOrganization: ${formData.organization}\n\n${formData.message}`
-        },
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "Request submitted!",
-        description: "We'll get back to you within 24 hours.",
-      });
-
-      setFormData({
-        name: "",
-        email: "",
-        organization: "",
-        inquiryType: "",
-        message: ""
-      });
-    } catch (error) {
-      toast({
-        title: "Failed to submit",
-        description: "Please try again or contact us directly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-dove-teal to-dove-teal/90 text-primary-foreground">
         <div className="container-narrow">
@@ -184,8 +130,8 @@ const TrainingsPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground mb-6 transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -195,7 +141,7 @@ const TrainingsPage = () => {
               Trainings & Services
             </h1>
             <p className="text-xl text-primary-foreground/80 max-w-3xl">
-              Comprehensive mental health support and evidence-based training programs 
+              Comprehensive mental health support and evidence-based training programs
               for individuals, families, and institutions across Nigeria.
             </p>
           </motion.div>
@@ -216,7 +162,7 @@ const TrainingsPage = () => {
               Our Services
             </h2>
             <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-              Professional psychological support services designed to help individuals 
+              Professional psychological support services designed to help individuals
               and families navigate their journey to wellness and recovery.
             </p>
           </motion.div>
@@ -269,44 +215,15 @@ const TrainingsPage = () => {
               Training Programs
             </h2>
             <p className="text-primary-foreground/80 max-w-3xl mx-auto text-lg">
-              Empowering institutions with evidence-based drug abuse prevention 
+              Empowering institutions with evidence-based drug abuse prevention
               and mental health awareness programs tailored to their specific needs.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {programs.map((program, index) => {
-              const Icon = program.icon;
-              return (
-                <motion.div
-                  key={index}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center">
-                      <Icon className="h-7 w-7 text-accent" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-xl">{program.title}</h3>
-                      <p className="text-sm text-accent">For: {program.audience}</p>
-                    </div>
-                  </div>
-                  <p className="text-primary-foreground/80 mb-6">{program.description}</p>
-                  <ul className="space-y-3">
-                    {program.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm text-primary-foreground/90">
-                        <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              );
-            })}
+            {programs.map((program, index) => (
+              <ProgramCard key={index} program={program} index={index} />
+            ))}
           </div>
         </div>
       </section>
@@ -330,106 +247,58 @@ const TrainingsPage = () => {
               </p>
             </motion.div>
 
-            <motion.form
-              onSubmit={handleSubmit}
-              className="bg-card rounded-2xl p-8 border border-border shadow-sm space-y-6"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full Name *</Label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Your full name"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="your@email.com"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="organization">Organization (if applicable)</Label>
-                  <Input
-                    id="organization"
-                    value={formData.organization}
-                    onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                    placeholder="Your organization"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="inquiryType">I'm interested in *</Label>
-                  <select
-                    id="inquiryType"
-                    value={formData.inquiryType}
-                    onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    required
-                  >
-                    <option value="">Select an option</option>
-                    <optgroup label="Services">
-                      <option value="Online Consultation">Online Consultation</option>
-                      <option value="Rehabilitation Referral">Rehabilitation Referral</option>
-                      <option value="Family Support">Family Support Program</option>
-                    </optgroup>
-                    <optgroup label="Training Programs">
-                      <option value="Schools Training">Schools & Universities Training</option>
-                      <option value="Corporate Training">Corporate Wellness Program</option>
-                      <option value="NGO Training">NGO & Community Training</option>
-                      <option value="Government Training">Government & Institutional Training</option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="message">Tell us more about your needs</Label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Describe your situation or requirements..."
-                  rows={5}
-                />
-              </div>
-
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full bg-dove-teal hover:bg-dove-teal/90 text-primary-foreground"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  "Submitting..."
-                ) : (
-                  <>
-                    Submit Request
-                    <Send className="ml-2 h-5 w-5" />
-                  </>
-                )}
-              </Button>
-            </motion.form>
+            <BookingForm />
           </div>
         </div>
       </section>
 
       <Footer />
     </div>
+  );
+};
+
+const ProgramCard = ({ program, index }: { program: any; index: number }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const Icon = program.icon;
+
+  return (
+    <motion.div
+      className={`bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10 cursor-pointer transition-all duration-300 ${isExpanded ? 'h-auto' : 'h-full'}`}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      onClick={() => setIsExpanded(!isExpanded)}
+    >
+      <div className="flex items-center gap-4 mb-4">
+        <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+          <Icon className="h-7 w-7 text-accent" />
+        </div>
+        <div>
+          <h3 className="font-semibold text-xl">{program.title}</h3>
+          <p className="text-sm text-accent">For: {program.audience}</p>
+        </div>
+      </div>
+
+      {/* Content visibility controlled by isExpanded on mobile if needed, or structured to expand */}
+      <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-[500px] opacity-100' : 'max-h-24 md:max-h-full opacity-80 md:opacity-100'}`}>
+        <p className="text-primary-foreground/80 mb-6">{program.description}</p>
+        <ul className="space-y-3">
+          {program.features.map((feature: string, i: number) => (
+            <li key={i} className="flex items-center gap-3 text-sm text-primary-foreground/90">
+              <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {!isExpanded && (
+        <div className="md:hidden pt-2 text-center text-accent text-sm font-medium animate-pulse">
+          Tap to view details
+        </div>
+      )}
+    </motion.div>
   );
 };
 

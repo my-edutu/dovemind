@@ -21,8 +21,9 @@ export const useDovesMindChat = () => {
   const sessionIdRef = useRef<string | null>(null);
   const { toast } = useToast();
 
-  const saveSession = useCallback(async (msgs: Message[]) => {
-    if (!userContext) return;
+  const saveSession = useCallback(async (msgs: Message[], explicitContext?: UserContext) => {
+    const contextToUse = explicitContext || userContext;
+    if (!contextToUse) return;
 
     // Convert messages to JSON-compatible format
     const messagesJson = JSON.parse(JSON.stringify(msgs));
@@ -39,8 +40,8 @@ export const useDovesMindChat = () => {
         const { data, error } = await supabase
           .from("chat_sessions")
           .insert([{
-            name: userContext.name,
-            email: userContext.email,
+            name: contextToUse.name,
+            email: contextToUse.email,
             messages: messagesJson,
           }])
           .select("id")
@@ -63,8 +64,12 @@ export const useDovesMindChat = () => {
       role: "assistant",
       content: `Hello ${context.name}! I'm DovesMind AI, your mental health support companion. I'm here to listen, provide guidance, and connect you with professional help when needed. How are you feeling today?`,
     };
-    setMessages([welcomeMsg]);
-  }, []);
+    const initialMessages = [welcomeMsg];
+    setMessages(initialMessages);
+
+    // Persist immediately so admin gets details
+    saveSession(initialMessages, context);
+  }, [saveSession]);
 
   const sendMessage = useCallback(async (input: string) => {
     if (!input.trim() || isLoading) return;
@@ -89,14 +94,14 @@ export const useDovesMindChat = () => {
 
     try {
       console.log("Sending message to:", CHAT_URL);
-      
+
       const resp = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           messages: updatedMessages.map(m => ({ role: m.role, content: m.content })),
           userContext: userContext ? { name: userContext.name, email: userContext.email } : null,
           sessionId: sessionIdRef.current
@@ -108,7 +113,7 @@ export const useDovesMindChat = () => {
       if (!resp.ok) {
         const errorData = await resp.json().catch(() => ({ error: "Unknown error" }));
         console.error("API Error:", errorData);
-        
+
         if (resp.status === 429) {
           toast({
             variant: "destructive",
@@ -122,7 +127,7 @@ export const useDovesMindChat = () => {
             description: "Please try again later.",
           });
         }
-        
+
         throw new Error(errorData.error || "Failed to connect");
       }
 
@@ -137,7 +142,7 @@ export const useDovesMindChat = () => {
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        
+
         textBuffer += decoder.decode(value, { stream: true });
 
         let newlineIndex: number;

@@ -33,7 +33,6 @@ const Footer = () => {
               <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
               <div>
                 <span className="text-lg font-bold text-foreground">Dovesmind</span>
-                <span className="text-lg font-light text-dove-teal"> Synergy</span>
               </div>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">

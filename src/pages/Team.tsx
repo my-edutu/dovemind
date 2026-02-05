@@ -11,6 +11,7 @@ import avatarEmeka from "@/assets/avatar-emeka.jpg";
 import avatarIbrahim from "@/assets/avatar-ibrahim.jpg";
 import avatarNgozi from "@/assets/avatar-ngozi.jpg";
 import avatarTunde from "@/assets/avatar-tunde.jpg";
+import BookingForm from "@/components/landing/BookingForm";
 
 const team = [
   {
@@ -264,6 +265,29 @@ const TeamPage = () => {
               </Button>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Booking Form Section */}
+      <section id="contact" className="section-padding bg-secondary/20">
+        <div className="container-narrow">
+          <div className="max-w-2xl mx-auto">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+                Book a Session
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                Ready to speak with one of our consultants? Fill out the form below to schedule a session.
+              </p>
+            </motion.div>
+            <BookingForm />
+          </div>
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import avatarAdaora from "@/assets/avatar-adaora.jpg";
 import avatarChisom from "@/assets/avatar-chisom.jpg";
@@ -28,10 +29,12 @@ const scrollToContact = () => {
 };
 
 const PersonalizedServices = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative bg-dove-teal py-16 md:py-24 overflow-hidden">
       {/* Decorative wavy lines */}
-      <motion.div 
+      <motion.div
         className="absolute top-4 left-4 w-32 h-32 opacity-30"
         animate={{ rotate: [0, 10, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 8, repeat: Infinity }}
@@ -41,7 +44,7 @@ const PersonalizedServices = () => {
           <path d="M10,50 Q25,35 25,55 Q25,75 45,75" />
         </svg>
       </motion.div>
-      <motion.div 
+      <motion.div
         className="absolute top-8 right-8 w-20 h-20 opacity-40"
         animate={{ rotate: [0, -10, 0], scale: [1, 1.2, 1] }}
         transition={{ duration: 6, repeat: Infinity }}
@@ -50,7 +53,7 @@ const PersonalizedServices = () => {
           <path d="M30,50 Q50,25 70,50 Q50,75 30,50" />
         </svg>
       </motion.div>
-      <motion.div 
+      <motion.div
         className="absolute bottom-12 right-1/4 w-16 h-16 opacity-30"
         animate={{ y: [0, -10, 0], rotate: [0, 5, 0] }}
         transition={{ duration: 5, repeat: Infinity }}
@@ -74,8 +77,8 @@ const PersonalizedServices = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.15 }}
               >
-                <img 
-                  src={avatar.src} 
+                <img
+                  src={avatar.src}
                   alt="Team member"
                   className="w-full h-full object-cover"
                 />
@@ -85,7 +88,7 @@ const PersonalizedServices = () => {
 
           {/* Center content */}
           <div className="text-center max-w-2xl">
-            <motion.h2 
+            <motion.h2
               className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-foreground mb-6 italic leading-snug"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -95,8 +98,8 @@ const PersonalizedServices = () => {
               Personalized Mental Health<br />
               Services for a Better You
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               className="text-primary-foreground/80 text-sm mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -116,7 +119,7 @@ const PersonalizedServices = () => {
                 <Button
                   size="lg"
                   className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold rounded-full px-8"
-                  onClick={scrollToContact}
+                  onClick={() => navigate("/trainings")}
                 >
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -137,8 +140,8 @@ const PersonalizedServices = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.15 }}
               >
-                <img 
-                  src={avatar.src} 
+                <img
+                  src={avatar.src}
                   alt="Team member"
                   className="w-full h-full object-cover"
                 />

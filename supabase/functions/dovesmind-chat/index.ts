@@ -44,83 +44,67 @@ serve(async (req) => {
 
   try {
     const { messages, sessionId } = await req.json();
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    const DEEPSEEK_API_KEY = Deno.env.get("DEEPSEEK_API_KEY");
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    
-    if (!LOVABLE_API_KEY) {
-      console.error("LOVABLE_API_KEY is not configured");
-      throw new Error("LOVABLE_API_KEY is not configured");
+
+    if (!DEEPSEEK_API_KEY) {
+      console.error("DEEPSEEK_API_KEY is not configured");
+      throw new Error("DEEPSEEK_API_KEY is not configured");
     }
 
     console.log("Received messages:", messages.length);
-    
-    // Estimate input tokens
-    const inputTokens = messages.reduce((acc: number, msg: { content: string }) => 
+
+    // Estimate input tokens (rough)
+    const inputTokens = messages.reduce((acc: number, msg: { content: string }) =>
       acc + estimateTokens(msg.content), 0) + estimateTokens(SYSTEM_PROMPT);
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    // DeepSeek uses standard OpenAI format
+    const response = await fetch("https://api.deepseek.com/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        "Authorization": `Bearer ${DEEPSEEK_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model: "deepseek-chat",
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           ...messages,
         ],
         stream: true,
+        temperature: 0.7,
+        max_tokens: 1000,
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("AI gateway error:", response.status, errorText);
-      
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Too many requests. Please try again in a moment." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "Service temporarily unavailable. Please try again later." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      
-      return new Response(
-        JSON.stringify({ error: "Failed to get AI response" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      console.error("DeepSeek API error:", response.status, errorText);
+      throw new Error(`DeepSeek API Error: ${response.statusText}`);
     }
 
     console.log("Streaming response started");
 
-    // Log AI usage asynchronously (don't block response)
+    // Log AI usage asynchronously
     if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
       const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-      
-      // Estimate output tokens (rough estimate for streaming - actual varies)
-      const estimatedOutputTokens = 150; // Average response length
-      
+      const estimatedOutputTokens = 150; // Placeholder
+
       supabase.from("ai_usage_logs").insert({
         session_id: sessionId || null,
         input_tokens: inputTokens,
         output_tokens: estimatedOutputTokens,
-        model: "gemini-3-flash-preview"
+        model: "deepseek-chat"
       }).then(({ error }) => {
         if (error) console.error("Failed to log AI usage:", error);
-        else console.log("AI usage logged:", { inputTokens, outputTokens: estimatedOutputTokens });
       });
     }
 
     return new Response(response.body, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
+
   } catch (error) {
     console.error("Chat error:", error);
     return new Response(
