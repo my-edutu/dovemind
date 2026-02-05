@@ -17,7 +17,7 @@ const footerLinks = {
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
   // WhatsApp number (placeholder - replace with actual number)
   const whatsappNumber = "2348000000000";
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello, I'd like to inquire about your services.")}`;
@@ -32,13 +32,13 @@ const Footer = () => {
             <div className="flex items-center gap-2 mb-4">
               <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
               <div>
-                <span className="text-lg font-bold text-foreground">DovesMind</span>
+                <span className="text-lg font-bold text-foreground">Dovesmind</span>
                 <span className="text-lg font-light text-dove-teal"> Synergy</span>
               </div>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Providing confidential, ethical, and accessible psychological support and 
-              substance abuse prevention services across Nigeria. Your wellness journey 
+              Providing confidential, ethical, and accessible psychological support and
+              substance abuse prevention services across Nigeria. Your wellness journey
               starts here.
             </p>
           </div>
@@ -126,8 +126,8 @@ const Footer = () => {
             <p>© {currentYear} DovesMind Synergy. All rights reserved.</p>
             <div className="flex items-center gap-4">
               <p>Professional Psychological Support & Substance Abuse Prevention</p>
-              <Link 
-                to="/admin/login" 
+              <Link
+                to="/admin/login"
                 className="text-muted-foreground/60 hover:text-dove-teal transition-colors"
               >
                 Admin

@@ -90,8 +90,8 @@ const AdminDashboard = () => {
           <div className="flex items-center gap-3">
             <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
             <div>
-              <span className="text-lg font-bold text-primary-foreground">DovesMind</span>
-              <span className="text-lg font-light text-accent"> Admin</span>
+              <span className="text-lg font-bold text-primary-foreground">Dovesmind</span>
+              <span className="text-lg font-light text-accent"> Synergy</span>
             </div>
           </div>
           <Button

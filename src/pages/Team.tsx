@@ -94,7 +94,7 @@ const TeamPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-b from-dove-teal-dark to-dove-teal">
         <div className="container-narrow">
@@ -108,7 +108,7 @@ const TeamPage = () => {
               Meet Our Team
             </h1>
             <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto">
-              Certified professionals dedicated to providing compassionate, ethical, 
+              Certified professionals dedicated to providing compassionate, ethical,
               and confidential psychological support to individuals and communities across Nigeria.
             </p>
           </motion.div>
@@ -118,7 +118,7 @@ const TeamPage = () => {
       {/* Leadership Team */}
       <section className="section-padding">
         <div className="container-narrow">
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -144,18 +144,18 @@ const TeamPage = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {/* Large rounded photo */}
-                <motion.div 
+                <motion.div
                   className="aspect-square mb-4 overflow-hidden rounded-3xl bg-muted"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <img 
-                    src={member.image} 
+                  <img
+                    src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
-                
+
                 {/* Name and role below */}
                 <h3 className="font-semibold text-foreground text-base md:text-lg">
                   {member.name}
@@ -172,7 +172,7 @@ const TeamPage = () => {
       {/* Mental Health Officers */}
       <section className="section-padding bg-secondary/30">
         <div className="container-narrow">
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -202,18 +202,18 @@ const TeamPage = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {/* Rounded photo */}
-                <motion.div 
+                <motion.div
                   className="aspect-square mb-4 overflow-hidden rounded-3xl bg-muted"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <img 
-                    src={officer.image} 
+                  <img
+                    src={officer.image}
                     alt={officer.name}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
-                
+
                 {/* Name and details below */}
                 <h3 className="font-semibold text-foreground text-base md:text-lg">
                   {officer.name}
@@ -242,7 +242,7 @@ const TeamPage = () => {
               Join Our Team
             </h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8 text-lg">
-              Are you passionate about mental health and making a difference in people's lives? 
+              Are you passionate about mental health and making a difference in people's lives?
               We're always looking for dedicated professionals to join our mission.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -257,7 +257,7 @@ const TeamPage = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+                className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
                 onClick={scrollToContact}
               >
                 Learn More

@@ -31,7 +31,7 @@ const Header = () => {
           <Link to="/" className="flex items-center gap-2 text-foreground">
             <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
             <div className="hidden sm:block">
-              <span className="text-lg font-bold text-foreground">DovesMind</span>
+              <span className="text-lg font-bold text-foreground">Dovesmind</span>
               <span className="text-lg font-light text-dove-teal"> Synergy</span>
             </div>
           </Link>
@@ -73,7 +73,7 @@ const Header = () => {
                 <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2 text-foreground mb-4">
                   <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
                   <div>
-                    <span className="text-lg font-bold text-foreground">DovesMind</span>
+                    <span className="text-lg font-bold text-foreground">Dovesmind</span>
                     <span className="text-lg font-light text-dove-teal"> Synergy</span>
                   </div>
                 </Link>
