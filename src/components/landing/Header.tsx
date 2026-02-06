@@ -8,7 +8,7 @@ import logoImage from "@/assets/logo-dovesmind.png";
 
 const navLinks = [
   { name: "About", href: "/about", isPage: true },
-  { name: "Trainings", href: "/trainings", isPage: true },
+  { name: "Services", href: "/trainings", isPage: true },
   { name: "Team", href: "/team", isPage: true },
   { name: "Blog", href: "/blog", isPage: true },
   { name: "Contact", href: "/contact", isPage: true },

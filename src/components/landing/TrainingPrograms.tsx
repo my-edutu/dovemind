@@ -49,7 +49,7 @@ const TrainingPrograms = () => {
     <section id="training" className="section-padding bg-background">
       <div className="container-narrow">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,12 +61,20 @@ const TrainingPrograms = () => {
             Training Programs
           </h2>
         </motion.div>
+      </div>
 
-        {/* Cards */}
-        <div className={`${isMobile ? 'flex flex-col gap-4' : 'flex gap-4 justify-start overflow-x-auto pb-4'}`}>
+      {/* Cards - Full width scrollable with left alignment matching container */}
+      <div className="w-full overflow-x-auto pb-8 -mt-4 pt-4 custom-scrollbar">
+        <div
+          className={`${isMobile ? 'flex flex-col px-4' : 'flex gap-4'}`}
+          style={!isMobile ? {
+            paddingLeft: "max(1rem, calc((100% - 72rem) / 2 + 1rem))",
+            paddingRight: "1rem"
+          } : {}}
+        >
           {programs.map((program, index) => {
             const isExpanded = expandedIndex === index;
-            
+
             return (
               <motion.div
                 key={index}
@@ -83,8 +91,8 @@ const TrainingPrograms = () => {
                   height: isMobile ? "auto" : "250px",
                   minHeight: isMobile ? "250px" : "250px",
                 }}
-                transition={{ 
-                  duration: 0.5, 
+                transition={{
+                  duration: 0.5,
                   ease: [0.4, 0, 0.2, 1],
                 }}
                 layout
@@ -139,14 +147,14 @@ const TrainingPrograms = () => {
                           </div>
                         </div>
                         {!isMobile && (
-                          <motion.div 
+                          <motion.div
                             className="w-40 h-full rounded-2xl overflow-hidden flex-shrink-0"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.4, delay: 0.1 }}
                           >
-                            <img 
-                              src={program.image} 
+                            <img
+                              src={program.image}
                               alt={program.title}
                               className="w-full h-full object-cover"
                             />
@@ -160,9 +168,11 @@ const TrainingPrograms = () => {
             );
           })}
         </div>
+      </div>
 
+      <div className="container-narrow">
         {/* CTA */}
-        <motion.div 
+        <motion.div
           className="text-center mt-10"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

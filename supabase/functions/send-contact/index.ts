@@ -1,7 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "resend";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -41,12 +46,32 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    console.log("Sending contact email from:", email);
+    console.log("Processing contact request from:", email);
 
-    // Send email to DovesMind team
+    // 1. Save to Supabase Database
+    const { error: dbError } = await supabase
+      .from("contact_submissions")
+      .insert([
+        {
+          name,
+          email,
+          phone,
+          message,
+          type: message.includes("[") ? message.split("]")[0].replace("[", "") : "General Contact",
+          status: "new"
+        }
+      ]);
+
+    if (dbError) {
+      console.error("Database insert error:", dbError);
+      // We continue to send email even if DB fails, or should we fail?
+      // Let's log it but try to send email as backup.
+    }
+
+    // 2. Send email to DovesMind team
     const { error: sendError } = await resend.emails.send({
       from: "DovesMind Contact <onboarding@resend.dev>",
-      to: ["dovesmindsynergy@gmail.com"], // Replace with your actual email
+      to: ["dovesmindsynergy@gmail.com"],
       reply_to: email,
       subject: `New Contact Form Submission from ${name}`,
       html: `
@@ -105,7 +130,7 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error(sendError.message);
     }
 
-    // Send confirmation email to the user
+    // 3. Send confirmation email to the user (Keep existing logic)
     await resend.emails.send({
       from: "DovesMind Synergy <onboarding@resend.dev>",
       to: [email],
@@ -156,7 +181,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Contact emails sent successfully");
+    console.log("Contact submission processed successfully");
 
     return new Response(
       JSON.stringify({ success: true }),
