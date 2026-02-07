@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { LogOut, MessageSquare, FileText, Users, Eye, Cpu } from "lucide-react";
+import { LogOut, MessageSquare, FileText, Users, Eye, Cpu, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import ChatSessionsTab from "@/components/admin/ChatSessionsTab";
 import BlogsTab from "@/components/admin/BlogsTab";
 import AIUsageTab from "@/components/admin/AIUsageTab";
+import { MessagesTab } from "@/components/admin/MessagesTab";
+import UsersTab from "@/components/admin/UsersTab";
 import logoImage from "@/assets/logo-dovesmind.png";
 
 const AdminDashboard = () => {
@@ -21,7 +23,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      
+
       if (!session) {
         navigate("/admin/login");
         return;
@@ -164,7 +166,7 @@ const AdminDashboard = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Tabs defaultValue="chats" className="space-y-4">
-            <TabsList className="grid w-full max-w-lg grid-cols-3">
+            <TabsList className="grid w-full max-w-lg grid-cols-4">
               <TabsTrigger value="chats">
                 <MessageSquare className="h-4 w-4 mr-2" />
                 Chats
@@ -177,6 +179,14 @@ const AdminDashboard = () => {
                 <Cpu className="h-4 w-4 mr-2" />
                 AI Usage
               </TabsTrigger>
+              <TabsTrigger value="messages">
+                <Mail className="h-4 w-4 mr-2" />
+                Messages
+              </TabsTrigger>
+              <TabsTrigger value="users">
+                <Users className="h-4 w-4 mr-2" />
+                Users
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="chats">
               <ChatSessionsTab />
@@ -186,6 +196,12 @@ const AdminDashboard = () => {
             </TabsContent>
             <TabsContent value="usage">
               <AIUsageTab />
+            </TabsContent>
+            <TabsContent value="messages">
+              <MessagesTab />
+            </TabsContent>
+            <TabsContent value="users">
+              <UsersTab />
             </TabsContent>
           </Tabs>
         </motion.div>

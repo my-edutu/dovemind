@@ -119,7 +119,7 @@ const PersonalizedServices = () => {
                 <Button
                   size="lg"
                   className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold rounded-full px-8"
-                  onClick={() => navigate("/trainings")}
+                  onClick={() => navigate("/services")}
                 >
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />

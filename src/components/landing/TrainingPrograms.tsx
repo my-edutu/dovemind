@@ -9,6 +9,7 @@ import serviceTraining from "@/assets/service-training.jpg";
 import serviceConsultation from "@/assets/service-consultation.jpg";
 import serviceRehabilitation from "@/assets/service-rehabilitation.jpg";
 import heroAwareness from "@/assets/hero-awareness.jpg";
+import addictionRecovery from "@/assets/addiction-recovery.png";
 
 const programs = [
   {
@@ -32,7 +33,7 @@ const programs = [
   {
     title: "Government & Institutions",
     description: "Policy-aligned training programs for government agencies and public institutions across Nigeria.",
-    image: heroAwareness,
+    image: addictionRecovery,
     bgColor: "bg-[#fce8ec]",
   },
 ];
@@ -184,7 +185,7 @@ const TrainingPrograms = () => {
             className="bg-dove-teal text-primary-foreground hover:bg-dove-teal/90"
             asChild
           >
-            <Link to="/trainings">
+            <Link to="/services">
               Request Training
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>

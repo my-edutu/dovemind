@@ -113,7 +113,8 @@ const BookingForm = () => {
                         <option value="">Select an option</option>
                         <optgroup label="Services">
                             <option value="Online Consultation">Online Consultation</option>
-                            <option value="Rehabilitation Referral">Rehabilitation Referral</option>
+                            <option value="Recovery Support">Recovery Support</option>
+                            <option value="DovesMind AI">DovesMind AI Support</option>
                             <option value="Family Support">Family Support Program</option>
                         </optgroup>
                         <optgroup label="Training Programs">

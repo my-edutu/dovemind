@@ -200,4 +200,9 @@
   .animate-marquee:hover {
     animation-play-state: paused;
   }
+
+  .mask-fade-sides {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
 }

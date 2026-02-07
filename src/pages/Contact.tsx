@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Send, Loader2, Mail, Phone, MapPin } from "lucide-react";
+import { Send, Loader2, Mail, Phone, MapPin, Target, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -85,7 +85,7 @@ const ContactPage = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-    
+
     try {
       const { data: result, error } = await supabase.functions.invoke("send-contact", {
         body: {
@@ -104,7 +104,7 @@ const ContactPage = () => {
         title: "Message sent successfully!",
         description: "Thank you for reaching out. We'll get back to you within 24-48 hours.",
       });
-      
+
       form.reset();
     } catch (error: any) {
       console.error("Contact form error:", error);
@@ -121,7 +121,7 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-b from-dove-teal-dark to-dove-teal">
         <div className="container-narrow">
@@ -135,7 +135,7 @@ const ContactPage = () => {
               Get in Touch
             </h1>
             <p className="text-xl text-primary-foreground/80 max-w-2xl mx-auto">
-              Have a question or want to learn more about our mental health services? 
+              Have a question or want to learn more about our mental health services?
               We're here to help.
             </p>
           </motion.div>
@@ -143,25 +143,68 @@ const ContactPage = () => {
       </section>
 
       {/* Contact Info Cards */}
-      <section className="py-12 -mt-8">
+      <section className="py-12 -mt-8 relative z-20">
         <div className="container-narrow">
-          <div className="grid md:grid-cols-3 gap-6">
-            {contactInfo.map((info, index) => (
-              <motion.div
-                key={index}
-                className="bg-card rounded-2xl p-6 border border-border shadow-sm text-center"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
-                  <info.icon className="h-6 w-6 text-accent" />
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <motion.div
+              className="bg-card rounded-2xl p-8 border border-border shadow-sm text-center flex flex-col items-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6">
+                <Target className="h-6 w-6 text-accent" />
+              </div>
+              <h3 className="font-semibold text-xl text-foreground mb-4">Visit Our Offices</h3>
+              <div className="space-y-4 text-sm text-muted-foreground">
+                <div>
+                  <strong className="text-foreground block mb-1">Abuja</strong>
+                  No 1 Blossom Drive, Rainbow Estate
                 </div>
-                <h3 className="font-semibold text-foreground mb-1">{info.title}</h3>
-                <p className="text-foreground font-medium">{info.content}</p>
-                <p className="text-sm text-muted-foreground mt-1">{info.description}</p>
-              </motion.div>
-            ))}
+                <div>
+                  <strong className="text-foreground block mb-1">Enugu</strong>
+                  Plot 112, WTC Estate, New Layout
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="bg-card rounded-2xl p-8 border border-border shadow-sm text-center flex flex-col items-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6">
+                <Heart className="h-6 w-6 text-accent" />
+              </div>
+              <h3 className="font-semibold text-xl text-foreground mb-4">Connect With Us</h3>
+
+              <div className="space-y-2 text-sm text-muted-foreground mb-6">
+                <p>08063445268 / 08102443104</p>
+                <p>dovesmindsynergy@gmail.com</p>
+              </div>
+
+              <div className="flex gap-4">
+                <a
+                  href="https://linkedin.com/company/dovesmind-synergy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-secondary/50 rounded-xl hover:bg-dove-teal hover:text-white transition-all"
+                  aria-label="LinkedIn"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>
+                </a>
+                <a
+                  href="https://instagram.com/dovesmind_synergy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-secondary/50 rounded-xl hover:bg-dove-teal hover:text-white transition-all"
+                  aria-label="Instagram"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
+                </a>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -170,7 +213,7 @@ const ContactPage = () => {
       <section className="section-padding">
         <div className="container-narrow">
           <div className="max-w-2xl mx-auto">
-            <motion.div 
+            <motion.div
               className="text-center mb-10"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -185,7 +228,7 @@ const ContactPage = () => {
               </p>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="bg-card rounded-2xl p-8 border border-border shadow-sm"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
