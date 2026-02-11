@@ -113,22 +113,18 @@ export const useDovesMindChat = () => {
       if (!resp.ok) {
         const errorData = await resp.json().catch(() => ({ error: "Unknown error" }));
         console.error("API Error:", errorData);
+        console.error("API Error Details:", JSON.stringify(errorData, null, 2));
 
-        if (resp.status === 429) {
-          toast({
-            variant: "destructive",
-            title: "Too many requests",
-            description: "Please wait a moment and try again.",
-          });
-        } else if (resp.status === 402) {
-          toast({
-            variant: "destructive",
-            title: "Service unavailable",
-            description: "Please try again later.",
-          });
-        }
+        // Show detailed error for debugging
+        const errorMessage = errorData.details || errorData.error || "Failed to connect";
 
-        throw new Error(errorData.error || "Failed to connect");
+        toast({
+          variant: "destructive",
+          title: `API Error (${resp.status})`,
+          description: errorMessage.substring(0, 200), // Truncate long errors
+        });
+
+        throw new Error(errorMessage);
       }
 
       if (!resp.body) {

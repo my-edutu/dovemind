@@ -143,18 +143,65 @@ const ChatbotWidget = () => {
 
   // State for conversational onboarding
   const [onboardingStep, setOnboardingStep] = useState<"name" | "email" | "completed">("name");
+  const [nameWarning, setNameWarning] = useState<string | null>(null);
 
-  // ... (keep existing effects) ...
+  // Helper function to detect if input looks like a question/request rather than a name
+  const looksLikeRequest = (text: string): boolean => {
+    const trimmed = text.trim().toLowerCase();
+    // Check for question patterns
+    const questionPatterns = [
+      /^(how|what|why|when|where|who|can|could|would|should|is|are|do|does|i need|i want|i have|help|please)/i,
+      /\?$/,  // Ends with question mark
+      /^(i'm feeling|i am feeling|i feel|feeling)/i,
+      /\b(depressed|anxious|stressed|worried|scared|sad|angry|help me)\b/i,
+    ];
+    return questionPatterns.some(pattern => pattern.test(trimmed));
+  };
+
+  // Helper function to validate name format
+  const isValidName = (text: string): { valid: boolean; reason?: string } => {
+    const trimmed = text.trim();
+
+    if (trimmed.length < 2) {
+      return { valid: false, reason: "Name is too short" };
+    }
+    if (trimmed.length > 50) {
+      return { valid: false, reason: "Name is too long" };
+    }
+    if (trimmed.split(' ').length > 5) {
+      return { valid: false, reason: "That looks like more than a name. Just your first name is fine!" };
+    }
+    if (looksLikeRequest(trimmed)) {
+      return { valid: false, reason: "That looks like a question! Please enter your name first, then you can share what's on your mind." };
+    }
+    // Check for mostly letters and common name characters
+    if (!/^[a-zA-Z\s'\-\.]+$/.test(trimmed)) {
+      return { valid: false, reason: "Please enter a valid name using letters only" };
+    }
+    return { valid: true };
+  };
 
   const handleOnboardingSubmit = () => {
     if (!inputValue.trim()) return;
+    setNameWarning(null);
 
     if (onboardingStep === "name") {
-      if (inputValue.trim().length < 2) {
-        setFormErrors({ ...formErrors, name: "Please enter a valid message" });
+      const validation = isValidName(inputValue);
+      if (!validation.valid) {
+        setNameWarning(validation.reason || "Please enter a valid name");
+        toast({
+          variant: "destructive",
+          title: "Oops!",
+          description: validation.reason || "Please enter a valid name",
+        });
         return;
       }
-      setFormData(prev => ({ ...prev, name: inputValue.trim() }));
+      // Capitalize first letter of each word
+      const formattedName = inputValue.trim()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
+      setFormData(prev => ({ ...prev, name: formattedName }));
       setInputValue("");
       setOnboardingStep("email");
     } else if (onboardingStep === "email") {
@@ -306,7 +353,8 @@ const ChatbotWidget = () => {
                   <div className="bg-card text-foreground rounded-2xl rounded-tl-sm p-4 shadow-sm max-w-[85%]">
                     <p className="mb-2 font-semibold text-dove-teal">DovesMind AI</p>
                     <div className="prose prose-sm dark:prose-invert">
-                      <Typewriter text="Hi! I'm Dovesmind. Before we start, can I know your name?" speed={30} />
+                      <Typewriter text="Hi! 👋 I'm DovesMind AI, here to support you. Before we begin, what should I call you?" speed={30} />
+                      <p className="text-xs text-muted-foreground mt-2 italic">Just your first name is fine</p>
                     </div>
                   </div>
                 </motion.div>
@@ -361,8 +409,8 @@ const ChatbotWidget = () => {
                   >
                     <div
                       className={`rounded-2xl p-4 max-w-[85%] shadow-sm ${msg.role === "user"
-                          ? "bg-dove-teal text-white rounded-tr-sm"
-                          : "bg-card text-foreground rounded-tl-sm"
+                        ? "bg-dove-teal text-white rounded-tr-sm"
+                        : "bg-card text-foreground rounded-tl-sm"
                         }`}
                     >
                       <div className="prose prose-sm dark:prose-invert max-w-none">
@@ -416,12 +464,12 @@ const ChatbotWidget = () => {
                   }}
                   placeholder={
                     !userInfo
-                      ? (onboardingStep === "name" ? "Type your name..." : "Type your email...")
+                      ? (onboardingStep === "name" ? "Enter your first name (e.g., John)" : "Enter your email (e.g., john@email.com)")
                       : "Type your message..."
                   }
                   disabled={isLoading}
                   autoFocus
-                  className="flex-1 bg-secondary rounded-xl px-5 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 disabled:opacity-50"
+                  className={`flex-1 bg-secondary rounded-xl px-5 py-4 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 disabled:opacity-50 ${nameWarning ? 'ring-2 ring-destructive/50' : ''}`}
                 />
                 <Button
                   size="icon"
