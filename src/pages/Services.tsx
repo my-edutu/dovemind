@@ -13,6 +13,7 @@ import {
   BookOpen,
   Heart
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
 import BookingModal from "@/components/landing/BookingModal";

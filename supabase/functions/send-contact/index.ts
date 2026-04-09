@@ -2,9 +2,12 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "resend";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const resendApiKey = Deno.env.get("RESEND_API_KEY");
+const resend = new Resend(resendApiKey);
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
 const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+
+console.log("Function initialized. Resend API Key present:", !!resendApiKey);
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -126,8 +129,11 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     if (sendError) {
-      console.error("Resend error:", sendError);
-      throw new Error(sendError.message);
+      console.error("Resend error (Admin Email):", sendError);
+      return new Response(
+        JSON.stringify({ error: `Resend error: ${sendError.message}`, detail: sendError }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // 3. Send confirmation email to the user (Keep existing logic)
