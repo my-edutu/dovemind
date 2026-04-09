@@ -57,32 +57,35 @@ const HeroSection = () => {
         {/* Main headline section */}
         <div className="max-w-4xl 2xl:max-w-5xl mx-auto text-center mb-12 md:mb-16 lg:mb-20">
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-bold text-foreground leading-tight mb-6 md:mb-8"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-bold text-foreground leading-[1.1] mb-6 md:mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            Break Free from{" "}
+            <span className="block">Break Free</span>
             <motion.span
-              className="text-accent"
+              className="text-accent block"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Addiction.
-            </motion.span>{" "}Reclaim Your{" "}
-            <motion.span
-              className="text-accent"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-            >
-              Life.
+              From Addictions
             </motion.span>
+            <span className="block">
+              Reclaim Your{" "}
+              <motion.span
+                className="text-accent"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+              >
+                Life
+              </motion.span>
+            </span>
           </motion.h1>
 
           <motion.p
-            className="text-lg md:text-xl 2xl:text-2xl text-muted-foreground max-w-2xl 2xl:max-w-3xl mx-auto mb-8 md:mb-10"
+            className="text-lg md:text-xl 2xl:text-2xl text-muted-foreground max-w-2xl 2xl:max-w-3xl mx-auto mb-10 md:mb-12 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
@@ -91,26 +94,26 @@ const HeroSection = () => {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
               <Button
                 size="lg"
-                className="bg-dove-teal text-primary-foreground hover:bg-dove-teal-light font-semibold text-base px-8 py-6 rounded-full"
+                className="w-full bg-dove-teal text-primary-foreground hover:bg-dove-teal-light font-bold text-base px-10 py-7 rounded-[20px] shadow-lg shadow-dove-teal/20"
                 onClick={handleConsultantClick}
               >
                 <Phone className="mr-2 h-5 w-5" />
                 Talk with a Consultant
               </Button>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full sm:w-auto">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-accent text-accent hover:bg-accent/10 font-semibold text-base px-8 py-6 rounded-full"
+                className="w-full border-2 border-accent text-accent hover:bg-accent/5 font-bold text-base px-10 py-7 rounded-[20px]"
                 onClick={openChat}
               >
                 <Bot className="mr-2 h-5 w-5" />

@@ -62,7 +62,7 @@ const ContactForm = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-    
+
     try {
       const { data: result, error } = await supabase.functions.invoke("send-contact", {
         body: {
@@ -81,7 +81,7 @@ const ContactForm = () => {
         title: "Message sent successfully!",
         description: "Thank you for reaching out. We'll get back to you within 24-48 hours.",
       });
-      
+
       form.reset();
     } catch (error: any) {
       console.error("Contact form error:", error);
@@ -100,7 +100,7 @@ const ContactForm = () => {
       <div className="container-narrow">
         <div className="max-w-2xl mx-auto">
           {/* Section header */}
-          <motion.div 
+          <motion.div
             className="text-center mb-10"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -111,13 +111,13 @@ const ContactForm = () => {
               Contact Us
             </h2>
             <p className="text-muted-foreground">
-              Have a question or want to learn more about our services? 
+              Have a question or want to learn more about our services?
               Send us a message and we'll respond within 24-48 hours.
             </p>
           </motion.div>
 
           {/* Contact form */}
-          <motion.div 
+          <motion.div
             className="bg-card rounded-2xl p-8 border border-border shadow-sm"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -151,7 +151,7 @@ const ContactForm = () => {
                   />
                 </motion.div>
 
-                <motion.div 
+                <motion.div
                   className="grid grid-cols-1 md:grid-cols-2 gap-6"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -186,7 +186,7 @@ const ContactForm = () => {
                         <FormControl>
                           <Input
                             type="tel"
-                            placeholder="+234 800 000 0000"
+                            placeholder="+(234) 810-334-4191"
                             className="h-12"
                             {...field}
                           />

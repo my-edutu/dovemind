@@ -64,7 +64,7 @@ const ContactModal = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     setIsSubmitting(true);
-    
+
     try {
       const { data: result, error } = await supabase.functions.invoke("send-contact", {
         body: {
@@ -83,7 +83,7 @@ const ContactModal = () => {
         title: "Message sent successfully!",
         description: "Thank you for reaching out. We'll get back to you within 24-48 hours.",
       });
-      
+
       form.reset();
       closeModal();
     } catch (error: any) {
@@ -110,7 +110,7 @@ const ContactModal = () => {
             exit={{ opacity: 0 }}
             onClick={closeModal}
           />
-          
+
           {/* Modal */}
           <motion.div
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -194,7 +194,7 @@ const ContactModal = () => {
                           <FormControl>
                             <Input
                               type="tel"
-                              placeholder="+234 800 000 0000"
+                              placeholder="+(234) 810-334-4191"
                               className="h-11"
                               {...field}
                             />

@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
-import BookingForm from "@/components/landing/BookingForm";
+import BookingModal from "@/components/landing/BookingModal";
 // Updated images
 import trainingSchools from "@/assets/training-schools.png";
 import trainingCorporate from "@/assets/training-corporate.png";
@@ -182,7 +182,7 @@ const ServicesPage = () => {
               </p>
             </motion.div>
 
-            <BookingForm />
+            <BookingModal />
           </div>
         </div>
       </section>

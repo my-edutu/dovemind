@@ -28,10 +28,10 @@ const Header = () => {
       <div className="container-narrow">
         <div className="flex h-16 md:h-20 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-foreground">
-            <img src={logoImage} alt="DovesMind Logo" className="h-10 w-10 object-contain" />
-            <div className="hidden sm:block">
-              <span className="text-lg font-bold text-foreground">Dovesmind</span>
+          <Link to="/" className="flex items-center gap-1.5 md:gap-2 text-foreground">
+            <img src={logoImage} alt="DovesMind Logo" className="h-9 w-9 md:h-10 md:w-10 object-contain" />
+            <div>
+              <span className="text-base md:text-lg font-bold text-foreground">Dovesmind</span>
             </div>
           </Link>
 

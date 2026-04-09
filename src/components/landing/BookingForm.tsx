@@ -8,7 +8,11 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Send } from "lucide-react";
 
-const BookingForm = () => {
+interface BookingFormProps {
+    onSuccess?: () => void;
+}
+
+const BookingForm = ({ onSuccess }: BookingFormProps) => {
     const { toast } = useToast();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
@@ -34,6 +38,8 @@ const BookingForm = () => {
             });
 
             if (error) throw error;
+
+            if (onSuccess) onSuccess();
 
             toast({
                 title: "Request submitted!",
@@ -141,7 +147,7 @@ const BookingForm = () => {
             <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-dove-teal hover:bg-dove-teal/90 text-primary-foreground"
+                className="w-full bg-dove-teal hover:bg-dove-teal/90 text-primary-foreground font-bold h-12 rounded-[20px]"
                 disabled={isSubmitting}
             >
                 {isSubmitting ? (

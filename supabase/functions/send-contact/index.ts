@@ -71,7 +71,7 @@ const handler = async (req: Request): Promise<Response> => {
     // 2. Send email to DovesMind team
     const { error: sendError } = await resend.emails.send({
       from: "DovesMind Contact <onboarding@resend.dev>",
-      to: ["dovesmindsynergy@gmail.com"],
+      to: ["nwosupaul3@gmail.com", "dovesmindsynergy@gmail.com"],
       reply_to: email,
       subject: `New Contact Form Submission from ${name}`,
       html: `

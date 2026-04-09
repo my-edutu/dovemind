@@ -13,8 +13,8 @@ import {
   CheckCircle,
   Phone
 } from "lucide-react";
-import samuelImage from "@/assets/samuel-ogunsola.png";
-import davidImage from "@/assets/david-folaranmi.png";
+import samuelImage from "@/assets/samuel-ogunsola.jpg";
+import davidImage from "@/assets/david-folaranmi.jpg";
 
 const values = [
   {
@@ -229,48 +229,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Mental Health Officers Section */}
-      <section className="section-padding bg-secondary/10">
-        <div className="container-narrow">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Mental Health Officers
-            </h2>
-            <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-              Our dedicated team of professionals working on the ground.
-            </p>
-          </motion.div>
 
-          {/* Placeholder for Mental Health Officers */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((_, index) => (
-              <motion.div
-                key={index}
-                className="bg-card rounded-2xl overflow-hidden border border-border flex flex-col hover:shadow-lg transition-shadow duration-300"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="h-64 bg-muted flex items-center justify-center text-muted-foreground relative group overflow-hidden">
-                  <Users className="h-16 w-16 opacity-20" />
-                  <span className="sr-only">Mental Health Officer Placeholder</span>
-                </div>
-                <div className="p-6 flex-1 text-center">
-                  <h3 className="text-xl font-bold text-card-foreground mb-1">Mental Health Officer</h3>
-                  <p className="text-dove-teal font-medium text-sm">Certified Professional</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
 
 

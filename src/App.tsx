@@ -15,6 +15,7 @@ import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/NotFound";
 import { ContactModalProvider } from "./contexts/ContactModalContext";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
@@ -26,6 +27,7 @@ const App = () => {
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/about" element={<AboutPage />} />

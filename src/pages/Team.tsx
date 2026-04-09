@@ -1,97 +1,62 @@
 import { motion } from "framer-motion";
-import { Users, Heart, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
-import { useNavigate } from "react-router-dom";
-import avatarAdaora from "@/assets/avatar-adaora.jpg";
-import avatarChisom from "@/assets/avatar-chisom.jpg";
-import avatarEmeka from "@/assets/avatar-emeka.jpg";
-import avatarIbrahim from "@/assets/avatar-ibrahim.jpg";
-import avatarNgozi from "@/assets/avatar-ngozi.jpg";
-import avatarTunde from "@/assets/avatar-tunde.jpg";
-import BookingForm from "@/components/landing/BookingForm";
 
-const team = [
+import avatarDavid from "@/assets/david-folaranmi.jpg";
+import avatarSamuel from "@/assets/samuel-ogunsola.jpg";
+import avatarOlajumoke from "@/assets/olajumoke-oladosu.jpg";
+import avatarPaulAnimashaun from "@/assets/paul-animashaun.jpg";
+import avatarFamiliar from "@/assets/familiar-ominizibe.jpg";
+import avatarPaulLight from "@/assets/paul-light.jpg";
+
+import ApplyModal from "@/components/landing/ApplyModal";
+import BookingModal from "@/components/landing/BookingModal";
+
+const directors = [
   {
-    name: "Dr. Adaeze Okonkwo",
-    role: "Founder & Lead Psychologist",
-    image: avatarAdaora
+    name: "David Folaranmi",
+    role: "Co-Founder and Director",
+    image: avatarDavid,
+    linkedin: "https://www.linkedin.com/in/david-folaranmi-36a6262ba/",
+    experience: "15+ years in Rehabilitation setup and Management, Training and Professional Development, Non-Profit Management, Drug Abuse Advocacy, Business Consultation, and Operations Management."
   },
   {
-    name: "Chukwuemeka Nwosu",
-    role: "Head of Training Programs",
-    image: avatarChisom
-  },
-  {
-    name: "Fatima Ibrahim",
-    role: "Clinical Psychologist",
-    image: avatarEmeka
-  },
-  {
-    name: "Olumide Adeyemi",
-    role: "Community Outreach Director",
-    image: avatarIbrahim
-  },
+    name: "Samuel Ogunsola",
+    role: "Co-Founder and Director",
+    image: avatarSamuel,
+    linkedin: "https://www.linkedin.com/in/samuelolarewaju/",
+    founder: "Food and Genes Initiative (www.foodandgenes.net)",
+    experience: "6+ years in Non-Profit Management, Drug Abuse Advocacy, Business Consultation, Marketing, and Operations Management."
+  }
 ];
 
-const pioneers = [
+const operationalTeam = [
   {
-    name: "Dr. Ngozi Eze",
-    role: "Senior Mental Health Officer",
-    specialty: "Trauma & PTSD Specialist",
-    experience: "12+ years",
-    image: avatarNgozi,
+    name: "Olajumoke Oladosu",
+    role: "Operations Lead",
+    image: avatarOlajumoke
   },
   {
-    name: "Abubakar Suleiman",
-    role: "Mental Health Officer",
-    specialty: "Addiction Recovery Counselor",
-    experience: "8+ years",
-    image: avatarTunde,
+    name: "Paul Animashaun",
+    role: "Business Lead",
+    image: avatarPaulAnimashaun
   },
   {
-    name: "Blessing Okoro",
-    role: "Mental Health Officer",
-    specialty: "Youth Mental Health Advocate",
-    experience: "6+ years",
-    image: avatarAdaora,
+    name: "Familiar Ominizibe",
+    role: "Communications Lead",
+    image: avatarFamiliar
   },
   {
-    name: "Emeka Obi",
-    role: "Mental Health Officer",
-    specialty: "Family Therapy & Intervention",
-    experience: "10+ years",
-    image: avatarChisom,
-  },
-  {
-    name: "Hauwa Abdullahi",
-    role: "Mental Health Officer",
-    specialty: "Crisis Intervention Specialist",
-    experience: "7+ years",
-    image: avatarEmeka,
-  },
-  {
-    name: "Tunde Bakare",
-    role: "Mental Health Officer",
-    specialty: "Cognitive Behavioral Therapy",
-    experience: "9+ years",
-    image: avatarIbrahim,
+    name: "Paul Light",
+    role: "Technical Lead",
+    image: avatarPaulLight
   },
 ];
 
 const TeamPage = () => {
-  const navigate = useNavigate();
-
-  const scrollToContact = () => {
-    navigate("/");
-    setTimeout(() => {
-      const el = document.getElementById("contact");
-      el?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -116,61 +81,75 @@ const TeamPage = () => {
         </div>
       </section>
 
-      {/* Leadership Team */}
+      {/* Directors Section */}
       <section className="section-padding">
         <div className="container-narrow">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Leadership Team
+              Our Directors
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our founding members bring decades of combined experience in mental health and substance abuse prevention.
+              Our visionaries leading the mission to transform mental health and substance abuse prevention in Nigeria.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
-            {team.map((member, index) => (
+          <div className="grid md:grid-cols-2 gap-12">
+            {directors.map((member, index) => (
               <motion.div
                 key={index}
-                className="text-left"
+                className="bg-card rounded-2xl overflow-hidden border border-border flex flex-col hover:shadow-lg transition-shadow duration-300"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {/* Large rounded photo */}
-                <motion.div
-                  className="aspect-square mb-4 overflow-hidden rounded-3xl bg-muted"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-80 relative group overflow-hidden block"
                 >
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                </motion.div>
-
-                {/* Name and role below */}
-                <h3 className="font-semibold text-foreground text-base md:text-lg">
-                  {member.name}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {member.role}
-                </p>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                </a>
+                <div className="p-8 flex-1 flex flex-col">
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-dove-teal transition-colors"
+                  >
+                    <h3 className="text-2xl font-bold text-card-foreground mb-1">{member.name}</h3>
+                  </a>
+                  <p className="text-dove-teal font-medium mb-4">{member.role}</p>
+                  <div className="space-y-4 text-muted-foreground text-sm leading-relaxed">
+                    {member.founder && (
+                      <p>
+                        <span className="font-semibold text-foreground">Founder:</span> {member.founder}
+                      </p>
+                    )}
+                    <p>
+                      <span className="font-semibold text-foreground">Experience:</span> {member.experience}
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Mental Health Officers */}
+      {/* Professional Team Section (formerly Operational) */}
       <section className="section-padding bg-secondary/30">
         <div className="container-narrow">
           <motion.div
@@ -180,48 +159,40 @@ const TeamPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mb-4">
-              <Users className="h-4 w-4" />
-              <span className="text-sm font-medium">Pioneer Mental Health Officers</span>
-            </div>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Our Mental Health Officers
+              Our Professional Team
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Meet the dedicated professionals on the frontlines of mental health care and substance abuse prevention in Nigeria.
+              The driving force behind our daily impact and project execution.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-6">
-            {pioneers.map((officer, index) => (
+          <div className="grid grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto">
+            {operationalTeam.map((member, index) => (
               <motion.div
                 key={index}
-                className="text-left"
-                initial={{ opacity: 0, y: 30 }}
+                className="text-center"
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {/* Rounded photo */}
                 <motion.div
-                  className="aspect-square mb-4 overflow-hidden rounded-3xl bg-muted"
+                  className="aspect-square mb-6 overflow-hidden rounded-3xl bg-muted shadow-sm"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
                   <img
-                    src={officer.image}
-                    alt={officer.name}
+                    src={member.image}
+                    alt={member.name}
                     className="w-full h-full object-cover"
                   />
                 </motion.div>
-
-                {/* Name and details below */}
-                <h3 className="font-semibold text-foreground text-base md:text-lg">
-                  {officer.name}
+                <h3 className="font-bold text-foreground text-lg md:text-2xl mb-1 md:mb-2">
+                  {member.name}
                 </h3>
-                <p className="text-sm text-accent mb-1">{officer.specialty}</p>
-                <p className="text-xs text-muted-foreground">
-                  {officer.experience} experience
+                <p className="text-sm md:text-lg text-muted-foreground italic">
+                  {member.role}
                 </p>
               </motion.div>
             ))}
@@ -233,7 +204,7 @@ const TeamPage = () => {
       <section className="section-padding">
         <div className="container-narrow">
           <motion.div
-            className="bg-gradient-to-r from-dove-teal-dark to-dove-teal rounded-3xl p-8 md:p-12 text-center"
+            className="bg-gradient-to-r from-dove-teal-dark to-dove-teal rounded-3xl p-8 md:p-12 text-center shadow-xl"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -246,50 +217,25 @@ const TeamPage = () => {
               Are you passionate about mental health and making a difference in people's lives?
               We're always looking for dedicated professionals to join our mission.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
-                onClick={scrollToContact}
-              >
-                Apply Now
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
-                onClick={scrollToContact}
-              >
-                Learn More
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <ApplyModal />
+              <BookingModal
+                trigger={
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 h-14 px-10 font-bold rounded-[20px]"
+                  >
+                    Meet a Consultant
+                  </Button>
+                }
+              />
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Booking Form Section */}
-      <section id="contact" className="section-padding bg-secondary/20">
-        <div className="container-narrow">
-          <div className="max-w-2xl mx-auto">
-            <motion.div
-              className="text-center mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Book a Session
-              </h2>
-              <p className="text-muted-foreground text-lg">
-                Ready to speak with one of our consultants? Fill out the form below to schedule a session.
-              </p>
-            </motion.div>
-            <BookingForm />
-          </div>
-        </div>
-      </section>
+
 
       <Footer />
     </div>

@@ -58,7 +58,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    content: "+234 800 000 0000",
+    content: "+(234) 810-334-4191",
     description: "Mon-Fri from 9am to 5pm",
   },
   {
@@ -180,7 +180,7 @@ const ContactPage = () => {
               <h3 className="font-semibold text-xl text-foreground mb-4">Connect With Us</h3>
 
               <div className="space-y-2 text-sm text-muted-foreground mb-6">
-                <p>08063445268 / 08102443104</p>
+                <p>+(234) 810-334-4191 / +234 810-244-3104</p>
                 <p>dovesmindsynergy@gmail.com</p>
               </div>
 
@@ -284,7 +284,7 @@ const ContactPage = () => {
                           <FormControl>
                             <Input
                               type="tel"
-                              placeholder="+234 800 000 0000"
+                              placeholder="+(234) 810-334-4191"
                               className="h-12"
                               {...field}
                             />
