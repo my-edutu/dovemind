@@ -81,7 +81,10 @@ const programs = [
   },
 ];
 
+import { useNavigate } from "react-router-dom";
+
 const ServicesPage = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -182,7 +185,16 @@ const ServicesPage = () => {
               </p>
             </motion.div>
 
-            <BookingModal />
+            <div className="flex justify-center mt-10">
+              <Button
+                size="lg"
+                className="bg-dove-teal hover:bg-dove-teal/90 text-primary-foreground font-bold h-14 px-10 rounded-[20px] shadow-lg shadow-dove-teal/20 w-full sm:w-auto"
+                onClick={() => navigate("/consultation")}
+              >
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Book a Session
+              </Button>
+            </div>
           </div>
         </div>
       </section>
