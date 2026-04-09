@@ -73,7 +73,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // 2. Send email to DovesMind team
     const { error: sendError } = await resend.emails.send({
-      from: "DovesMind Contact <onboarding@resend.dev>",
+      from: "DovesMind Contact <notifications@dovesmind.com>",
       to: ["nwosupaul3@gmail.com", "dovesmindsynergy@gmail.com"],
       reply_to: email,
       subject: `New Contact Form Submission from ${name}`,
@@ -131,14 +131,18 @@ const handler = async (req: Request): Promise<Response> => {
     if (sendError) {
       console.error("Resend error (Admin Email):", sendError);
       return new Response(
-        JSON.stringify({ error: `Resend error: ${sendError.message}`, detail: sendError }),
+        JSON.stringify({
+          error: "Resend failed to send admin notification",
+          resendMessage: sendError.message,
+          resendName: sendError.name
+        }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     // 3. Send confirmation email to the user (Keep existing logic)
     await resend.emails.send({
-      from: "DovesMind Synergy <onboarding@resend.dev>",
+      from: "DovesMind Synergy <notifications@dovesmind.com>",
       to: [email],
       subject: "Thank you for contacting DovesMind Synergy",
       html: `
