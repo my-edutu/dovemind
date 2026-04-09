@@ -17,6 +17,8 @@ import NotFound from "./pages/NotFound";
 import { ContactModalProvider } from "./contexts/ContactModalContext";
 import ScrollToTop from "./components/ScrollToTop";
 
+import ConsultationPage from "./pages/Consultation";
+
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
 
@@ -36,6 +38,7 @@ const App = () => {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/consultation" element={<ConsultationPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

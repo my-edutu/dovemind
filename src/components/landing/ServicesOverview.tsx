@@ -7,10 +7,16 @@ import consultationImg from "@/assets/service-consultation.jpg";
 import rehabilitationImg from "@/assets/service-rehabilitation.jpg";
 import trainingImg from "@/assets/service-training.jpg";
 import { useContactModal } from "@/contexts/ContactModalContext";
+import { useNavigate } from "react-router-dom";
 
 const ServicesOverview = () => {
   const isMobile = useIsMobile();
   const { openModal } = useContactModal();
+  const navigate = useNavigate();
+
+  const handleCTA = () => {
+    navigate("/consultation");
+  };
 
   return (
     <section id="services" className="section-padding bg-secondary/50">
@@ -285,7 +291,7 @@ const ServicesOverview = () => {
             <Button
               size="lg"
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold text-base px-8 py-6 rounded-xl shadow-lg"
-              onClick={openModal}
+              onClick={handleCTA}
             >
               <MessageCircle className="mr-2 h-5 w-5" />
               Talk to a Psychologist

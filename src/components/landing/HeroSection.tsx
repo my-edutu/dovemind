@@ -28,15 +28,11 @@ const HeroSection = () => {
   const loopCards = [...cards, ...cards, ...cards, ...cards];
 
   const handleConsultantClick = () => {
-    navigate("/team");
-    // Optional: add hash scroll logic if needed, but simple nav is first step
+    navigate("/consultation");
   };
 
   const scrollToContact = () => {
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
+    navigate("/consultation");
   };
 
   return (

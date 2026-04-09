@@ -14,13 +14,16 @@ const navLinks = [
   { name: "Contact", href: "/contact", isPage: true },
 ];
 
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { openModal } = useContactModal();
+  const navigate = useNavigate();
 
   const handleBookConsultation = () => {
     setIsOpen(false);
-    openModal();
+    navigate("/consultation");
   };
 
   return (

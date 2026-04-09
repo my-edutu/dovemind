@@ -13,7 +13,6 @@ import avatarFamiliar from "@/assets/familiar-ominizibe.jpg";
 import avatarPaulLight from "@/assets/paul-light.jpg";
 
 import ApplyModal from "@/components/landing/ApplyModal";
-import BookingModal from "@/components/landing/BookingModal";
 
 const directors = [
   {
@@ -219,17 +218,14 @@ const TeamPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <ApplyModal />
-              <BookingModal
-                trigger={
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 h-14 px-10 font-bold rounded-[20px]"
-                  >
-                    Meet a Consultant
-                  </Button>
-                }
-              />
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 h-14 px-10 font-bold rounded-[20px]"
+                onClick={() => navigate("/consultation")}
+              >
+                Meet a Consultant
+              </Button>
             </div>
           </motion.div>
         </div>
