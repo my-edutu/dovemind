@@ -16,8 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { useContactModal } from "@/contexts/ContactModalContext";
+import { openGmailCompose, THERAPIST_EMAIL } from "@/lib/gmail";
 
 const contactSchema = z.object({
   name: z
@@ -62,40 +62,21 @@ const ContactModal = () => {
     },
   });
 
-  const onSubmit = async (data: ContactFormValues) => {
+  const onSubmit = (data: ContactFormValues) => {
     setIsSubmitting(true);
 
-    try {
-      const { data: result, error } = await supabase.functions.invoke("send-contact", {
-        body: {
-          name: data.name,
-          email: data.email,
-          phone: data.phone || undefined,
-          message: data.message,
-        },
-      });
+    openGmailCompose(
+      `Contact request from ${data.name}`,
+      `Hello DovesMind team,\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || "Not provided"}\n\nMessage:\n${data.message}`,
+    );
 
-      if (error) {
-        throw new Error(error.message || "Failed to send message");
-      }
-
-      toast({
-        title: "Message sent successfully!",
-        description: "Thank you for reaching out. We'll get back to you within 24-48 hours.",
-      });
-
-      form.reset();
-      closeModal();
-    } catch (error: any) {
-      console.error("Contact form error:", error);
-      toast({
-        title: "Failed to send message",
-        description: error.message || "Please try again or email us directly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    toast({
+      title: "Gmail draft opened",
+      description: `Review the message in Gmail and send it to ${THERAPIST_EMAIL}.`,
+    });
+    form.reset();
+    closeModal();
+    setIsSubmitting(false);
   };
 
   return (
@@ -232,12 +213,12 @@ const ContactModal = () => {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Sending...
+                        Opening Gmail...
                       </>
                     ) : (
                       <>
                         <Send className="mr-2 h-5 w-5" />
-                        Send Message
+                        Open Gmail & Send
                       </>
                     )}
                   </Button>

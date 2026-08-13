@@ -16,7 +16,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { openGmailCompose, THERAPIST_EMAIL } from "@/lib/gmail";
 
 const applySchema = z.object({
     name: z
@@ -62,39 +62,21 @@ const ApplyForm = ({ onSuccess }: ApplyFormProps) => {
         },
     });
 
-    const onSubmit = async (data: ApplyFormValues) => {
+    const onSubmit = (data: ApplyFormValues) => {
         setIsSubmitting(true);
 
-        try {
-            const { error } = await supabase.functions.invoke("send-contact", {
-                body: {
-                    name: data.name,
-                    email: data.email,
-                    phone: data.phone,
-                    message: `[Job Application - ${data.role}]\n\n${data.message}`,
-                },
-            });
+        openGmailCompose(
+            `Job application: ${data.role} - ${data.name}`,
+            `Hello DovesMind team,\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nRole: ${data.role}\n\nBackground:\n${data.message}`,
+        );
 
-            if (error) throw error;
-
-            if (onSuccess) onSuccess();
-
-            toast({
-                title: "Application submitted!",
-                description: "Thank you for your interest. Our HR team will review your application and get back to you.",
-            });
-
-            form.reset();
-        } catch (error: any) {
-            console.error("Apply form error:", error);
-            toast({
-                title: "Submission failed",
-                description: "Please try again or contact us directly at dovesmindsynergy@gmail.com",
-                variant: "destructive",
-            });
-        } finally {
-            setIsSubmitting(false);
-        }
+        if (onSuccess) onSuccess();
+        toast({
+            title: "Gmail draft opened",
+            description: `Review the application in Gmail and send it to ${THERAPIST_EMAIL}.`,
+        });
+        form.reset();
+        setIsSubmitting(false);
     };
 
     return (
@@ -185,12 +167,12 @@ const ApplyForm = ({ onSuccess }: ApplyFormProps) => {
                     {isSubmitting ? (
                         <>
                             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                            Submitting...
+                            Opening Gmail...
                         </>
                     ) : (
                         <>
                             <Send className="mr-2 h-5 w-5" />
-                            Submit Application
+                            Open Gmail & Send Application
                         </>
                     )}
                 </Button>

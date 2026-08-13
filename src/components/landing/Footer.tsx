@@ -3,6 +3,7 @@ import { Mail, Phone, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import logoImage from "@/assets/logo-dovesmind.png";
 import LegalModal from "./LegalModal";
+import { ADMIN_ENABLED } from "@/config/features";
 
 const footerLinks = {
   services: [
@@ -188,12 +189,14 @@ const Footer = () => {
             <p>© {currentYear} DovesMind Synergy. All rights reserved.</p>
             <div className="flex items-center gap-4">
               <p>Professional Psychological Support & Substance Abuse Prevention</p>
-              <Link
-                to="/admin/login"
-                className="text-muted-foreground/60 hover:text-dove-teal transition-colors"
-              >
-                Admin
-              </Link>
+              {ADMIN_ENABLED && (
+                <Link
+                  to="/admin/login"
+                  className="text-muted-foreground/60 hover:text-dove-teal transition-colors"
+                >
+                  Admin
+                </Link>
+              )}
             </div>
           </div>
         </div>

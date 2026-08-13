@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import ReactMarkdown from "react-markdown";
 import { useToast } from "@/hooks/use-toast";
 import { Typewriter } from "@/components/ui/typewriter";
+import { createGmailComposeUrl, THERAPIST_EMAIL } from "@/lib/gmail";
 
 interface UserInfo {
   name: string;
@@ -133,6 +134,20 @@ const ChatbotWidget = () => {
     setFormErrors({ name: "", email: "" });
   };
 
+  const handleEmailTherapist = () => {
+    const latestUserMessage = [...messages].reverse().find((message) => message.role === "user");
+    const emailUrl = createGmailComposeUrl({
+      subject: `Therapist support request from ${userInfo?.name || "Website visitor"}`,
+      body: `Hello DovesMind team,\n\nName: ${userInfo?.name || "Not provided"}\nEmail: ${userInfo?.email || "Not provided"}\n\nMessage:\n${latestUserMessage?.content || "I would like to speak with a therapist."}`,
+    });
+
+    window.open(emailUrl, "_blank", "noopener,noreferrer");
+    toast({
+      title: "Gmail draft opened",
+      description: `Review and send your message to ${THERAPIST_EMAIL}.`,
+    });
+  };
+
   const handleOpenChat = () => {
     setGreetingDismissed(true);
     setShowGreeting(false);
@@ -175,7 +190,7 @@ const ChatbotWidget = () => {
       return { valid: false, reason: "That looks like a question! Please enter your name first, then you can share what's on your mind." };
     }
     // Check for mostly letters and common name characters
-    if (!/^[a-zA-Z\s'\-\.]+$/.test(trimmed)) {
+    if (!/^[a-zA-Z\s'\-.]+$/.test(trimmed)) {
       return { valid: false, reason: "Please enter a valid name using letters only" };
     }
     return { valid: true };
@@ -444,6 +459,18 @@ const ChatbotWidget = () => {
                       </div>
                     </div>
                   </motion.div>
+                )}
+
+                {userInfo && messages.some((message) => message.role === "user") && !isLoading && (
+                  <div className="flex justify-start pt-2">
+                    <Button
+                      onClick={handleEmailTherapist}
+                      className="bg-dove-teal hover:bg-dove-teal/90 text-white"
+                    >
+                      <Mail className="h-4 w-4 mr-2" />
+                      Message a Therapist in Gmail
+                    </Button>
+                  </div>
                 )}
               </div>
             </ScrollArea>

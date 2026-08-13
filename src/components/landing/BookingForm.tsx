@@ -15,7 +15,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { openGmailCompose, THERAPIST_EMAIL } from "@/lib/gmail";
 import { Send, Loader2 } from "lucide-react";
 
 const bookingSchema = z.object({
@@ -47,39 +47,21 @@ const BookingForm = ({ onSuccess }: BookingFormProps) => {
         },
     });
 
-    const onSubmit = async (data: BookingFormValues) => {
+    const onSubmit = (data: BookingFormValues) => {
         setIsSubmitting(true);
 
-        try {
-            const { error } = await supabase.functions.invoke("send-contact", {
-                body: {
-                    name: data.name,
-                    email: data.email,
-                    phone: data.organization,
-                    message: `[${data.inquiryType} Inquiry]\n\nOrganization: ${data.organization || "N/A"}\n\n${data.message}`
-                },
-            });
+        openGmailCompose(
+            `${data.inquiryType} inquiry from ${data.name}`,
+            `Hello DovesMind team,\n\nName: ${data.name}\nEmail: ${data.email}\nOrganization: ${data.organization || "Not provided"}\n\nInquiry type: ${data.inquiryType}\n\nMessage:\n${data.message}`,
+        );
 
-            if (error) throw error;
-
-            if (onSuccess) onSuccess();
-
-            toast({
-                title: "Request submitted!",
-                description: "We'll get back to you within 24 hours.",
-            });
-
-            form.reset();
-        } catch (error) {
-            console.error("Booking form error:", error);
-            toast({
-                title: "Failed to submit",
-                description: "Please try again or contact us directly at nwosupaul3@gmail.com",
-                variant: "destructive",
-            });
-        } finally {
-            setIsSubmitting(false);
-        }
+        if (onSuccess) onSuccess();
+        toast({
+            title: "Gmail draft opened",
+            description: `Review the request in Gmail and send it to ${THERAPIST_EMAIL}.`,
+        });
+        form.reset();
+        setIsSubmitting(false);
     };
 
     return (
@@ -186,11 +168,11 @@ const BookingForm = ({ onSuccess }: BookingFormProps) => {
                     {isSubmitting ? (
                         <>
                             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                            Submitting...
+                            Opening Gmail...
                         </>
                     ) : (
                         <>
-                            Submit Request
+                            Open Gmail & Send Request
                             <Send className="ml-2 h-5 w-5" />
                         </>
                     )}

@@ -11,8 +11,6 @@ import TeamPage from "./pages/Team";
 import BlogPage from "./pages/Blog";
 import BlogPostPage from "./pages/BlogPost";
 import ContactPage from "./pages/Contact";
-import AdminLogin from "./pages/admin/Login";
-import AdminDashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/NotFound";
 import { ContactModalProvider } from "./contexts/ContactModalContext";
 import ScrollToTop from "./components/ScrollToTop";
@@ -39,8 +37,7 @@ const App = () => {
               <Route path="/blog/:slug" element={<BlogPostPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/consultation" element={<ConsultationPage />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<AdminDashboard />} />
+              {/* Admin routes are temporarily disabled while Supabase is offline. */}
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
